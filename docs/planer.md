@@ -4,12 +4,16 @@
 
 - [ ] MENU
 - [ ] opis funkcjonalnoœci po prawej przy wyborze funkcji — `QPlainTextEdit`w trakcie
-- [ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5
-- [ ] PAGE ESHOPTO ESHOP 
+- [x] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5
+- [x] Podwójne Klikniêcie z menu przekierowuje na podstronê 2/5
+- [ ] PAGE FILE TO ESHOP 
 - [x] przycisk back to menu 
+- [x] tytu³ strony 
 - [x] Wczytanie nazwy pliku i œcie¿ki 
 - [x] Progress bar wczytywania
-
+- [x] Wczytywanie nag³ówka
+- [ ] Zapis na pulpit jako DAT
+- [ ] Zapis na pulpit jako XLS
 
 AKTUALNIE WCZYTYWANIE PLIKU POPRAWNEGO I NIEPOPRAWNEGO INFO SCIEZKA I ROZSZERZENIE
 BRAKUJE ILOSC LINII

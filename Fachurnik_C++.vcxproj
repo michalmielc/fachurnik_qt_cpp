@@ -97,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BtnBackToMenu.cpp" />
-    <ClCompile Include="src\BtnHome.cpp" />
     <ClCompile Include="src\ComboBoxHelper.cpp" />
     <ClCompile Include="src\Fachurnik_C.cpp" />
     <ClCompile Include="src\FileLoader.cpp" />
@@ -108,9 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Fachurnik_C.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="src\BtnHome.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BtnBackToMenu.h" />

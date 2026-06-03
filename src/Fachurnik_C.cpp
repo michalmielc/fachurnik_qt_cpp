@@ -1,44 +1,41 @@
 ﻿#include "Fachurnik_C.h"
-#include "FileLoader.h"
-#include "MenuTreeBuilder.h"
-#include "OpenFileDialog.h"
 #include "BtnBackToMenu.h"
-#include <QTreeWidget>
-#include "FileLoadingProgress.h"
-#include <QApplication>
 #include "ComboBoxHelper.h"
-#include "qmessagebox.h"
+#include "MenuTreeBuilder.h"
+#include <QTreeWidget>
+#include <QApplication>
+#include "FileLoadingProgress.h"
 #include <QFile>
 #include <QTextStream>
 #include <QStandardPaths>
 #include <QDir>
 #include <QMessageBox>
+#include "OpenFileDialog.h"
+#include "FileLoader.h"
 
 Fachurnik_C::Fachurnik_C(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
 
-    //// REDIRECTION TO MAIN PAGE --------------
+    //// REDIRECTION TO MAIN PAGE ----------------------
     BtnBackToMenu::backToMenu(
         ui.btnBackToHome1,
         ui.stackedWidget,
         ui.pageMenu);
 
-
     BtnBackToMenu::backToMenu(
         ui.btnBackToHome2,
         ui.stackedWidget,
         ui.pageMenu);
-    //------------------------------------------
+    //--------------------------------------------------
 
     ui.stackedWidget->setCurrentWidget(ui.pageMenu);
 
+    // GENERATING MENU --------------------------------
     ui.treeWidgetMenu->setHeaderHidden(true);
 
-
     MenuTreeBuilder::build(ui.treeWidgetMenu);
-
 
     // double click on menu redirection on the page
     connect(ui.treeWidgetMenu,
@@ -52,18 +49,23 @@ Fachurnik_C::Fachurnik_C(QWidget *parent)
         this,
         &Fachurnik_C::onMenuClicked);
 
+    //--------------------------------------------------
+    // 
+    //FILLING DATA INTO COMBOBOXES
+    ComboBoxHelper::loadCatalogNo(ui.comBoxCatalogNo);
+    ComboBoxHelper::loadCurrencies(ui.comBoxCurrency);
+    ComboBoxHelper::loadDiscountGrp(ui.comBoxDiscountG);
+    ComboBoxHelper::loadSalesRep(ui.comBoxSalesRep);
 
+
+    //.............................do sprawdzenia i opisania
+    // 
     // open file dialog
-
     connect(ui.btnOpenFile,
         &QPushButton::clicked,
         this,
         &Fachurnik_C::onChooseFileClicked);
 
-    ComboBoxHelper::loadCatalogNo(ui.comBoxCatalogNo);
-    ComboBoxHelper::loadCurrencies(ui.comBoxCurrency);
-    ComboBoxHelper::loadDiscountGrp(ui.comBoxDiscountG);
-    ComboBoxHelper::loadSalesRep(ui.comBoxSalesRep);
 
     hideShowGrpBox(false);
 
@@ -89,7 +91,50 @@ Fachurnik_C::Fachurnik_C(QWidget *parent)
         });
 }
 
-//// open file dialog
+//OTHER FUNCTIONS:---------------------------------------
+//MENU 
+// CHOOSING OPTION FROM MENU
+void Fachurnik_C::onMenuDoubleClicked(QTreeWidgetItem* item, int column)
+{
+    QString text = item->text(0);
+
+    if (text == "eshop file to E-SHOP")
+    {
+        ui.stackedWidget->setCurrentWidget(ui.pageDatFileToEshop);
+    }
+
+    if (text == "create eshop files to E-SHOP")
+    {
+        ui.stackedWidget->setCurrentWidget(ui.pageCloneFilesEshopToEshop);
+    }
+
+}
+
+// DISPLAY FUNCTIONALITY AFTER CHOOSED OPTION FROM MENU
+void Fachurnik_C::onMenuClicked(QTreeWidgetItem* item, int column)
+{
+    QString text = item->text(0);
+
+    if (text == "eshop file to E-SHOP")
+    {
+        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji zmodyfikujesz  walutę, nr katalogu, dodatki etc.
+    Format do wczytania: dat. 
+    Format wyjściowy: dat z zapisem do pulpitu. 
+    Dane można zapisać równocześnie do Excela.)");
+    }
+
+    if (text == "create eshop files to E-SHOP")
+    {
+        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji sklonujesz
+       pliki na bazie jednego pliku z konkretną grupą rabatową)");
+    }
+
+
+}
+
+
+//PAGES FUNCTIONALITIES:---------------------------------
+// OPEN FILE DIALOG 
 void Fachurnik_C::onChooseFileClicked()
 {
     QString path = OpenFileDialog::openFile(
@@ -143,6 +188,7 @@ void Fachurnik_C::onChooseFileClicked()
     }
 }
 
+// HIDE GRPBOX
 void Fachurnik_C::hideShowGrpBox(bool b)
 {
     ui.groupBoxDCh->setVisible(b);
@@ -151,11 +197,41 @@ void Fachurnik_C::hideShowGrpBox(bool b)
     ui.groupBoxFileExp->setVisible(b);
 }
 
+// READ DATA TO UI FROM FILE
+void Fachurnik_C::loadHeaderToUi(const HeaderData& header)
+{
+    //CUSTOMER NO
+    ui.lineEditCustomerNo->setText(header.customerNo);
+
+
+    //SELECT DIST CHANNEL
+    ui.radioButton1->setChecked(header.distrChannel == "01");
+    ui.radioButton2->setChecked(header.distrChannel == "02");
+    ui.radioButton3->setChecked(header.distrChannel == "03");
+    ui.radioButton4->setChecked(header.distrChannel == "04");
+    ui.groupBoxDCh->setEnabled(false);
+
+    //DATE FROM TO
+    ui.lineEditDateFrom->setText(header.dateFrom);
+    ui.lineEditDateTo->setText(header.dateTo);
+
+    //OTHERS
+    setComboByText(ui.comBoxCurrency, header.currency, false);
+    setComboByText(ui.comBoxDiscountG, header.discountGrp, false);
+    setComboByText(ui.comBoxSalesRep, header.salesRep, true);
+    setCheckBoxValue(ui.checkBoxAlloySurcharge, header.alloySurcharge);
+    setCheckBoxValue(ui.checkBoxSpecialOffers, header.specialOffers);
+    // checkbox GERMAN CATALOG NOT ACTIVE!!!!
+}
+
+// CUSTOMIZE LABEL COLOR
 void Fachurnik_C::setLabel(QLabel* label, const QString& text, const QString& color)
 {
     label->setText(text);
     label->setStyleSheet("color: " + color + ";");
 }
+
+
 
 void Fachurnik_C::setComboByText(QComboBox* comboBox, const QString& text,bool startsWith)
 {
@@ -192,65 +268,6 @@ void Fachurnik_C::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
     }
 }
 
-void Fachurnik_C::loadHeaderToUi(const HeaderData& header)
-{
-    //CUSTOMER NO
-    ui.lineEditCustomerNo->setText(header.customerNo);
-
-
-    //ZAZNACZENIE DIST CHANNEL
-    ui.radioButton1->setChecked(header.distrChannel == "01");
-    ui.radioButton2->setChecked(header.distrChannel == "02");
-    ui.radioButton3->setChecked(header.distrChannel == "03");
-    ui.radioButton4->setChecked(header.distrChannel == "04");
-
-    //DATE FROM TO
-    ui.lineEditDateFrom->setText(header.dateFrom);
-    ui.lineEditDateTo->setText(header.dateTo);
-
-    setComboByText(ui.comBoxCurrency, header.currency, false);
-    setComboByText(ui.comBoxDiscountG, header.discountGrp, false);
-    setComboByText(ui.comBoxSalesRep, header.salesRep, true);
-    setCheckBoxValue(ui.checkBoxAlloySurcharge, header.alloySurcharge);
-    setCheckBoxValue(ui.checkBoxSpecialOffers,header.specialOffers );
-        
-}
-
-//// menu doubleclick
-void Fachurnik_C::onMenuDoubleClicked(QTreeWidgetItem* item, int column)
-{
-    QString text = item->text(0);
-
-    if (text == "eshop file to E-SHOP")
-    {
-        ui.stackedWidget->setCurrentWidget(ui.pageEshopToEshop);
-    }
-
-    if (text == "create eshop files to E-SHOP")
-    {
-        ui.stackedWidget->setCurrentWidget(ui.pageCloneFilesEshopToEshop);
-    }
-
-}
-// menu click
-void Fachurnik_C::onMenuClicked(QTreeWidgetItem* item, int column)
-{
-    QString text = item->text(0);
-
-    if (text == "eshop file to E-SHOP")
-    {
-        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji zmodyfikujesz  walutę, nr katalogu, dodatki etc.
-    Format do wczytania: dat. Format wyjściowy: dat. Dane można zapisać do Excela.)");
-    }
-
-    if (text == "create eshop files to E-SHOP")
-    {
-        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji sklonujesz
-       pliki na bazie jednego pliku z konkretną grupą rabatową)");
-    }
-
-
-}
 
 QString Fachurnik_C::buildHeaderLineFromUi(const QString& originalHeaderLine)
 {
@@ -271,7 +288,6 @@ QString Fachurnik_C::buildHeaderLineFromUi(const QString& originalHeaderLine)
 
     return h.join('|');
 }
-
 
 QString Fachurnik_C::distrChannelFromUi() const
 {
@@ -353,6 +369,7 @@ void Fachurnik_C::saveModifiedFileToDesktop(const FileData& data)
     QMessageBox::information(this, "OK", "Zapisano:\n" + newFilePath);
 }
 
+//DESTRUCTOR
 Fachurnik_C::~Fachurnik_C()
 {}
 

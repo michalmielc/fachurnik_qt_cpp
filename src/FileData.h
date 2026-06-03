@@ -1,7 +1,7 @@
 #pragma once
 #include <QString>
 #include"HeaderData.h"
-#include "FileLoader.h"
+
 
 struct FileData
 {

@@ -34,9 +34,6 @@
     <ClCompile Include="src\BtnBackToMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BtnHome.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Fachurnik_C.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,9 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Fachurnik_C.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="src\BtnHome.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
