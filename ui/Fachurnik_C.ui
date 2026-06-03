@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Fachurnik_CClass</class>
+ <widget class="QMainWindow" name="Fachurnik_CClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1351</width>
+    <height>697</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Fachurnik_C++</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="pageEshopToEshop">
+       <widget class="QPushButton" name="btnOpenFile">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>10</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>OPEN FILE</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFilePath">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>60</y>
+          <width>671</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PATH:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnBackToHome1">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>590</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>BACK</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFileName">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>90</y>
+          <width>631</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>FILE:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFileCountLines">
+        <property name="geometry">
+         <rect>
+          <x>650</x>
+          <y>50</y>
+          <width>251</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>LINES IN FILES:</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxDCh">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>120</y>
+          <width>201</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>DISTR. CHANNEL</string>
+        </property>
+        <widget class="QRadioButton" name="radioButton2">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>40</y>
+           <width>41</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>02</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radioButton1">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>40</y>
+           <width>41</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>01</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radioButton3">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>40</y>
+           <width>51</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>03</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radioButton4">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>40</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>04</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxCurrEx">
+        <property name="geometry">
+         <rect>
+          <x>750</x>
+          <y>190</y>
+          <width>301</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>CHANGE CURRENCY</string>
+        </property>
+        <widget class="QRadioButton" name="radBtnEUR">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>40</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>EUR</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radBtnPLN">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>40</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>PLN</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEditExchangeRate">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>90</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblExRate">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>90</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>EXCHANGE RATE:</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxHeader">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>220</y>
+          <width>611</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>HEADER</string>
+        </property>
+        <widget class="QLineEdit" name="lineEditDateTo">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>60</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCustomrNo">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>CUSTOMER NO:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblDateFromTo">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>DATE FROM TO:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEditDateFrom">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>60</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEditCustomerNo">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>30</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxSalesRep">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>220</y>
+           <width>351</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxCatalogNo">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>90</y>
+           <width>65</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCurrency">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>130</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>CURRENCY:</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxDiscountG">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>180</y>
+           <width>65</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblDiscountGrp">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>180</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>DISCOUNT GRP:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCatalogNo">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string>CATALOG NO:</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxCurrency">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>130</y>
+           <width>65</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblSalesResp">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>220</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SALES RESP:</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBoxAlloySurcharge">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>260</y>
+           <width>171</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ALLOY SURCHARGE</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBoxSpecialOffers">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>290</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SPECIAL OFFERS</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chechBoxGermanCat">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>260</y>
+           <width>281</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>GERMAN CATALOG NOT ACTIVE!!!</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxFileExp">
+        <property name="geometry">
+         <rect>
+          <x>750</x>
+          <y>400</y>
+          <width>301</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>EXPORT</string>
+        </property>
+        <widget class="QPushButton" name="pushBtnExport">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>161</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>EXPORT</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>80</y>
+           <width>231</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Create Excel copy on Desktop</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pageCloneFilesEshopToEshop">
+       <widget class="QStackedWidget" name="stackedWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>992</width>
+          <height>575</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="pageEshopToEshop_2">
+         <widget class="QPushButton" name="btnOpenFile_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>30</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>OPEN FILE</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblFilePath_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>80</y>
+            <width>671</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PATH:</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="btnBackToHome2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>530</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>BACK</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblFileName_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>110</y>
+            <width>631</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>FILE:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblFileCountLines_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>140</y>
+            <width>251</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>LINES IN FILES:</string>
+          </property>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>170</y>
+            <width>201</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>DISTR. CHANNEL</string>
+          </property>
+          <widget class="QRadioButton" name="radioButton_5">
+           <property name="geometry">
+            <rect>
+             <x>60</x>
+             <y>40</y>
+             <width>41</width>
+             <height>22</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>02</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="radioButton1_2">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>40</y>
+             <width>41</width>
+             <height>22</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>01</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="radioButton_6">
+           <property name="geometry">
+            <rect>
+             <x>100</x>
+             <y>40</y>
+             <width>51</width>
+             <height>22</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>03</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="radioButton_7">
+           <property name="geometry">
+            <rect>
+             <x>140</x>
+             <y>40</y>
+             <width>91</width>
+             <height>22</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>04</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QLabel" name="lblCustomrNo_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>280</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>CUSTOMER NO:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblDateFromTo_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>310</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>DATE FROM TO:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblCatalogNo_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>350</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::Box</enum>
+          </property>
+          <property name="text">
+           <string>CATALOG NO:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblCurrency_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>390</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>CURRENCY:</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEditCustomerNo_2">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>280</y>
+            <width>113</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEditDateFrom_2">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>310</y>
+            <width>113</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEditDateTo_2">
+          <property name="geometry">
+           <rect>
+            <x>300</x>
+            <y>310</y>
+            <width>113</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblDiscountGrp_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>440</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>DISCOUNT GRP:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblSalesResp_2">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>480</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>SALES RESP:</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comBoxCatalogNo_2">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>350</y>
+            <width>65</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comBoxCurrency_2">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>390</y>
+            <width>65</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comBoxDiscountG_2">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>440</y>
+            <width>65</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comBoxSalesRep_2">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>480</y>
+            <width>351</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>640</x>
+            <y>200</y>
+            <width>161</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>EXPORT</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="pageCloneFilesEshopToEshop_2"/>
+        <widget class="QWidget" name="pageMenu_2">
+         <widget class="QTreeWidget" name="treeWidgetMenu_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>331</width>
+            <height>341</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QTreeWidget::item:selected {
+    background-color: #3498db;
+    color: white;
+}</string>
+          </property>
+          <column>
+           <property name="text">
+            <string notr="true">1</string>
+           </property>
+          </column>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>70</y>
+            <width>481</width>
+            <height>201</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pageMenu">
+       <widget class="QTreeWidget" name="treeWidgetMenu">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>331</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTreeWidget::item:selected {
+    background-color: #3498db;
+    color: white;
+}</string>
+        </property>
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QPlainTextEdit" name="plainTextEdit">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>70</y>
+          <width>481</width>
+          <height>201</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1351</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
