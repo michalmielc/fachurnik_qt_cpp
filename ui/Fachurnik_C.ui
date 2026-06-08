@@ -207,6 +207,13 @@ QRadioButton:disabled {
           <height>161</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QRadioButton::indicator:checked {
+    background-color: green;
+    border: 2px solid green;
+}
+</string>
+        </property>
         <property name="title">
          <string>CHANGE CURRENCY</string>
         </property>
@@ -244,6 +251,9 @@ QRadioButton:disabled {
            <width>113</width>
            <height>24</height>
           </rect>
+         </property>
+         <property name="text">
+          <string>1,00</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblExRate">
@@ -468,6 +478,19 @@ QRadioButton:disabled {
           <bool>false</bool>
          </property>
         </widget>
+        <widget class="QLabel" name="lblControlCurrency">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>130</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QGroupBox" name="groupBoxFileExp">
         <property name="geometry">
@@ -494,7 +517,7 @@ QRadioButton:disabled {
           <string>EXPORT</string>
          </property>
         </widget>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="checkBoxExportToCsv">
          <property name="geometry">
           <rect>
            <x>30</x>

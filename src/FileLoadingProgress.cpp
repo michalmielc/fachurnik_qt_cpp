@@ -12,6 +12,8 @@ FileLoadingProgress::FileLoadingProgress(QWidget* parent)
     setRange(0, 100);
 
     setWindowModality(Qt::WindowModal);
+
+    setValue(0);
 }
 
 void FileLoadingProgress::start()

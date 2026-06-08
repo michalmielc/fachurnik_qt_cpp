@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include "OpenFileDialog.h"
 #include "FileLoader.h"
+#include "FileExport.h"
 
 Fachurnik_C::Fachurnik_C(QWidget *parent)
     : QMainWindow(parent)
@@ -75,6 +76,11 @@ Fachurnik_C::Fachurnik_C(QWidget *parent)
             ui.lineEditExchangeRate->setText("1,00");
         });
 
+    connect(ui.radBtnPLN, &QRadioButton::clicked,
+        this, [this]()
+        {
+            ui.lineEditExchangeRate->setText("1,00");
+        });
 
     QDoubleValidator* validator =
         new QDoubleValidator(0.0, 9999.9999, 4, this);
@@ -134,6 +140,7 @@ void Fachurnik_C::onMenuClicked(QTreeWidgetItem* item, int column)
 
 
 //PAGES FUNCTIONALITIES:---------------------------------
+// 
 // OPEN FILE DIALOG 
 void Fachurnik_C::onChooseFileClicked()
 {
@@ -186,6 +193,19 @@ void Fachurnik_C::onChooseFileClicked()
         setLabel(ui.lblFileCountLines, "Brak nagłówka H| w pliku", "red");
         hideShowGrpBox(false);
     }
+
+
+    if (hasDifferentCurrencyInLines(currentFileData))
+    {
+        ui.lblControlCurrency->setText("Uwaga: wykryto różne waluty w pozycjach.");
+        ui.lblControlCurrency->setStyleSheet("color: red;");
+        ui.lblControlCurrency->show();
+    }
+    else
+    {
+        ui.lblControlCurrency->clear();
+        ui.lblControlCurrency->hide();
+    }
 }
 
 // HIDE GRPBOX
@@ -224,16 +244,8 @@ void Fachurnik_C::loadHeaderToUi(const HeaderData& header)
     // checkbox GERMAN CATALOG NOT ACTIVE!!!!
 }
 
-// CUSTOMIZE LABEL COLOR
-void Fachurnik_C::setLabel(QLabel* label, const QString& text, const QString& color)
-{
-    label->setText(text);
-    label->setStyleSheet("color: " + color + ";");
-}
-
-
-
-void Fachurnik_C::setComboByText(QComboBox* comboBox, const QString& text,bool startsWith)
+// SET COMOBOX AFTER READING HEADER
+void Fachurnik_C::setComboByText(QComboBox* comboBox, const QString& text, bool startsWith)
 {
     if (!startsWith)
     {
@@ -255,6 +267,7 @@ void Fachurnik_C::setComboByText(QComboBox* comboBox, const QString& text,bool s
     }
 }
 
+// SET CHECKBOX AFTER READING HEADER
 void Fachurnik_C::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
 
     if (val)
@@ -268,7 +281,17 @@ void Fachurnik_C::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
     }
 }
 
+// STYLE:------------------------------------------------
+// CUSTOMIZE LABEL COLOR
+void Fachurnik_C::setLabel(QLabel* label, const QString& text, const QString& color)
+{
+    label->setText(text);
+    label->setStyleSheet("color: " + color + ";");
+}
 
+//EXPORT FUNCTIONALITIES:---------------------------------
+
+// DATA READING FROM CONTROLS
 QString Fachurnik_C::buildHeaderLineFromUi(const QString& originalHeaderLine)
 {
     QStringList h = originalHeaderLine.split('|', Qt::KeepEmptyParts);
@@ -289,6 +312,7 @@ QString Fachurnik_C::buildHeaderLineFromUi(const QString& originalHeaderLine)
     return h.join('|');
 }
 
+// DATA READING FROM DISTR CHANNEL
 QString Fachurnik_C::distrChannelFromUi() const
 {
     if (ui.radioButton1->isChecked()) return "01";
@@ -299,76 +323,122 @@ QString Fachurnik_C::distrChannelFromUi() const
     return "";
 }
 
+// EXPORT TO DESKTOP
 void Fachurnik_C::saveModifiedFileToDesktop(const FileData& data)
 {
+    FileLoadingProgress progress(this);
+
+    progress.setWindowTitle("Eksport pliku");
+    progress.setLabelText("Trwa eksport pliku...");
+    progress.show();
+  
+
+
     QString targetCurrency = ui.comBoxCurrency->currentText();
+    
+    if (ui.radBtnEUR->isChecked())
+    {
+        targetCurrency = "EUR";
+    }
+
+    if (ui.radBtnPLN->isChecked())
+    {
+        targetCurrency = "PLN";
+    }
+
 
     double exchangeRate = ui.lineEditExchangeRate->text()
         .replace(",", ".")
         .toDouble();
 
-    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
+    QString customerNo = ui.lineEditCustomerNo->text();
 
-    if (lines.isEmpty())
-        return;
+    QString headerLine = buildHeaderLineFromUi(data.header.headerLine);
+    
+    QString savedPath;
+    QString error;
 
-    lines[0] = buildHeaderLineFromUi(data.header.headerLine);
 
-    for (int i = 1; i < lines.size(); ++i)
+    bool ok = FileExport::exportModifiedDatToDatDesktop(
+        data,
+        headerLine,
+        targetCurrency,
+        exchangeRate,
+        customerNo,
+        &progress,
+        &savedPath,
+        &error
+    );
+
+    if (ui.checkBoxExportToCsv->isChecked())
     {
-        if (!lines[i].startsWith("L|"))
-            continue;
+        QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
+        lines[0] = headerLine;
 
-        QStringList p = lines[i].split('|', Qt::KeepEmptyParts);
+        QString desktopPath =
+            QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 
-        if (p.size() <= 8)
-            continue;
+        QString csvPath =
+            desktopPath
+            + QDir::separator()
+            + "fachurnik_newfile_"
+            + customerNo
+            + ".csv";
 
-        QString oldCurrency = p[6];
+        bool csvOk = FileExport::exportModifiedDatToCsvDesktop(
+            lines,
+            csvPath,
+            &error
+        );
 
-        if (oldCurrency != targetCurrency)
+        if (!csvOk)
         {
-            p[6] = targetCurrency;
-
-            bool ok = false;
-            double oldValue = p[8].replace(",", ".").toDouble(&ok);
-
-            if (ok)
-            {
-                double newValue = oldValue * exchangeRate;
-
-                p[8] = QString::number(newValue, 'f', 2)
-                    .replace(".", ",");
-            }
-
-            lines[i] = p.join('|');
+            progress.finish();
+            QMessageBox::warning(this, "Błąd CSV", error);
+            return;
         }
+
+        savedPath += "\n" + csvPath;
     }
 
-    QString desktopPath =
-        QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    progress.finish();
 
-    QString newFilePath =
-        desktopPath + QDir::separator() + "NOWY_" + data.fileName;
-
-    QFile outFile(newFilePath);
-
-    if (!outFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!ok)
     {
-        QMessageBox::warning(this, "Błąd", "Nie można zapisać pliku.");
+        QMessageBox::warning(this, "Błąd", error);
         return;
     }
 
-    QTextStream out(&outFile);
-
-    for (const QString& line : lines)
-        out << line << "\n";
-
-    outFile.close();
-
-    QMessageBox::information(this, "OK", "Zapisano:\n" + newFilePath);
+    QMessageBox::information(this, "OK", "Zapisano:\n" + savedPath);
 }
 
+// CONTROL CURRENCY
+bool Fachurnik_C::hasDifferentCurrencyInLines(const FileData& data)
+{
+    QString headerCurrency = data.header.currency.trimmed();
+
+    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
+
+    for (const QString& line : lines)
+    {
+        if (!line.startsWith("L|"))
+            continue;
+
+        QStringList p = line.split('|', Qt::KeepEmptyParts);
+
+        if (p.size() <= 6)
+            continue;
+
+        QString lineCurrency = p[6].trimmed();
+
+        if (!lineCurrency.isEmpty() && lineCurrency != headerCurrency)
+            return true;
+    }
+
+    return false;
+}
+
+//---------------------------------------------------------
 //DESTRUCTOR
 Fachurnik_C::~Fachurnik_C()
 {}

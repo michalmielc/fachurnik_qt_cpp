@@ -12,6 +12,7 @@
 - [x] Wczytanie nazwy pliku i œcie¿ki 
 - [x] Progress bar wczytywania
 - [x] Wczytywanie nag³ówka
+- [ ] Walidacja pliku/ wielowalutowoœæ
 - [ ] Zapis na pulpit jako DAT
 - [ ] Zapis na pulpit jako XLS
 

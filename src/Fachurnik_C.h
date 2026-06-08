@@ -32,4 +32,5 @@ private:
     QString distrChannelFromUi() const;
 
     void saveModifiedFileToDesktop(const FileData& data);
+    bool hasDifferentCurrencyInLines(const FileData& data);
 };
