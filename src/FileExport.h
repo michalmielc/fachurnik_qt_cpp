@@ -23,4 +23,11 @@ public:
         const QString& filePath,
         QString* error
     );
+
+    // FUNKCJA NIE GOTOWA DO EKSPORTU DO EXCELA
+    //static bool exportModifiedDatToXlsDesktop(
+    //    const QStringList& lines,
+    //    const QString& filePath,
+    //    QString* error
+    //)
 }; 

@@ -173,7 +173,8 @@ void Fachurnik_C::onChooseFileClicked()
         }
     );
 
-    progress.finish();
+ 
+
 
     setLabel(ui.lblFilePath, "PATH: " + path, "blue");
     setLabel(ui.lblFileName, "FILE: " + currentFileData.fileName, "blue");
@@ -194,18 +195,35 @@ void Fachurnik_C::onChooseFileClicked()
         hideShowGrpBox(false);
     }
 
+    progress.setValue(0);
 
-    if (hasDifferentCurrencyInLines(currentFileData))
+    if (hasDifferentCurrencyInLines(currentFileData, &progress))
     {
-        ui.lblControlCurrency->setText("Uwaga: wykryto różne waluty w pozycjach.");
-        ui.lblControlCurrency->setStyleSheet("color: red;");
+        ui.lblControlCurrency->setText("Warning: Different currencies have been detected in the item lines.");
+        ui.lblControlCurrency->setStyleSheet("color: red; font-weight: bold;");
         ui.lblControlCurrency->show();
+
+        QMessageBox::critical(
+            this,
+            "ERROR!",
+            "DIFFERENT CURRENCIES DETECTED IN THE FILE"
+        );
+
     }
     else
     {
         ui.lblControlCurrency->clear();
         ui.lblControlCurrency->hide();
     }
+
+    QMessageBox::information(
+        this,
+        "FILE",
+        "File loaded successfully"
+    );
+
+    progress.finish();
+
 }
 
 // HIDE GRPBOX
@@ -272,11 +290,7 @@ void Fachurnik_C::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
 
     if (val)
     {
-        QMessageBox::information(
-            nullptr,
-            "Debug",
-            QString::number(val)
-        );
+ 
         checkBox->setChecked(true);
     }
 }
@@ -413,14 +427,28 @@ void Fachurnik_C::saveModifiedFileToDesktop(const FileData& data)
 }
 
 // CONTROL CURRENCY
-bool Fachurnik_C::hasDifferentCurrencyInLines(const FileData& data)
+
+bool Fachurnik_C::hasDifferentCurrencyInLines(
+    const FileData& data,
+    QProgressDialog* progress
+)
 {
     QString headerCurrency = data.header.currency.trimmed();
 
     QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
 
-    for (const QString& line : lines)
+    int total = lines.size();
+
+    for (int i = 0; i < lines.size(); ++i)
     {
+        if (progress && total > 0)
+        {
+            progress->setValue((i * 100) / total);
+            QApplication::processEvents();
+        }
+
+        const QString& line = lines[i];
+
         if (!line.startsWith("L|"))
             continue;
 
@@ -431,8 +459,11 @@ bool Fachurnik_C::hasDifferentCurrencyInLines(const FileData& data)
 
         QString lineCurrency = p[6].trimmed();
 
-        if (!lineCurrency.isEmpty() && lineCurrency != headerCurrency)
+        if (!lineCurrency.isEmpty() &&
+            lineCurrency != headerCurrency)
+        {
             return true;
+        }
     }
 
     return false;

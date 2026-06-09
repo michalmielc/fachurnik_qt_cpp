@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Fachurnik_C.h"
 #include "FileLoader.h"
+#include "FileLoadingProgress.h"
 
 class Fachurnik_C : public QMainWindow
 {
@@ -32,5 +33,5 @@ private:
     QString distrChannelFromUi() const;
 
     void saveModifiedFileToDesktop(const FileData& data);
-    bool hasDifferentCurrencyInLines(const FileData& data);
+    bool hasDifferentCurrencyInLines(const FileData& data, QProgressDialog* progress);
 };

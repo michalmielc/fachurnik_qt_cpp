@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QApplication>
 
+
 bool FileExport::exportModifiedDatToDatDesktop(
     const FileData& data,
     const QString& headerLine,
@@ -171,3 +172,38 @@ bool FileExport::exportModifiedDatToDatDesktop(
     csvFile.close();
     return true;
 }
+
+
+ // FUNKCJA NIE GOTOWA DO EKSPORTU DO EXCELA
+ // 
+ // 
+ //bool FileExport::exportModifiedDatToXlsDesktop(
+ //    const QStringList& lines,
+ //    const QString& filePath,
+ //    QString* error
+ //)
+ //{
+ //    QXlsx::Document xlsx;
+
+ //    int row = 1;
+
+ //    for (const QString& line : lines)
+ //    {
+ //        QStringList columns = line.split('|', Qt::KeepEmptyParts);
+
+ //        for (int col = 0; col < columns.size(); ++col)
+ //        {
+ //            xlsx.write(row, col + 1, columns[col]);
+ //        }
+
+ //        row++;
+ //    }
+
+ //    if (!xlsx.saveAs(filePath))
+ //    {
+ //        if (error) *error = "Nie mo¿na zapisaæ pliku XLSX.";
+ //        return false;
+ //    }
+
+ //    return true;
+ //}
