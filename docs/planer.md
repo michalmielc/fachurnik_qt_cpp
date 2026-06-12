@@ -3,7 +3,7 @@
 ## Aktualny status
 
 MENU
-- [ ] osobna klasa
+- [x] osobna klasa
 - [ ] poprawiæ opisy funkcjonalnoœci po prawej przy wyborze funkcji — `QPlainTextEdit`w trakcie
 - [ ] dodaæ page porówywarka plików
 - [ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5

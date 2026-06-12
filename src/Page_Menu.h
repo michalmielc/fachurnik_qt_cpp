@@ -1,30 +1,27 @@
 #pragma once
 
+#include "ui_Fachurnik_C.h"
+#include <QObject>
 #include <QTreeWidget>
+#include <QTreeWidgetItem>
 
-class MenuTreeBuilder
+class Page_Menu : public QObject
 {
+    Q_OBJECT
+
 public:
-    static void build(QTreeWidget* treeWidget);
+    explicit Page_Menu(Ui::Fachurnik_CClass& ui);
+
+    void initialize();
 
 private:
-    static QTreeWidgetItem* addRoot(QTreeWidget* treeWidget, const QString& text);
-    static QTreeWidgetItem* addChild(QTreeWidgetItem* parent, const QString& text);
+    Ui::Fachurnik_CClass& ui;
+
+    void buildMenu();
+    QTreeWidgetItem* addRoot(const QString& text);
+    QTreeWidgetItem* addChild(QTreeWidgetItem* parent, const QString& text);
+
+private slots:
+    void onMenuDoubleClicked(QTreeWidgetItem* item, int column);
+    void onMenuClicked(QTreeWidgetItem* item, int column);
 };
-
-// GENERATING MENU --------------------------------
-ui.treeWidgetMenu->setHeaderHidden(true);
-
-MenuTreeBuilder::build(ui.treeWidgetMenu);
-
-// double click on menu redirection on the page
-connect(ui.treeWidgetMenu,
-    &QTreeWidget::itemDoubleClicked,
-    this,
-    &Fachurnik_C::onMenuDoubleClicked);
-
-//click on menu more about functionality
-connect(ui.treeWidgetMenu,
-    &QTreeWidget::itemClicked,
-    this,
-    &Fachurnik_C::onMenuClicked);

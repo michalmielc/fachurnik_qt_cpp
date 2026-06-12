@@ -66,12 +66,12 @@
     <QtMoc Include="src\Fachurnik_C.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="src\Page_Menu.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BtnBackToMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Page_Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenFileDialog.h">

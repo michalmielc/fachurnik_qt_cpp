@@ -1,6 +1,6 @@
 ﻿#include "Fachurnik_C.h"
 #include <QTreeWidget>
-#include "MenuTreeBuilder.h"
+#include "Page_Menu.h"
 #include "Page_1_DatFileToEshopFile.h"
 #include "Page_2_CloneDatFilesFromDatFile.h"
 
@@ -12,7 +12,10 @@ Fachurnik_C::Fachurnik_C(QWidget* parent)
 
     ui.stackedWidget->setCurrentWidget(ui.pageMenu);
 
+    // INICJALIZACJA MENU
 
+    page0 = new Page_Menu(ui);
+    page0->initialize();
 
     // INICJALIZACJA PAGE 1
 
@@ -25,49 +28,6 @@ Fachurnik_C::Fachurnik_C(QWidget* parent)
     page2->initialize();
 
 };
-
-  
-
-//OTHER FUNCTIONS:---------------------------------------
-//MENU 
-// CHOOSING OPTION FROM MENU
-void Fachurnik_C::onMenuDoubleClicked(QTreeWidgetItem* item, int column)
-{
-    QString text = item->text(0);
-
-    if (text == "eshop file to E-SHOP")
-    {
-        ui.stackedWidget->setCurrentWidget(ui.pageDatFileToEshop);
-    }
-
-    if (text == "create eshop files to E-SHOP")
-    {
-        ui.stackedWidget->setCurrentWidget(ui.pageCloneFilesEshopToEshop);
-    }
-
-}
-
-// DISPLAY FUNCTIONALITY AFTER CHOOSED OPTION FROM MENU
-void Fachurnik_C::onMenuClicked(QTreeWidgetItem* item, int column)
-{
-    QString text = item->text(0);
-
-    if (text == "eshop file to E-SHOP")
-    {
-        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji zmodyfikujesz  walutę, nr katalogu, dodatki etc.
-    Format do wczytania: dat. 
-    Format wyjściowy: dat z zapisem do pulpitu. 
-    Dane można zapisać równocześnie do Excela.)");
-    }
-
-    if (text == "create eshop files to E-SHOP")
-    {
-        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji sklonujesz
-       pliki na bazie jednego pliku z konkretną grupą rabatową)");
-    }
-
-
-}
 
 
 //---------------------------------------------------------
