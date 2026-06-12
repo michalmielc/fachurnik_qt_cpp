@@ -103,8 +103,10 @@
     <ClCompile Include="src\FileLoader.cpp" />
     <ClCompile Include="src\FileLoadingProgress.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\MenuTreeBuilder.cpp" />
+    <ClCompile Include="src\Page_Menu.cpp" />
     <ClCompile Include="src\OpenFileDialog.cpp" />
+    <ClCompile Include="src\Page_1_DatFileToEshopFile.cpp" />
+    <ClCompile Include="src\Page_2_CloneDatFilesFromDatFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Fachurnik_C.h" />
@@ -117,8 +119,10 @@
     <ClInclude Include="src\FileLoader.h" />
     <ClInclude Include="src\FileLoadingProgress.h" />
     <ClInclude Include="src\HeaderData.h" />
-    <ClInclude Include="src\MenuTreeBuilder.h" />
+    <ClInclude Include="src\Page_Menu.h" />
     <ClInclude Include="src\OpenFileDialog.h" />
+    <ClInclude Include="src\Page_1_DatFileToEshopFile.h" />
+    <ClInclude Include="src\Page_2_CloneDatFilesFromDatFile.h" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="resources\Fachurnik_C.qrc" />

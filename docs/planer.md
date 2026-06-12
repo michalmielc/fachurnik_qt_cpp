@@ -2,19 +2,22 @@
 
 ## Aktualny status
 
-- [ ] MENU
-- [ ] opis funkcjonalnoœci po prawej przy wyborze funkcji — `QPlainTextEdit`w trakcie
-- [x] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5
-- [x] Podwójne Klikniêcie z menu przekierowuje na podstronê 2/5
-- [ ] PAGE FILE TO ESHOP 
-- [x] przycisk back to menu 
-- [x] tytu³ strony 
-- [x] Wczytanie nazwy pliku i œcie¿ki 
-- [x] Progress bar wczytywania
-- [x] Wczytywanie nag³ówka
+MENU
+- [ ] osobna klasa
+- [ ] poprawiæ opisy funkcjonalnoœci po prawej przy wyborze funkcji — `QPlainTextEdit`w trakcie
+- [ ] dodaæ page porówywarka plików
+- [ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5
+- [ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 2/5
+
+PAGE FILE TO ESHOP 
+- [ ] przycisk back to menu 
+- [ ] tytu³ strony 
+- [ ] Wczytanie nazwy pliku i œcie¿ki 
+- [ ] Progress bar wczytywania
+- [ ] Wczytywanie nag³ówka
 - [ ] Walidacja pliku/ wielowalutowoœæ
 - [ ] Zapis na pulpit jako DAT
-- [ ] Zapis na pulpit jako XLS
+- [ ] Zapis na pulpit jako CSV
 
 AKTUALNIE WCZYTYWANIE PLIKU POPRAWNEGO I NIEPOPRAWNEGO INFO SCIEZKA I ROZSZERZENIE
 BRAKUJE ILOSC LINII
@@ -24,6 +27,7 @@ BRAKUJE ILOSC LINII
 - [ ] Zapis do Excela
 - [ ] Zmiana nag³ówka
 - [ ] Zmiana waluty
+- [ ] Zapis na pulpit jako CSV
 
 ## Architektura
 

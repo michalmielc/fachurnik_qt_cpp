@@ -37,7 +37,7 @@
     <ClCompile Include="src\Fachurnik_C.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MenuTreeBuilder.cpp">
+    <ClCompile Include="src\Page_Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenFileDialog.cpp">
@@ -55,6 +55,12 @@
     <ClCompile Include="src\FileExport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Page_1_DatFileToEshopFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Page_2_CloneDatFilesFromDatFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Fachurnik_C.h">
@@ -65,7 +71,7 @@
     <ClInclude Include="src\BtnBackToMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MenuTreeBuilder.h">
+    <ClInclude Include="src\Page_Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenFileDialog.h">
@@ -87,6 +93,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\FileExport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Page_1_DatFileToEshopFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Page_2_CloneDatFilesFromDatFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

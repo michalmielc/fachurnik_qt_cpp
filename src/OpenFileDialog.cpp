@@ -1,5 +1,4 @@
 #include "OpenFileDialog.h"
-
 #include <QFileDialog>
 
 QString OpenFileDialog::openFile(
