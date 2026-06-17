@@ -6,8 +6,8 @@ MENU
 - [x] osobna klasa
 - [ ] poprawiæ opisy funkcjonalnoœci po prawej przy wyborze funkcji — `QPlainTextEdit`w trakcie
 - [ ] dodaæ page porówywarka plików
-- [ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5
-- [ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 2/5
+- [x] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5 eshop file to eshop
+- [x+ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 2/5 clone eshop files
 
 PAGE FILE TO ESHOP 
 - [ ] przycisk back to menu 
