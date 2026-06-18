@@ -17,6 +17,11 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -26,9 +31,19 @@
          <rect>
           <x>20</x>
           <y>50</y>
-          <width>80</width>
+          <width>111</width>
           <height>24</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 170, 255);</string>
         </property>
         <property name="text">
          <string>OPEN FILE</string>
@@ -37,11 +52,17 @@
        <widget class="QLabel" name="lblFilePath">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>100</y>
-          <width>671</width>
+          <x>200</x>
+          <y>50</y>
+          <width>841</width>
           <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>PATH:</string>
@@ -64,10 +85,16 @@
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>130</y>
+          <y>90</y>
           <width>631</width>
           <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>FILE:</string>
@@ -76,11 +103,17 @@
        <widget class="QLabel" name="lblFileCountLines">
         <property name="geometry">
          <rect>
-          <x>330</x>
-          <y>120</y>
+          <x>650</x>
+          <y>80</y>
           <width>251</width>
           <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>LINES IN FILES:</string>
@@ -90,10 +123,16 @@
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>160</y>
-          <width>201</width>
+          <y>130</y>
+          <width>221</width>
           <height>91</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
         <property name="styleSheet">
          <string notr="true">QRadioButton::indicator {
@@ -133,6 +172,12 @@ QRadioButton:disabled {
            <height>22</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>02</string>
          </property>
@@ -151,6 +196,12 @@ QRadioButton:disabled {
            <width>41</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>01</string>
@@ -171,6 +222,12 @@ QRadioButton:disabled {
            <height>22</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>03</string>
          </property>
@@ -190,6 +247,12 @@ QRadioButton:disabled {
            <height>22</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>04</string>
          </property>
@@ -201,11 +264,17 @@ QRadioButton:disabled {
        <widget class="QGroupBox" name="groupBoxCurrEx">
         <property name="geometry">
          <rect>
-          <x>750</x>
+          <x>760</x>
           <y>190</y>
-          <width>301</width>
+          <width>351</width>
           <height>161</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
         <property name="styleSheet">
          <string notr="true">QRadioButton::indicator:checked {
@@ -226,6 +295,12 @@ QRadioButton:disabled {
            <height>22</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>EUR</string>
          </property>
@@ -239,6 +314,12 @@ QRadioButton:disabled {
            <height>22</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>PLN</string>
          </property>
@@ -246,11 +327,17 @@ QRadioButton:disabled {
         <widget class="QLineEdit" name="lineEditExchangeRate">
          <property name="geometry">
           <rect>
-           <x>150</x>
+           <x>180</x>
            <y>90</y>
            <width>113</width>
            <height>24</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>1,00</string>
@@ -261,9 +348,15 @@ QRadioButton:disabled {
           <rect>
            <x>30</x>
            <y>90</y>
-           <width>91</width>
+           <width>131</width>
            <height>16</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>EXCHANGE RATE:</string>
@@ -274,10 +367,16 @@ QRadioButton:disabled {
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>260</y>
-          <width>641</width>
+          <y>250</y>
+          <width>711</width>
           <height>341</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
         <property name="title">
          <string>HEADER</string>
@@ -285,7 +384,7 @@ QRadioButton:disabled {
         <widget class="QLineEdit" name="lineEditDateTo">
          <property name="geometry">
           <rect>
-           <x>270</x>
+           <x>280</x>
            <y>60</y>
            <width>113</width>
            <height>24</height>
@@ -297,9 +396,15 @@ QRadioButton:disabled {
           <rect>
            <x>10</x>
            <y>30</y>
-           <width>91</width>
+           <width>111</width>
            <height>16</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>CUSTOMER NO:</string>
@@ -310,9 +415,15 @@ QRadioButton:disabled {
           <rect>
            <x>10</x>
            <y>60</y>
-           <width>91</width>
+           <width>111</width>
            <height>16</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>DATE FROM TO:</string>
@@ -321,7 +432,7 @@ QRadioButton:disabled {
         <widget class="QLineEdit" name="lineEditDateFrom">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>150</x>
            <y>60</y>
            <width>113</width>
            <height>24</height>
@@ -331,7 +442,7 @@ QRadioButton:disabled {
         <widget class="QLineEdit" name="lineEditCustomerNo">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>150</x>
            <y>30</y>
            <width>113</width>
            <height>24</height>
@@ -341,7 +452,7 @@ QRadioButton:disabled {
         <widget class="QComboBox" name="comBoxSalesRep">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>150</x>
            <y>220</y>
            <width>351</width>
            <height>24</height>
@@ -351,8 +462,8 @@ QRadioButton:disabled {
         <widget class="QComboBox" name="comBoxCatalogNo">
          <property name="geometry">
           <rect>
-           <x>120</x>
-           <y>90</y>
+           <x>150</x>
+           <y>100</y>
            <width>65</width>
            <height>24</height>
           </rect>
@@ -362,10 +473,16 @@ QRadioButton:disabled {
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>130</y>
+           <y>140</y>
            <width>91</width>
            <height>16</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>CURRENCY:</string>
@@ -374,7 +491,7 @@ QRadioButton:disabled {
         <widget class="QComboBox" name="comBoxDiscountG">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>150</x>
            <y>180</y>
            <width>65</width>
            <height>24</height>
@@ -386,9 +503,15 @@ QRadioButton:disabled {
           <rect>
            <x>10</x>
            <y>180</y>
-           <width>91</width>
+           <width>121</width>
            <height>16</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>DISCOUNT GRP:</string>
@@ -398,10 +521,16 @@ QRadioButton:disabled {
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>90</y>
+           <y>100</y>
            <width>91</width>
            <height>16</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="frameShape">
           <enum>QFrame::Shape::NoFrame</enum>
@@ -413,8 +542,8 @@ QRadioButton:disabled {
         <widget class="QComboBox" name="comBoxCurrency">
          <property name="geometry">
           <rect>
-           <x>120</x>
-           <y>130</y>
+           <x>150</x>
+           <y>140</y>
            <width>65</width>
            <height>24</height>
           </rect>
@@ -429,6 +558,12 @@ QRadioButton:disabled {
            <height>16</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>SALES RESP:</string>
          </property>
@@ -441,6 +576,12 @@ QRadioButton:disabled {
            <width>171</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>ALLOY SURCHARGE</string>
@@ -455,6 +596,12 @@ QRadioButton:disabled {
            <height>22</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>SPECIAL OFFERS</string>
          </property>
@@ -467,6 +614,12 @@ QRadioButton:disabled {
            <width>281</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(218, 218, 218);</string>
@@ -481,8 +634,8 @@ QRadioButton:disabled {
         <widget class="QLabel" name="lblControlCurrency">
          <property name="geometry">
           <rect>
-           <x>200</x>
-           <y>130</y>
+           <x>240</x>
+           <y>140</y>
            <width>421</width>
            <height>20</height>
           </rect>
@@ -495,11 +648,17 @@ QRadioButton:disabled {
        <widget class="QGroupBox" name="groupBoxFileExp">
         <property name="geometry">
          <rect>
-          <x>750</x>
-          <y>400</y>
+          <x>760</x>
+          <y>390</y>
           <width>301</width>
           <height>131</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
         <property name="title">
          <string>EXPORT</string>
@@ -513,6 +672,16 @@ QRadioButton:disabled {
            <height>24</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 170, 255);</string>
+         </property>
          <property name="text">
           <string>EXPORT</string>
          </property>
@@ -525,6 +694,12 @@ QRadioButton:disabled {
            <width>231</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>Create CSV copy on Desktop</string>

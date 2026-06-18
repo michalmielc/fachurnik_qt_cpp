@@ -4,28 +4,47 @@
 
 MENU
 - [x] osobna klasa
-- [ ] poprawiæ opisy funkcjonalnoœci po prawej przy wyborze funkcji — `QPlainTextEdit`w trakcie
-- [ ] dodaæ page porówywarka plików
-- [x] Podwójne Klikniêcie z menu przekierowuje na podstronê 1/5 eshop file to eshop
-- [x+ ] Podwójne Klikniêcie z menu przekierowuje na podstronê 2/5 clone eshop files
+- [ ] poprawiï¿½ opisy funkcjonalnoï¿½ci po prawej przy wyborze funkcji ï¿½ `QPlainTextEdit`w trakcie
+- [ ] dodaï¿½ page porï¿½wywarka plikï¿½w
+- [x] Podwï¿½jne Klikniï¿½cie z menu przekierowuje na podstronï¿½ 1/5 eshop file to eshop
+- [x+ ] Podwï¿½jne Klikniï¿½cie z menu przekierowuje na podstronï¿½ 2/5 clone eshop files
 
-PAGE FILE TO ESHOP 
-- [ ] przycisk back to menu 
-- [ ] tytu³ strony 
-- [ ] Wczytanie nazwy pliku i œcie¿ki 
+PAGE FILE TO ESHOP
+- [ ] CONTROLS  
+- [x] Btn back to menu 
+- [x] Lbl Å›cieÅ¼ka pliku IN
+- [x] Lbl liczba linii IN
+- [x] RadioBtn kan dystrybucji IN/OUT
+- [x] LEdit nr klienta IN/OUT
+- [x] LEdit data od do  IN/OUT
+- [x] LEdit nr katalogu IN/OUT
+- [ ] LEdit waluta IN/OUT
+- [x] LEdit gr rabatowa IN/OUT
+- [x] LEdit sales rep IN/OUT
+- [x] ChBox dodatek stop IN/OUT
+- [x] ChBox oferta specjalna IN/OUT
+- [ ] ChBox katalog niemiecki( nie dziaÅ‚a)
+- [ ] RadioBtn waluta EUR i PLN IN/OUT
+- [ ] LEdit kurs IN/OUT
+- [ ] Btn Export csv OUT
+- [ ] Btn Export dat OUT
+
+
+- [ ] Wczytanie nazwy pliku i ï¿½cieï¿½ki 
 - [ ] Progress bar wczytywania
-- [ ] Wczytywanie nag³ówka
-- [ ] Walidacja pliku/ wielowalutowoœæ
+- [ ] Wczytywanie nagï¿½ï¿½wka
+- [ ] Konstrukcja nagï¿½ï¿½wka
+- [ ] Walidacja pliku/ wielowalutowoï¿½ï¿½
 - [ ] Zapis na pulpit jako DAT
 - [ ] Zapis na pulpit jako CSV
 
 AKTUALNIE WCZYTYWANIE PLIKU POPRAWNEGO I NIEPOPRAWNEGO INFO SCIEZKA I ROZSZERZENIE
 BRAKUJE ILOSC LINII
-- [ ] Osobna klasa `OpenFileDialog` dla wszystkich page — w trakcie
-- [ ] Przycisk powrotu ze strony dla wszystkich page — w trakcie
-- [ ] Wczytanie nazwy pliku i œcie¿ki — osobna klasa powi¹zana z `OpenFileDialog`
+- [ ] Osobna klasa `OpenFileDialog` dla wszystkich page ï¿½ w trakcie
+- [ ] Przycisk powrotu ze strony dla wszystkich page ï¿½ w trakcie
+- [ ] Wczytanie nazwy pliku i ï¿½cieï¿½ki ï¿½ osobna klasa powiï¿½zana z `OpenFileDialog`
 - [ ] Zapis do Excela
-- [ ] Zmiana nag³ówka
+- [ ] Zmiana nagï¿½ï¿½wka
 - [ ] Zmiana waluty
 - [ ] Zapis na pulpit jako CSV
 
@@ -33,25 +52,25 @@ BRAKUJE ILOSC LINII
 
 ### UI
 
-- `QStackedWidget` — prze³¹czanie stron
-- `QTreeWidget` — menu po lewej stronie
-- `QPlainTextEdit` — opis funkcjonalnoœci po prawej stronie
+- `QStackedWidget` ï¿½ przeï¿½ï¿½czanie stron
+- `QTreeWidget` ï¿½ menu po lewej stronie
+- `QPlainTextEdit` ï¿½ opis funkcjonalnoï¿½ci po prawej stronie
 
 ### Klasy pomocnicze
 
-- `MenuTreeBuilder` — budowanie menu
-- `OpenFileDialog` — wybór pliku
-- `BtnBackToMenu` — powrót do strony g³ównej
-- `FileLoader` — planowana klasa do wczytywania pliku
-- FileLoadingProgress.h - planowane okno postêpu wczytwyanie pliku
+- `MenuTreeBuilder` ï¿½ budowanie menu
+- `OpenFileDialog` ï¿½ wybï¿½r pliku
+- `BtnBackToMenu` ï¿½ powrï¿½t do strony gï¿½ï¿½wnej
+- `FileLoader` ï¿½ planowana klasa do wczytywania pliku
+- FileLoadingProgress.h - planowane okno postï¿½pu wczytwyanie pliku
 
 
 
-## Nastêpne kroki
+## Nastï¿½pne kroki
 
-1. Dokoñczyæ `BtnBackToMenu`
-2. Dodaæ klasê `FileLoader`
-3. Wyœwietliæ nazwê pliku i œcie¿kê w UI
-4. Przygotowaæ zapis do Excela
-5. Dodaæ obs³ugê zmiany nag³ówka
-6. Dodaæ obs³ugê zmiany waluty
+1. Dokoï¿½czyï¿½ `BtnBackToMenu`
+2. Dodaï¿½ klasï¿½ `FileLoader`
+3. Wyï¿½wietliï¿½ nazwï¿½ pliku i ï¿½cieï¿½kï¿½ w UI
+4. Przygotowaï¿½ zapis do Excela
+5. Dodaï¿½ obsï¿½ugï¿½ zmiany nagï¿½ï¿½wka
+6. Dodaï¿½ obsï¿½ugï¿½ zmiany waluty

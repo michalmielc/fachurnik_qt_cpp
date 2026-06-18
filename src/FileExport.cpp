@@ -5,7 +5,7 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QApplication>
-
+#include <QDateTime>
 
 bool FileExport::exportModifiedDatToDatDesktop(
     const FileData& data,
@@ -96,13 +96,16 @@ bool FileExport::exportModifiedDatToDatDesktop(
         QApplication::processEvents();
     }
 
+    QString timestamp =
+        QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss");
+
     QString desktopPath =
         QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 
     QString newFilePath =
         desktopPath
         + QDir::separator()
-        + "fachurnik_newfile_"
+        + "fachurnik_newfile_" + timestamp + "_"
         + customerNo
         + ".dat";
 

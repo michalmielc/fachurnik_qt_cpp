@@ -7,6 +7,7 @@
 #include <qmessagebox.h>
 #include "FileExport.h"
 #include <qstandardpaths.h>
+#include <QDateTime>
 
 
 void Page_1_DatFileToEshopFile::initialize()
@@ -55,7 +56,7 @@ void Page_1_DatFileToEshopFile::initialize()
     QObject::connect(ui.pushBtnExport, &QPushButton::clicked,
         [this]()
         {
-          //  saveModifiedFileToDesktop(currentFileData);
+            saveModifiedFileToDesktop(currentFileData);
         });
 
     ui.radBtnEUR->setChecked(true);
@@ -279,27 +280,20 @@ QString Page_1_DatFileToEshopFile::buildHeaderLineFromUi(const QString& original
         return originalHeaderLine;
 
     h[1] = ui.lineEditCustomerNo->text();
-    h[3] = distrChannelFromUi();
+    h[3] = "02";
+    h[4] = "02";
     h[5] = ui.comBoxCurrency->currentText();
-    h[6] = ui.comBoxDiscountG->currentText();
     h[7] = ui.lineEditDateFrom->text();
     h[8] = ui.lineEditDateTo->text();
-    h[9] = ui.comBoxSalesRep->currentText();
+    h[16] = "E-SHOP_EXP_API";
+    h[18] = ui.comBoxDiscountG->currentText();
     h[19] = ui.checkBoxAlloySurcharge->isChecked() ? "X" : "";
     h[20] = ui.checkBoxSpecialOffers->isChecked() ? "X" : "";
+    h[22] = "K" + ui.comBoxCatalogNo->currentText();
+    h[23] = "00" + ui.comBoxCatalogNo->currentText();
+    h[24] = ui.comBoxSalesRep->currentText().left(6);
 
     return h.join('|');
-}
-
-// DATA READING FROM DISTR CHANNEL
-QString Page_1_DatFileToEshopFile::distrChannelFromUi() const
-{
-    if (ui.radioButton1->isChecked()) return "01";
-    if (ui.radioButton2->isChecked()) return "02";
-    if (ui.radioButton3->isChecked()) return "03";
-    if (ui.radioButton4->isChecked()) return "04";
-
-    return "";
 }
 
 // EXPORT TO DESKTOP
@@ -351,6 +345,10 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
 
     if (ui.checkBoxExportToCsv->isChecked())
     {
+
+        QString timestamp =
+            QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss");
+
         QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
         lines[0] = headerLine;
 
@@ -360,7 +358,7 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
         QString csvPath =
             desktopPath
             + QDir::separator()
-            + "fachurnik_newfile_"
+            + "fachurnik_newfile_" + timestamp + "_"
             + customerNo
             + ".csv";
 

@@ -29,7 +29,6 @@ private:
     void setComboByText(QComboBox* comboBox, const QString& text, bool startsWith);
     bool hasDifferentCurrencyInLines(const FileData& data, FileProcessingProgress* progress);
     QString buildHeaderLineFromUi(const QString& originalHeaderLine);
-    QString distrChannelFromUi() const;
     void saveModifiedFileToDesktop(const FileData& data);
     Ui::Fachurnik_CClass& ui;
 };
