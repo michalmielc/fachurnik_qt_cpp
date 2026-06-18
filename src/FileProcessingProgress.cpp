@@ -1,8 +1,8 @@
-#include "FileLoadingProgress.h"
+#include "FileProcessingProgress.h"
 
 #include <QApplication>
 
-FileLoadingProgress::FileLoadingProgress(QWidget* parent)
+FileProcessingProgress::FileProcessingProgress(QWidget* parent)
     : QProgressDialog(parent)
 {
     setWindowTitle("Wczytywanie");
@@ -16,14 +16,14 @@ FileLoadingProgress::FileLoadingProgress(QWidget* parent)
     setValue(0);
 }
 
-void FileLoadingProgress::start()
+void FileProcessingProgress::start()
 {
     setValue(10);
 
     QApplication::processEvents();
 }
 
-void FileLoadingProgress::finish()
+void FileProcessingProgress::finish()
 {
     setValue(100);
 

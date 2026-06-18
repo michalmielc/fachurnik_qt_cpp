@@ -101,7 +101,7 @@
     <ClCompile Include="src\Fachurnik_C.cpp" />
     <ClCompile Include="src\FileExport.cpp" />
     <ClCompile Include="src\FileLoader.cpp" />
-    <ClCompile Include="src\FileLoadingProgress.cpp" />
+    <ClCompile Include="src\FileProcessingProgress.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Page_Menu.cpp" />
     <ClCompile Include="src\OpenFileDialog.cpp" />
@@ -117,7 +117,7 @@
     <ClInclude Include="src\FileData.h" />
     <ClInclude Include="src\FileExport.h" />
     <ClInclude Include="src\FileLoader.h" />
-    <ClInclude Include="src\FileLoadingProgress.h" />
+    <ClInclude Include="src\FileProcessingProgress.h" />
     <ClInclude Include="src\HeaderData.h" />
     <QtMoc Include="src\Page_Menu.h" />
     <ClInclude Include="src\OpenFileDialog.h" />

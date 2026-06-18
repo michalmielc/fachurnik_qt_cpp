@@ -1,6 +1,12 @@
 #include"Page_1_DatFileToEshopFile.h"
 #include"OpenFileDialog.h"
 #include <QFileDialog>
+#include <QDoubleValidator>
+#include "FileProcessingProgress.h"
+#include "FileLoader.h"
+#include <qmessagebox.h>
+#include "FileExport.h"
+#include <qstandardpaths.h>
 
 
 void Page_1_DatFileToEshopFile::initialize()
@@ -22,67 +28,45 @@ void Page_1_DatFileToEshopFile::initialize()
         {
             onChooseFileClicked();
         });
+
+
+    hideShowGrpBox(false);
+
+
+    QObject::connect(ui.radBtnEUR, &QRadioButton::clicked,
+        [this]()
+        {
+            ui.lineEditExchangeRate->setText("1,00");
+        });
+
+    QObject::connect(ui.radBtnPLN, &QRadioButton::clicked,
+      [this]()
+        {
+            ui.lineEditExchangeRate->setText("1,00");
+        });
+
+    QDoubleValidator* validator = new QDoubleValidator(0.0, 9999.9999, 4);
+   
+    validator->setNotation(QDoubleValidator::StandardNotation);
+
+    ui.lineEditExchangeRate->setValidator(validator);
+
+
+    QObject::connect(ui.pushBtnExport, &QPushButton::clicked,
+        [this]()
+        {
+          //  saveModifiedFileToDesktop(currentFileData);
+        });
+
+    ui.radBtnEUR->setChecked(true);
+
 };
 
 void Page_1_DatFileToEshopFile::onChooseFileClicked()
     {
-        QString fileName = QFileDialog::getOpenFileName(
-            nullptr,
-            "Wybierz plik DAT",
-            "",
-            "DAT files (*.dat);;All files (*.*)"
-        );
 
-        if (!fileName.isEmpty())
-        {
-            ui.lblFilePath->setText(fileName);
-        }
-    }
-
-
-
-//.............................do sprawdzenia i opisania
-// 
-/*
-
-
-
-hideShowGrpBox(false);
-
-connect(ui.radBtnEUR, &QRadioButton::clicked,
-    this, [this]()
-    {
-        ui.lineEditExchangeRate->setText("1,00");
-    });
-
-connect(ui.radBtnPLN, &QRadioButton::clicked,
-    this, [this]()
-    {
-        ui.lineEditExchangeRate->setText("1,00");
-    });
-
-QDoubleValidator* validator =
-new QDoubleValidator(0.0, 9999.9999, 4, this);
-
-validator->setNotation(QDoubleValidator::StandardNotation);
-
-ui.lineEditExchangeRate->setValidator(validator);
-
-
-connect(ui.pushBtnExport, &QPushButton::clicked,
-    this, [this]()
-    {
-        saveModifiedFileToDesktop(currentFileData);
-    });
-}
-
-//PAGES FUNCTIONALITIES:---------------------------------
-// 
-// OPEN FILE DIALOG 
-void Fachurnik_C::onChooseFileClicked()
-{
     QString path = OpenFileDialog::openFile(
-        this,
+        nullptr,
         "Wybierz plik DAT",
         "DAT Files (*.dat)"
     );
@@ -98,7 +82,7 @@ void Fachurnik_C::onChooseFileClicked()
         return;
     }
 
-    FileLoadingProgress progress(this);
+    FileProcessingProgress progress;
     progress.show();
 
     currentFileData = FileLoader::loadFile(
@@ -109,9 +93,6 @@ void Fachurnik_C::onChooseFileClicked()
             QApplication::processEvents();
         }
     );
-
-
-
 
     setLabel(ui.lblFilePath, "PATH: " + path, "blue");
     setLabel(ui.lblFileName, "FILE: " + currentFileData.fileName, "blue");
@@ -134,18 +115,23 @@ void Fachurnik_C::onChooseFileClicked()
 
     progress.setValue(0);
 
-    if (hasDifferentCurrencyInLines(currentFileData, &progress))
+    bool differentCurrency =
+        hasDifferentCurrencyInLines(currentFileData, &progress);
+
+    progress.setValue(100);
+    QApplication::processEvents();
+
+    if (differentCurrency)
     {
         ui.lblControlCurrency->setText("Warning: Different currencies have been detected in the item lines.");
         ui.lblControlCurrency->setStyleSheet("color: red; font-weight: bold;");
         ui.lblControlCurrency->show();
 
         QMessageBox::critical(
-            this,
+            nullptr,
             "ERROR!",
             "DIFFERENT CURRENCIES DETECTED IN THE FILE"
         );
-
     }
     else
     {
@@ -154,17 +140,18 @@ void Fachurnik_C::onChooseFileClicked()
     }
 
     QMessageBox::information(
-        this,
+        nullptr,
         "FILE",
         "File loaded successfully"
     );
 
     progress.finish();
+    }
 
-}
 
-// HIDE GRPBOX
-void Fachurnik_C::hideShowGrpBox(bool b)
+// CONTROL BEHAVIOR -------------------------------------------------
+// SHOW/HIDE GRPBOX
+void Page_1_DatFileToEshopFile::hideShowGrpBox(bool b)
 {
     ui.groupBoxDCh->setVisible(b);
     ui.groupBoxHeader->setVisible(b);
@@ -172,35 +159,8 @@ void Fachurnik_C::hideShowGrpBox(bool b)
     ui.groupBoxFileExp->setVisible(b);
 }
 
-// READ DATA TO UI FROM FILE
-void Fachurnik_C::loadHeaderToUi(const HeaderData& header)
-{
-    //CUSTOMER NO
-    ui.lineEditCustomerNo->setText(header.customerNo);
-
-
-    //SELECT DIST CHANNEL
-    ui.radioButton1->setChecked(header.distrChannel == "01");
-    ui.radioButton2->setChecked(header.distrChannel == "02");
-    ui.radioButton3->setChecked(header.distrChannel == "03");
-    ui.radioButton4->setChecked(header.distrChannel == "04");
-    ui.groupBoxDCh->setEnabled(false);
-
-    //DATE FROM TO
-    ui.lineEditDateFrom->setText(header.dateFrom);
-    ui.lineEditDateTo->setText(header.dateTo);
-
-    //OTHERS
-    setComboByText(ui.comBoxCurrency, header.currency, false);
-    setComboByText(ui.comBoxDiscountG, header.discountGrp, false);
-    setComboByText(ui.comBoxSalesRep, header.salesRep, true);
-    setCheckBoxValue(ui.checkBoxAlloySurcharge, header.alloySurcharge);
-    setCheckBoxValue(ui.checkBoxSpecialOffers, header.specialOffers);
-    // checkbox GERMAN CATALOG NOT ACTIVE!!!!
-}
-
 // SET COMOBOX AFTER READING HEADER
-void Fachurnik_C::setComboByText(QComboBox* comboBox, const QString& text, bool startsWith)
+void Page_1_DatFileToEshopFile::setComboByText(QComboBox* comboBox, const QString& text, bool startsWith)
 {
     if (!startsWith)
     {
@@ -223,27 +183,95 @@ void Fachurnik_C::setComboByText(QComboBox* comboBox, const QString& text, bool 
 }
 
 // SET CHECKBOX AFTER READING HEADER
-void Fachurnik_C::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
+void Page_1_DatFileToEshopFile::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
 
     if (val)
     {
-
         checkBox->setChecked(true);
     }
 }
 
-// STYLE:------------------------------------------------
+// STYLE:------------------------------------------------------------
 // CUSTOMIZE LABEL COLOR
-void Fachurnik_C::setLabel(QLabel* label, const QString& text, const QString& color)
+void Page_1_DatFileToEshopFile::setLabel(QLabel* label, const QString& text, const QString& color)
 {
     label->setText(text);
     label->setStyleSheet("color: " + color + ";");
 }
 
-//EXPORT FUNCTIONALITIES:---------------------------------
+//FUNCTIONALITIES
+//-------------------------------------------------------------------
+// READ DATA TO UI FROM FILE
+void Page_1_DatFileToEshopFile::loadHeaderToUi(const HeaderData& header)
+{
+    //CUSTOMER NO
+    ui.lineEditCustomerNo->setText(header.customerNo);
 
+    //SELECT DIST CHANNEL
+    ui.radioButton1->setChecked(header.distrChannel == "01");
+    ui.radioButton2->setChecked(header.distrChannel == "02");
+    ui.radioButton3->setChecked(header.distrChannel == "03");
+    ui.radioButton4->setChecked(header.distrChannel == "04");
+    ui.groupBoxDCh->setEnabled(false);
+
+    //DATE FROM TO
+    ui.lineEditDateFrom->setText(header.dateFrom);
+    ui.lineEditDateTo->setText(header.dateTo);
+
+    //OTHERS
+    setComboByText(ui.comBoxCurrency, header.currency, false);
+    setComboByText(ui.comBoxDiscountG, header.discountGrp, false);
+    setComboByText(ui.comBoxSalesRep, header.salesRep, true);
+    setCheckBoxValue(ui.checkBoxAlloySurcharge, header.alloySurcharge);
+    setCheckBoxValue(ui.checkBoxSpecialOffers, header.specialOffers);
+    // checkbox GERMAN CATALOG NOT ACTIVE!!!!
+}
+
+// CONTROL CURRENCY
+bool Page_1_DatFileToEshopFile::hasDifferentCurrencyInLines(
+    const FileData& data,
+    FileProcessingProgress* progress
+)
+{
+    QString headerCurrency = data.header.currency.trimmed();
+
+    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
+
+    int total = lines.size();
+
+    for (int i = 0; i < lines.size(); ++i)
+    {
+        if (progress && total > 0)
+        {
+            progress->setValue((i * 100) / total);
+            QApplication::processEvents();
+        }
+
+        const QString& line = lines[i];
+
+        if (!line.startsWith("L|"))
+            continue;
+
+        QStringList p = line.split('|', Qt::KeepEmptyParts);
+
+        if (p.size() <= 6)
+            continue;
+
+        QString lineCurrency = p[6].trimmed();
+
+        if (!lineCurrency.isEmpty() &&
+            lineCurrency != headerCurrency)
+        {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+//EXPORT FUNCTIONALITIES:--------------------------------------------
 // DATA READING FROM CONTROLS
-QString Fachurnik_C::buildHeaderLineFromUi(const QString& originalHeaderLine)
+QString Page_1_DatFileToEshopFile::buildHeaderLineFromUi(const QString& originalHeaderLine)
 {
     QStringList h = originalHeaderLine.split('|', Qt::KeepEmptyParts);
 
@@ -264,7 +292,7 @@ QString Fachurnik_C::buildHeaderLineFromUi(const QString& originalHeaderLine)
 }
 
 // DATA READING FROM DISTR CHANNEL
-QString Fachurnik_C::distrChannelFromUi() const
+QString Page_1_DatFileToEshopFile::distrChannelFromUi() const
 {
     if (ui.radioButton1->isChecked()) return "01";
     if (ui.radioButton2->isChecked()) return "02";
@@ -275,9 +303,9 @@ QString Fachurnik_C::distrChannelFromUi() const
 }
 
 // EXPORT TO DESKTOP
-void Fachurnik_C::saveModifiedFileToDesktop(const FileData& data)
+void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
 {
-    FileLoadingProgress progress(this);
+    FileProcessingProgress progress;
 
     progress.setWindowTitle("Eksport pliku");
     progress.setLabelText("Trwa eksport pliku...");
@@ -345,7 +373,7 @@ void Fachurnik_C::saveModifiedFileToDesktop(const FileData& data)
         if (!csvOk)
         {
             progress.finish();
-            QMessageBox::warning(this, "B³¹d CSV", error);
+            QMessageBox::warning(nullptr, "B³¹d CSV", error);
             return;
         }
 
@@ -356,54 +384,9 @@ void Fachurnik_C::saveModifiedFileToDesktop(const FileData& data)
 
     if (!ok)
     {
-        QMessageBox::warning(this, "B³¹d", error);
+        QMessageBox::warning(nullptr, "B³¹d", error);
         return;
     }
 
-    QMessageBox::information(this, "OK", "Zapisano:\n" + savedPath);
+    QMessageBox::information(nullptr, "OK", "Zapisano:\n" + savedPath);
 }
-
-// CONTROL CURRENCY
-
-bool Fachurnik_C::hasDifferentCurrencyInLines(
-    const FileData& data,
-    QProgressDialog* progress
-)
-{
-    QString headerCurrency = data.header.currency.trimmed();
-
-    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
-
-    int total = lines.size();
-
-    for (int i = 0; i < lines.size(); ++i)
-    {
-        if (progress && total > 0)
-        {
-            progress->setValue((i * 100) / total);
-            QApplication::processEvents();
-        }
-
-        const QString& line = lines[i];
-
-        if (!line.startsWith("L|"))
-            continue;
-
-        QStringList p = line.split('|', Qt::KeepEmptyParts);
-
-        if (p.size() <= 6)
-            continue;
-
-        QString lineCurrency = p[6].trimmed();
-
-        if (!lineCurrency.isEmpty() &&
-            lineCurrency != headerCurrency)
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-*/

@@ -3,6 +3,8 @@
 #include "ui_Fachurnik_C.h"
 #include "BtnBackToMenu.h"
 #include "ComboBoxHelper.h"
+#include "FileData.h"
+#include "FileProcessingProgress.h"
 
 class Page_1_DatFileToEshopFile
 {
@@ -17,6 +19,17 @@ public:
  
 private:
 
+    FileData currentFileData;
+
     void onChooseFileClicked();
+    void hideShowGrpBox(bool b);
+    void setLabel(QLabel* label, const QString& text, const QString& color);
+    void setCheckBoxValue(QCheckBox* checkBox, const bool val);
+    void loadHeaderToUi(const HeaderData& header);
+    void setComboByText(QComboBox* comboBox, const QString& text, bool startsWith);
+    bool hasDifferentCurrencyInLines(const FileData& data, FileProcessingProgress* progress);
+    QString buildHeaderLineFromUi(const QString& originalHeaderLine);
+    QString distrChannelFromUi() const;
+    void saveModifiedFileToDesktop(const FileData& data);
     Ui::Fachurnik_CClass& ui;
 };

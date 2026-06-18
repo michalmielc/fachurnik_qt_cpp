@@ -46,7 +46,7 @@
     <ClCompile Include="src\FileLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FileLoadingProgress.cpp">
+    <ClCompile Include="src\FileProcessingProgress.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ComboBoxHelper.cpp">
@@ -83,7 +83,7 @@
     <ClInclude Include="src\FileData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\FileLoadingProgress.h">
+    <ClInclude Include="src\FileProcessingProgress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\HeaderData.h">
