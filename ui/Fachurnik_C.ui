@@ -840,7 +840,7 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="label_3">
         <property name="geometry">
          <rect>
-          <x>480</x>
+          <x>600</x>
           <y>20</y>
           <width>321</width>
           <height>16</height>
@@ -949,7 +949,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QPushButton" name="btnOpenFile_3">
         <property name="geometry">
          <rect>
-          <x>480</x>
+          <x>600</x>
           <y>50</y>
           <width>121</width>
           <height>41</height>
@@ -972,7 +972,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFilePath_3">
         <property name="geometry">
          <rect>
-          <x>490</x>
+          <x>610</x>
           <y>100</y>
           <width>841</width>
           <height>16</height>
@@ -991,7 +991,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFileName_3">
         <property name="geometry">
          <rect>
-          <x>490</x>
+          <x>610</x>
           <y>130</y>
           <width>631</width>
           <height>16</height>
@@ -1010,7 +1010,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFileCountLines_3">
         <property name="geometry">
          <rect>
-          <x>490</x>
+          <x>610</x>
           <y>160</y>
           <width>251</width>
           <height>16</height>
@@ -1487,7 +1487,7 @@ QRadioButton:disabled {
          </property>
         </widget>
        </widget>
-       <widget class="QPushButton" name="btnBackToHome1_2">
+       <widget class="QPushButton" name="btnBackToHome2">
         <property name="geometry">
          <rect>
           <x>20</x>
