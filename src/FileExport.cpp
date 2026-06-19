@@ -1,9 +1,12 @@
 ﻿#include "FileExport.h"
-
+#include <QRegularExpression>
 #include <QStringList>
 #include <QFile>
 #include <QTextStream>
 #include <QApplication>
+#include "qmessagebox.h"
+
+
 
 QStringList FileExport::buildModifiedLines(
     const FileData& data,
@@ -38,30 +41,29 @@ QStringList FileExport::buildModifiedLines(
 
         QString oldCurrency = p[6];
 
-        if (oldCurrency != targetCurrency)
-        {
+      
             p[6] = targetCurrency;
 
-            bool ok1 = false;
-            bool ok2 = false;
+            double oldValuePrice1 = 0.0;
+            double oldValuePrice2 = 0.0;
 
-            double oldValuePrice1 = p[8].replace(",", ".").toDouble(&ok1);
-            double oldValuePrice2 = p[9].replace(",", ".").toDouble(&ok2);
+            bool ok1 = parseDatPrice(p[8], oldValuePrice1);
+            bool ok2 = parseDatPrice(p[9], oldValuePrice2);
 
-            if (ok1)
+            if (!ok1 || !ok2)
             {
-                double newValuePrice1 = oldValuePrice1 * exchangeRate;
-                p[8] = QString::number(newValuePrice1, 'f', 2).replace(".", ",");
+                QMessageBox::critical(nullptr, "OPERATION ABORTED!", QString("WRONG PRICE VALUE AT LINE: %1").arg(i + 1));
+                return {};
+
             }
 
-            if (ok2)
-            {
-                double newValuePrice2 = oldValuePrice2 * exchangeRate;
-                p[9] = QString::number(newValuePrice2, 'f', 2).replace(".", ",");
-            }
+            double newValuePrice1 = oldValuePrice1 * exchangeRate;
+            double newValuePrice2 = oldValuePrice2 * exchangeRate;
 
+            p[8] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
+            p[9] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
             lines[i] = p.join('|');
-        }
+        
     }
 
     return lines;
@@ -134,3 +136,27 @@ bool FileExport::saveCsv(
 
     return true;
 }
+
+
+bool FileExport::parseDatPrice(const QString& text, double& value)
+{
+    QString s = text.trimmed();
+
+    if (s.isEmpty())
+        return false;
+
+    QRegularExpression rx(
+        R"(^(?:\d{1,3}(?:\.\d{3})*|\d+)(?:,\d+)?$)"
+    );
+
+    if (!rx.match(s).hasMatch())
+        return false;
+
+    s.remove('.');
+    s.replace(',', '.');
+
+    bool ok = false;
+    value = s.toDouble(&ok);
+
+    return ok;
+};

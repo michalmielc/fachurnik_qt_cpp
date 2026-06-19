@@ -1,4 +1,4 @@
-#include"Page_1_DatFileToEshopFile.h"
+ï»¿#include"Page_1_DatFileToEshopFile.h"
 #include"OpenFileDialog.h"
 #include <QFileDialog>
 #include <QDoubleValidator>
@@ -120,7 +120,7 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
     }
     else
     {
-        setLabel(ui.lblFileCountLines, "Brak nag³ówka H| w pliku", "red");
+        setLabel(ui.lblFileCountLines, "Brak nagÅ‚Ã³wka H| w pliku", "red");
         hideShowGrpBox(false);
     }
 
@@ -204,7 +204,7 @@ void Page_1_DatFileToEshopFile::setLabelCurrencyLine(bool value)
     {
         ui.lblControlCurrency->clear();
         ui.lblControlCurrency->setText("Warning: Different currencies have been detected in the item lines.");
-        ui.lblControlCurrency->setStyleSheet("color: red; font-weight: bold;");
+        ui.lblControlCurrency->setStyleSheet("color: red; font-weight: bold; font-family:Bahnschrift; font-size: 11pt");
         ui.lblControlCurrency->show();
 
         QMessageBox::critical(
@@ -217,7 +217,7 @@ void Page_1_DatFileToEshopFile::setLabelCurrencyLine(bool value)
     {
         ui.lblControlCurrency->clear();
         ui.lblControlCurrency->setText("All lines have the same currency");
-        ui.lblControlCurrency->setStyleSheet("color: green; font-weight: bold;");
+        ui.lblControlCurrency->setStyleSheet("color: green; font-weight: bold; font-family:Bahnschrift;font-size: 11pt ");
         ui.lblControlCurrency->show();
     }
 }
@@ -297,7 +297,7 @@ bool Page_1_DatFileToEshopFile::hasDifferentCurrencyInLines(
             continue;
         }
 
-        // jeœli kolejna waluta jest inna
+        // jeÅ›li kolejna waluta jest inna
         if (lineCurrency != firstCurrency)
         {
             data.header.currencyInLine = "MIXED EUR/PLN";
@@ -372,6 +372,15 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
         &progress
     );
 
+    if (modifiedLines.isEmpty())
+    {
+        progress.finish();
+
+        QMessageBox::critical(nullptr, "OPERATION ABORTED!", QString("THE OUTPUT FILE WAS NOT CREATED"));
+
+        return;
+    }
+
     QString timestamp =
         QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss");
 
@@ -399,7 +408,7 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
     if (!ok)
     {
         progress.finish();
-        QMessageBox::warning(nullptr, "B³¹d", error);
+        QMessageBox::warning(nullptr, "BÅ‚Ä…d", error);
         return;
     }
 
@@ -423,7 +432,7 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
         if (!csvOk)
         {
             progress.finish();
-            QMessageBox::warning(nullptr, "B³¹d CSV", error);
+            QMessageBox::warning(nullptr, "BÅ‚Ä…d CSV", error);
             return;
         }
 

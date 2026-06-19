@@ -28,4 +28,6 @@ public:
         const QString& filePath,
         QString* error
     );
+
+    static bool parseDatPrice(const QString& text, double& value);
 };
