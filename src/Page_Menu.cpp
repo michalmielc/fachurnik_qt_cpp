@@ -78,10 +78,12 @@ void Page_Menu::onMenuClicked(QTreeWidgetItem* item, int column)
 
     if (text == "eshop file to E-SHOP")
     {
-        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji zmodyfikujesz walutę, nr katalogu, dodatki etc.
+        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji utworzysz plik dat, 
+zmodyfikujesz walutę, nr katalogu, kurs, dodatki etc.
 Format do wczytania: dat.
 Format wyjściowy: dat z zapisem do pulpitu.
-Dane można zapisać równocześnie do Excela.)");
+Dane można zapisać równocześnie do csv.
+Podczas wczytywanie program wykryje, jeśli w pliku sa różne waluty.)");
     }
 
     if (text == "create eshop files to E-SHOP")
