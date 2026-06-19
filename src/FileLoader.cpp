@@ -1,10 +1,10 @@
 #include "FileLoader.h"
-
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
 
 
+// PARSER OF HEADER
 static HeaderData parseHeaderLine(const QString& line)
 {
     HeaderData h;
@@ -47,8 +47,8 @@ static HeaderData parseHeaderLine(const QString& line)
     return h;
 }
 
-
-FileData FileLoader::loadFile(
+// READ DAT FILE
+FileData FileLoader::loadDatFile(
     const QString& path,
     std::function<void(int)> progressCallback)
 {
@@ -96,6 +96,52 @@ FileData FileLoader::loadFile(
     }
 
     file.close();
+
+    return data;
+}
+
+//READ CSV FIL CUTOIMER NO AND SALES REP
+QVector<QPair<QString, QString>> FileLoader::loadCsvFile(
+    const QString& path,
+    std::function<void(int)> progressCallback)
+{
+    QVector<QPair<QString, QString>> data;
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return data;
+
+    qint64 fileSize = file.size();
+
+    QTextStream in(&file);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine().trimmed();
+
+        if (line.isEmpty())
+            continue;
+
+        QStringList parts = line.split(';'); // lub ','
+
+        if (parts.size() < 2)
+            continue;
+
+        data.append(qMakePair(
+            parts[0].trimmed(),
+            parts[1].trimmed()
+        ));
+
+        if (progressCallback && fileSize > 0)
+        {
+            int progress = static_cast<int>(
+                (file.pos() * 100) / fileSize
+                );
+
+            progressCallback(progress);
+        }
+    }
 
     return data;
 }

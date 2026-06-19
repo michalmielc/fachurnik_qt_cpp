@@ -21,6 +21,8 @@ private:
 
     FileData currentFileData;
 
+    QVector<QPair<QString, QString>> currentCsvData;
+
     void onChooseDatFileClicked();
     void onChooseCsvFileClicked();
     void hideShowGrpBox(bool b);

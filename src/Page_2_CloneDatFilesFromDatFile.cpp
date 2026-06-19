@@ -53,11 +53,61 @@ void Page_2_CloneDatFilesFromDatFile::initialize()
 
 };
 
-//FUNCITONS READ CSV CUSATOMERS LIST
+//FUNCITONS READ CSV CUSTOMERS LIST
 void Page_2_CloneDatFilesFromDatFile::onChooseCsvFileClicked() 
 {
+    
+    QString path = OpenFileDialog::openFile(
+        nullptr,
+        "Wybierz plik CSV",
+        "CSV Files (*.csv)"
+    );
 
+    if (path.isEmpty())
+    {
+        setLabel(ui.lblFilePath_2, "Nie wybrano pliku", "red");
+        setLabel(ui.lblFileName_2, "Brak pliku", "red");
+        setLabel(ui.lblFileCountLines_2, "", "red");
+
+        hideShowGrpBox(false);
+        return;
+    }
+
+    FileProcessingProgress progress;
+    progress.show();
+
+    currentCsvData = FileLoader::loadCsvFile(
+        path,
+        [&](int value)
+        {
+            progress.setValue(value);
+            QApplication::processEvents();
+        }
+    );
+
+    QFileInfo info(path);
+
+    setLabel(ui.lblFilePath_2, "PATH: " + path, "blue");
+    setLabel(ui.lblFileName_2, "FILE: " + info.fileName(), "blue");
+    setLabel(
+        ui.lblFileCountLines_2,
+        "ITEM LINES: " + QString::number(currentCsvData.size()),
+        "blue"
+    );
+
+    progress.setValue(100);
+    QApplication::processEvents();
+
+    QMessageBox::information(
+        nullptr,
+        "CSV FILE",
+        "CSV file loaded successfully"
+    );
+
+    progress.finish();
 }
+
+
 
 //FUNCITONS READ DAT BASIC PRICE DAT FILE
 void Page_2_CloneDatFilesFromDatFile::onChooseDatFileClicked()
@@ -83,7 +133,7 @@ void Page_2_CloneDatFilesFromDatFile::onChooseDatFileClicked()
     FileProcessingProgress progress;
     progress.show();
 
-    currentFileData = FileLoader::loadFile(
+    currentFileData = FileLoader::loadDatFile(
         path,
         [&](int value)
         {
@@ -305,68 +355,49 @@ QString Page_2_CloneDatFilesFromDatFile::buildHeaderLineFromUi(const QString& or
     if (h.size() < 14)
         return originalHeaderLine;
 
+    // TO MA WZI¥Æ Z PLIKU CSV
     h[1] = ui.lineEditCustomerNo->text();
+    // TO MA WZI¥Æ Z PLIKU CSV
+
     h[3] = "02";
     h[4] = "02";
-
-    h[5] = ui.comBoxCurrencyHeader->currentText();
-
-    h[7] = ui.lineEditDateFrom->text();
-    h[8] = ui.lineEditDateTo->text();
+    h[5] = ui.comBoxCurrencyHeader_2->currentText();
+    h[7] = ui.lineEditDateFrom_2->text();
+    h[8] = ui.lineEditDateTo_2->text();
     h[16] = "E-SHOP_EXP_API";
-    h[18] = ui.comBoxDiscountG->currentText();
-    h[19] = ui.checkBoxAlloySurcharge->isChecked() ? "X" : "";
-    h[20] = ui.checkBoxSpecialOffers->isChecked() ? "X" : "";
-    h[22] = "K" + ui.comBoxCatalogNo->currentText();
-    h[23] = "00" + ui.comBoxCatalogNo->currentText();
+    h[18] = ui.comBoxDiscountG_2->currentText();
+    h[19] = ui.checkBoxAlloySurcharge_2->isChecked() ? "X" : "";
+    h[20] = ui.checkBoxSpecialOffers_2->isChecked() ? "X" : "";
+    h[22] = "K" + ui.comBoxCatalogNo_2->currentText();
+    h[23] = "00" + ui.comBoxCatalogNo_2->currentText();
+    // TO MA WZI¥Æ Z PLIKU CSV
     h[24] = ui.comBoxSalesRep->currentText().left(6);
+    // TO MA WZI¥Æ Z PLIKU CSV
 
     return h.join('|');
 }
+
+
+
+// DO POPRAWY TUTAJ SKOÑCZY£EM
+//SPAROWAÆ VECTOR Z PRODUKCJ¥ DATÓW Z PONI¯ESZJ FDUNCKJI
 
 // EXPORT TO DESKTOP
 void Page_2_CloneDatFilesFromDatFile::saveClonedFilesToDesktop(const FileData& data)
 {
     FileProcessingProgress progress;
 
-    progress.setWindowTitle("Eksport pliku");
-    progress.setLabelText("Trwa eksport pliku...");
+    progress.setWindowTitle("Eksport plików");
+    progress.setLabelText("Trwa eksport plików..");
     progress.show();
 
-    //DO POPRAWY
-    QString targetCurrency = ui.comBoxCurrencyHeader->currentText();
-
-    if (ui.radBtnEUR->isChecked())
-        targetCurrency = "EUR";
-
-    if (ui.radBtnPLN->isChecked())
-        targetCurrency = "PLN";
-
-    double exchangeRate = ui.lineEditExchangeRate->text()
-        .replace(",", ".")
-        .toDouble();
-
+   // NR  Z LISTY
     QString customerNo = ui.lineEditCustomerNo->text();
+    ///
 
     QString headerLine = buildHeaderLineFromUi(data.header.headerLine);
 
-    QStringList modifiedLines = FileExport::buildModifiedLines(
-        data,
-        headerLine,
-        targetCurrency,
-        exchangeRate,
-        &progress
-    );
-
-    if (modifiedLines.isEmpty())
-    {
-        progress.finish();
-
-        QMessageBox::critical(nullptr, "OPERATION ABORTED!", QString("THE OUTPUT FILE WAS NOT CREATED"));
-
-        return;
-    }
-
+  
     QString timestamp =
         QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss");
 
@@ -398,32 +429,9 @@ void Page_2_CloneDatFilesFromDatFile::saveClonedFilesToDesktop(const FileData& d
         return;
     }
 
-    if (ui.checkBoxExportToCsv->isChecked())
-    {
-        QString csvPath =
-            desktopPath
-            + QDir::separator()
-            + "fachurnik_newfile_"
-            + timestamp
-            + "_"
-            + customerNo
-            + ".csv";
+    
 
-        bool csvOk = FileExport::saveCsv(
-            modifiedLines,
-            csvPath,
-            &error
-        );
-
-        if (!csvOk)
-        {
-            progress.finish();
-            QMessageBox::warning(nullptr, "B³¹d CSV", error);
-            return;
-        }
-
-        savedPath += "\n" + csvPath;
-    }
+ 
 
     progress.setValue(100);
     QApplication::processEvents();

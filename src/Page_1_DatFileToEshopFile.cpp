@@ -96,7 +96,7 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
     FileProcessingProgress progress;
     progress.show();
 
-    currentFileData = FileLoader::loadFile(
+    currentFileData = FileLoader::loadDatFile(
         path,
         [&](int value)
         {
