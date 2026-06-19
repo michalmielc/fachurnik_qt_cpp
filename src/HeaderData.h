@@ -16,4 +16,5 @@ struct HeaderData
     QString salesRep;
     QString distrChannel;
     QString exchangeRate;
+    QString currencyInLine;  //EUR/PLN/ EUR/PLN-ERROR
 };

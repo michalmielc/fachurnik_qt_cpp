@@ -1,33 +1,31 @@
 #pragma once
 
-#include <QString>
 #include "FileData.h"
+
+#include <QString>
+#include <QStringList>
 #include <QProgressDialog>
 
 class FileExport
 {
 public:
-    static bool exportModifiedDatToDatDesktop(
+    static QStringList buildModifiedLines(
         const FileData& data,
         const QString& headerLine,
         const QString& targetCurrency,
         double exchangeRate,
-        const QString& customerNo,
-        QProgressDialog* progress,
-        QString* savedPath = nullptr,
-        QString* error = nullptr
+        QProgressDialog* progress
     );
 
-    static bool exportModifiedDatToCsvDesktop(
+    static bool saveDat(
         const QStringList& lines,
         const QString& filePath,
         QString* error
     );
 
-    // FUNKCJA NIE GOTOWA DO EKSPORTU DO EXCELA
-    //static bool exportModifiedDatToXlsDesktop(
-    //    const QStringList& lines,
-    //    const QString& filePath,
-    //    QString* error
-    //)
-}; 
+    static bool saveCsv(
+        const QStringList& lines,
+        const QString& filePath,
+        QString* error
+    );
+};

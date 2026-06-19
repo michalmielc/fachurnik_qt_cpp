@@ -27,8 +27,9 @@ private:
     void setCheckBoxValue(QCheckBox* checkBox, const bool val);
     void loadHeaderToUi(const HeaderData& header);
     void setComboByText(QComboBox* comboBox, const QString& text, bool startsWith);
-    bool hasDifferentCurrencyInLines(const FileData& data, FileProcessingProgress* progress);
+    bool hasDifferentCurrencyInLines( FileData& data, FileProcessingProgress* progress);
     QString buildHeaderLineFromUi(const QString& originalHeaderLine);
     void saveModifiedFileToDesktop(const FileData& data);
+    void setLabelCurrencyLine(bool value);
     Ui::Fachurnik_CClass& ui;
 };

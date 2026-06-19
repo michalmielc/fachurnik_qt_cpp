@@ -5,7 +5,7 @@
 void ComboBoxHelper::loadCurrencies(QComboBox* comboBox)
 {
     comboBox->clear();
-    comboBox->addItems({ "EUR", "PLN" });
+    comboBox->addItems({ "EUR", "PLN", "MIXED EUR/PLN"});
     comboBox->setCurrentText("EUR");
 }
 

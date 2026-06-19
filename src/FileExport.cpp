@@ -1,68 +1,39 @@
-#include "FileExport.h"
+ï»¿#include "FileExport.h"
+
 #include <QStringList>
 #include <QFile>
 #include <QTextStream>
-#include <QStandardPaths>
-#include <QDir>
 #include <QApplication>
-#include <QDateTime>
 
-bool FileExport::exportModifiedDatToDatDesktop(
+QStringList FileExport::buildModifiedLines(
     const FileData& data,
     const QString& headerLine,
     const QString& targetCurrency,
     double exchangeRate,
-    const QString& customerNo,
-    QProgressDialog* progress,
-    QString* savedPath,
-    QString* error
+    QProgressDialog* progress
 )
-
-
 {
     QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
 
-    if (data.content.trimmed().isEmpty())
-    {
-        if (error) *error = "Brak danych do eksportu. data.content jest puste.";
-        return false;
-    }
-
-    if (headerLine.trimmed().isEmpty())
-    {
-        if (error) *error = "Nag³ówek jest pusty.";
-        return false;
-    }
-
- 
-    if (lines.isEmpty())
-    {
-        if (error) *error = "Plik nie zawiera ¿adnych linii.";
-        return false;
-    }
-
- 
-
-   
-    lines[0] = headerLine;
+    if (!lines.isEmpty())
+        lines[0] = headerLine;
 
     int total = lines.size();
 
     for (int i = 1; i < lines.size(); ++i)
     {
-        if (progress)
+        if (progress && total > 0)
         {
             progress->setValue((i * 80) / total);
             QApplication::processEvents();
         }
-
 
         if (!lines[i].startsWith("L|"))
             continue;
 
         QStringList p = lines[i].split('|', Qt::KeepEmptyParts);
 
-        if (p.size() <= 8)
+        if (p.size() <= 9)
             continue;
 
         QString oldCurrency = p[6];
@@ -71,49 +42,44 @@ bool FileExport::exportModifiedDatToDatDesktop(
         {
             p[6] = targetCurrency;
 
-            bool ok = false;
-            double oldValuePrice1 = p[8].replace(",", ".").toDouble(&ok);
-            double oldValuePrice2 = p[9].replace(",", ".").toDouble(&ok);
+            bool ok1 = false;
+            bool ok2 = false;
 
-            if (ok)
+            double oldValuePrice1 = p[8].replace(",", ".").toDouble(&ok1);
+            double oldValuePrice2 = p[9].replace(",", ".").toDouble(&ok2);
+
+            if (ok1)
             {
                 double newValuePrice1 = oldValuePrice1 * exchangeRate;
-                double newValuePrice2 = oldValuePrice2 * exchangeRate;
+                p[8] = QString::number(newValuePrice1, 'f', 2).replace(".", ",");
+            }
 
-                p[8] = QString::number(newValuePrice1, 'f', 2)
-                    .replace(".", ",");
-                p[9] = QString::number(newValuePrice2, 'f', 2)
-                    .replace(".", ",");
+            if (ok2)
+            {
+                double newValuePrice2 = oldValuePrice2 * exchangeRate;
+                p[9] = QString::number(newValuePrice2, 'f', 2).replace(".", ",");
             }
 
             lines[i] = p.join('|');
         }
     }
 
-    if (progress)
-    {
-        progress->setValue(85);
-        QApplication::processEvents();
-    }
+    return lines;
+}
 
-    QString timestamp =
-        QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss");
-
-    QString desktopPath =
-        QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
-
-    QString newFilePath =
-        desktopPath
-        + QDir::separator()
-        + "fachurnik_newfile_" + timestamp + "_"
-        + customerNo
-        + ".dat";
-
-    QFile outFile(newFilePath);
+bool FileExport::saveDat(
+    const QStringList& lines,
+    const QString& filePath,
+    QString* error
+)
+{
+    QFile outFile(filePath);
 
     if (!outFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        if (error) *error = "Nie mo¿na zapisaæ pliku.";
+        if (error)
+            *error = "Nie moÅ¼na zapisaÄ‡ pliku DAT.";
+
         return false;
     }
 
@@ -124,19 +90,10 @@ bool FileExport::exportModifiedDatToDatDesktop(
 
     outFile.close();
 
-    if (progress)
-    {
-        progress->setValue(95);
-        QApplication::processEvents();
-    }
-
-    if (savedPath)
-        *savedPath = newFilePath;
-
     return true;
 }
 
- bool FileExport::exportModifiedDatToCsvDesktop(
+bool FileExport::saveCsv(
     const QStringList& lines,
     const QString& filePath,
     QString* error
@@ -146,7 +103,9 @@ bool FileExport::exportModifiedDatToDatDesktop(
 
     if (!csvFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        if (error) *error = "Nie mo¿na zapisaæ pliku CSV.";
+        if (error)
+            *error = "Nie moÅ¼na zapisaÄ‡ pliku CSV.";
+
         return false;
     }
 
@@ -160,7 +119,6 @@ bool FileExport::exportModifiedDatToDatDesktop(
         for (int i = 0; i < columns.size(); ++i)
         {
             QString value = columns[i];
-
             value.replace("\"", "\"\"");
 
             out << "\"" << value << "\"";
@@ -173,40 +131,6 @@ bool FileExport::exportModifiedDatToDatDesktop(
     }
 
     csvFile.close();
+
     return true;
 }
-
-
- // FUNKCJA NIE GOTOWA DO EKSPORTU DO EXCELA
- // 
- // 
- //bool FileExport::exportModifiedDatToXlsDesktop(
- //    const QStringList& lines,
- //    const QString& filePath,
- //    QString* error
- //)
- //{
- //    QXlsx::Document xlsx;
-
- //    int row = 1;
-
- //    for (const QString& line : lines)
- //    {
- //        QStringList columns = line.split('|', Qt::KeepEmptyParts);
-
- //        for (int col = 0; col < columns.size(); ++col)
- //        {
- //            xlsx.write(row, col + 1, columns[col]);
- //        }
-
- //        row++;
- //    }
-
- //    if (!xlsx.saveAs(filePath))
- //    {
- //        if (error) *error = "Nie mo¿na zapisaæ pliku XLSX.";
- //        return false;
- //    }
-
- //    return true;
- //}

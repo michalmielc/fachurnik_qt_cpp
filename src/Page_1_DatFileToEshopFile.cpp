@@ -7,6 +7,7 @@
 #include <qmessagebox.h>
 #include "FileExport.h"
 #include <qstandardpaths.h>
+#include "ui_Fachurnik_C.h"
 #include <QDateTime>
 
 
@@ -18,7 +19,8 @@ void Page_1_DatFileToEshopFile::initialize()
         ui.pageMenu);
 
     ComboBoxHelper::loadCatalogNo(ui.comBoxCatalogNo);
-    ComboBoxHelper::loadCurrencies(ui.comBoxCurrency);
+    ComboBoxHelper::loadCurrencies(ui.comBoxCurrencyHeader);
+    ComboBoxHelper::loadCurrencies(ui.comBoxCurrencyLines);
     ComboBoxHelper::loadDiscountGrp(ui.comBoxDiscountG);
     ComboBoxHelper::loadSalesRep(ui.comBoxSalesRep);
 
@@ -38,12 +40,20 @@ void Page_1_DatFileToEshopFile::initialize()
         [this]()
         {
             ui.lineEditExchangeRate->setText("1,00");
+        
+                ui.radBtnEUR->setStyleSheet("background-color: yellow;");
+        
+                ui.radBtnPLN->setStyleSheet("");
         });
 
     QObject::connect(ui.radBtnPLN, &QRadioButton::clicked,
       [this]()
         {
             ui.lineEditExchangeRate->setText("1,00");
+
+            ui.radBtnEUR->setStyleSheet("");
+
+            ui.radBtnPLN->setStyleSheet("background-color: yellow;");
         });
 
     QDoubleValidator* validator = new QDoubleValidator(0.0, 9999.9999, 4);
@@ -122,23 +132,11 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
     progress.setValue(100);
     QApplication::processEvents();
 
-    if (differentCurrency)
-    {
-        ui.lblControlCurrency->setText("Warning: Different currencies have been detected in the item lines.");
-        ui.lblControlCurrency->setStyleSheet("color: red; font-weight: bold;");
-        ui.lblControlCurrency->show();
 
-        QMessageBox::critical(
-            nullptr,
-            "ERROR!",
-            "DIFFERENT CURRENCIES DETECTED IN THE FILE"
-        );
-    }
-    else
-    {
-        ui.lblControlCurrency->clear();
-        ui.lblControlCurrency->hide();
-    }
+    setLabelCurrencyLine(differentCurrency);
+
+    setComboByText(ui.comBoxCurrencyLines, currentFileData.header.currencyInLine, false);
+    
 
     QMessageBox::information(
         nullptr,
@@ -200,6 +198,30 @@ void Page_1_DatFileToEshopFile::setLabel(QLabel* label, const QString& text, con
     label->setStyleSheet("color: " + color + ";");
 }
 
+void Page_1_DatFileToEshopFile::setLabelCurrencyLine(bool value)
+{
+    if (value)
+    {
+        ui.lblControlCurrency->clear();
+        ui.lblControlCurrency->setText("Warning: Different currencies have been detected in the item lines.");
+        ui.lblControlCurrency->setStyleSheet("color: red; font-weight: bold;");
+        ui.lblControlCurrency->show();
+
+        QMessageBox::critical(
+            nullptr,
+            "ERROR!",
+            "DIFFERENT CURRENCIES DETECTED IN THE FILE"
+        );
+    }
+    else
+    {
+        ui.lblControlCurrency->clear();
+        ui.lblControlCurrency->setText("All lines have the same currency");
+        ui.lblControlCurrency->setStyleSheet("color: green; font-weight: bold;");
+        ui.lblControlCurrency->show();
+    }
+}
+
 //FUNCTIONALITIES
 //-------------------------------------------------------------------
 // READ DATA TO UI FROM FILE
@@ -220,24 +242,29 @@ void Page_1_DatFileToEshopFile::loadHeaderToUi(const HeaderData& header)
     ui.lineEditDateTo->setText(header.dateTo);
 
     //OTHERS
-    setComboByText(ui.comBoxCurrency, header.currency, false);
+    setComboByText(ui.comBoxCurrencyHeader, header.currency, false);
+    ui.comBoxCurrencyHeader->setEnabled(false);
+    ui.comBoxCurrencyLines->setEnabled(false);
+    //
     setComboByText(ui.comBoxDiscountG, header.discountGrp, false);
     setComboByText(ui.comBoxSalesRep, header.salesRep, true);
     setCheckBoxValue(ui.checkBoxAlloySurcharge, header.alloySurcharge);
     setCheckBoxValue(ui.checkBoxSpecialOffers, header.specialOffers);
+
     // checkbox GERMAN CATALOG NOT ACTIVE!!!!
 }
 
 // CONTROL CURRENCY
 bool Page_1_DatFileToEshopFile::hasDifferentCurrencyInLines(
-    const FileData& data,
+     FileData& data,
     FileProcessingProgress* progress
 )
 {
-    QString headerCurrency = data.header.currency.trimmed();
+
+    QString firstCurrency;
+
 
     QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
-
     int total = lines.size();
 
     for (int i = 0; i < lines.size(); ++i)
@@ -260,12 +287,25 @@ bool Page_1_DatFileToEshopFile::hasDifferentCurrencyInLines(
 
         QString lineCurrency = p[6].trimmed();
 
-        if (!lineCurrency.isEmpty() &&
-            lineCurrency != headerCurrency)
+        if (lineCurrency.isEmpty())
+            continue;
+
+        // pierwsza waluta z pierwszej poprawnej linii L|
+        if (firstCurrency.isEmpty())
         {
+            firstCurrency = lineCurrency;
+            continue;
+        }
+
+        // jeœli kolejna waluta jest inna
+        if (lineCurrency != firstCurrency)
+        {
+            data.header.currencyInLine = "MIXED EUR/PLN";
             return true;
         }
     }
+
+    data.header.currencyInLine = firstCurrency;
 
     return false;
 };
@@ -282,7 +322,9 @@ QString Page_1_DatFileToEshopFile::buildHeaderLineFromUi(const QString& original
     h[1] = ui.lineEditCustomerNo->text();
     h[3] = "02";
     h[4] = "02";
-    h[5] = ui.comBoxCurrency->currentText();
+    // do poprawy
+    h[5] = ui.comBoxCurrencyHeader->currentText();
+    /////////////
     h[7] = ui.lineEditDateFrom->text();
     h[8] = ui.lineEditDateTo->text();
     h[16] = "E-SHOP_EXP_API";
@@ -305,20 +347,14 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
     progress.setLabelText("Trwa eksport pliku...");
     progress.show();
 
-
-
-    QString targetCurrency = ui.comBoxCurrency->currentText();
+    //DO POPRAWY
+    QString targetCurrency = ui.comBoxCurrencyHeader->currentText();
 
     if (ui.radBtnEUR->isChecked())
-    {
         targetCurrency = "EUR";
-    }
 
     if (ui.radBtnPLN->isChecked())
-    {
         targetCurrency = "PLN";
-    }
-
 
     double exchangeRate = ui.lineEditExchangeRate->text()
         .replace(",", ".")
@@ -328,42 +364,58 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
 
     QString headerLine = buildHeaderLineFromUi(data.header.headerLine);
 
-    QString savedPath;
-    QString error;
-
-
-    bool ok = FileExport::exportModifiedDatToDatDesktop(
+    QStringList modifiedLines = FileExport::buildModifiedLines(
         data,
         headerLine,
         targetCurrency,
         exchangeRate,
-        customerNo,
-        &progress,
-        &savedPath,
+        &progress
+    );
+
+    QString timestamp =
+        QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss");
+
+    QString desktopPath =
+        QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+
+    QString datPath =
+        desktopPath
+        + QDir::separator()
+        + "fachurnik_newfile_"
+        + timestamp
+        + "_"
+        + customerNo
+        + ".dat";
+
+    QString savedPath = datPath;
+    QString error;
+
+    bool ok = FileExport::saveDat(
+        modifiedLines,
+        datPath,
         &error
     );
 
+    if (!ok)
+    {
+        progress.finish();
+        QMessageBox::warning(nullptr, "B³¹d", error);
+        return;
+    }
+
     if (ui.checkBoxExportToCsv->isChecked())
     {
-
-        QString timestamp =
-            QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss");
-
-        QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
-        lines[0] = headerLine;
-
-        QString desktopPath =
-            QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
-
         QString csvPath =
             desktopPath
             + QDir::separator()
-            + "fachurnik_newfile_" + timestamp + "_"
+            + "fachurnik_newfile_"
+            + timestamp
+            + "_"
             + customerNo
             + ".csv";
 
-        bool csvOk = FileExport::exportModifiedDatToCsvDesktop(
-            lines,
+        bool csvOk = FileExport::saveCsv(
+            modifiedLines,
             csvPath,
             &error
         );
@@ -378,13 +430,9 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
         savedPath += "\n" + csvPath;
     }
 
+    progress.setValue(100);
+    QApplication::processEvents();
     progress.finish();
-
-    if (!ok)
-    {
-        QMessageBox::warning(nullptr, "B³¹d", error);
-        return;
-    }
 
     QMessageBox::information(nullptr, "OK", "Zapisano:\n" + savedPath);
 }
