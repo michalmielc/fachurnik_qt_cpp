@@ -322,9 +322,18 @@ QString Page_1_DatFileToEshopFile::buildHeaderLineFromUi(const QString& original
     h[1] = ui.lineEditCustomerNo->text();
     h[3] = "02";
     h[4] = "02";
-    // do poprawy
-    h[5] = ui.comBoxCurrencyHeader->currentText();
-    /////////////
+ 
+    if (ui.radBtnEUR->isChecked())
+    {
+        h[5] = "EUR";
+    }
+
+    else if (ui.radBtnPLN->isChecked())
+    {
+        h[5] = "PLN";
+    }
+
+
     h[7] = ui.lineEditDateFrom->text();
     h[8] = ui.lineEditDateTo->text();
     h[16] = "E-SHOP_EXP_API";

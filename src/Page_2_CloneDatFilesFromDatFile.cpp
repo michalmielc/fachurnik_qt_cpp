@@ -308,9 +308,9 @@ QString Page_2_CloneDatFilesFromDatFile::buildHeaderLineFromUi(const QString& or
     h[1] = ui.lineEditCustomerNo->text();
     h[3] = "02";
     h[4] = "02";
-    // do poprawy
+
     h[5] = ui.comBoxCurrencyHeader->currentText();
-    /////////////
+
     h[7] = ui.lineEditDateFrom->text();
     h[8] = ui.lineEditDateTo->text();
     h[16] = "E-SHOP_EXP_API";
