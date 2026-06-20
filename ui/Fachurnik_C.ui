@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Fachurnik_C++ ver 1.0</string>
+   <string>Fachurnik_C++ ver 1.1</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -837,7 +837,7 @@ font: 700 11pt &quot;Arial&quot;;</string>
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="label_21">
         <property name="geometry">
          <rect>
           <x>600</x>
@@ -946,7 +946,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string>LINES IN FILES:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btnOpenFile_3">
+       <widget class="QPushButton" name="btnOpenFile_21">
         <property name="geometry">
          <rect>
           <x>600</x>
@@ -969,7 +969,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string>OPEN FILE</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lblFilePath_3">
+       <widget class="QLabel" name="lblFilePath_21">
         <property name="geometry">
          <rect>
           <x>610</x>
@@ -988,7 +988,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string>PATH:</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lblFileName_3">
+       <widget class="QLabel" name="lblFileName_21">
         <property name="geometry">
          <rect>
           <x>610</x>
@@ -1007,7 +1007,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string>FILE:</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lblFileCountLines_3">
+       <widget class="QLabel" name="lblFileCountLines_21">
         <property name="geometry">
          <rect>
           <x>610</x>
@@ -1559,14 +1559,15 @@ QRadioButton:disabled {
          <rect>
           <x>0</x>
           <y>10</y>
-          <width>331</width>
-          <height>341</height>
+          <width>381</width>
+          <height>431</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
+          <family>Bahnschrift</family>
+          <pointsize>14</pointsize>
+          <bold>true</bold>
          </font>
         </property>
         <property name="styleSheet">

@@ -31,7 +31,11 @@ private:
     void loadHeaderToUi(const HeaderData& header);
     void setComboByText(QComboBox* comboBox, const QString& text, bool startsWith);
     bool hasDifferentCurrencyInLines(FileData& data, FileProcessingProgress* progress);
-    QString buildHeaderLineFromUi(const QString& originalHeaderLine);
+    QString buildHeaderLineFromUi(
+        const QString& originalHeaderLine,
+        const QString& customerNo,
+        const QString& salesRepNo
+    );
     void saveClonedFilesToDesktop(const FileData& data);
     void setLabelCurrencyLine(bool value);
     Ui::Fachurnik_CClass& ui;

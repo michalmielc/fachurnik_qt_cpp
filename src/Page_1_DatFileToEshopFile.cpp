@@ -356,7 +356,6 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
     progress.setLabelText("Trwa eksport pliku...");
     progress.show();
 
-    //DO POPRAWY
     QString targetCurrency = ui.comBoxCurrencyHeader->currentText();
 
     if (ui.radBtnEUR->isChecked())
