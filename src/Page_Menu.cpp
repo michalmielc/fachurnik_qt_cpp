@@ -70,6 +70,9 @@ void Page_Menu::onMenuDoubleClicked(QTreeWidgetItem* item, int column)
 
     if (text == "create eshop files to E-SHOP")
         ui.stackedWidget->setCurrentWidget(ui.pageCloneFilesEshopToEshop);
+
+    if (text == "create file to BMECat")
+        ui.stackedWidget->setCurrentWidget(ui.pageDatToBmeCat);
 }
 
 void Page_Menu::onMenuClicked(QTreeWidgetItem* item, int column)
@@ -90,5 +93,14 @@ Podczas wczytywanie program wykryje, jeśli w pliku sa różne waluty.)");
     {
         ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji sklonujesz
 pliki na bazie jednego pliku z konkretną grupą rabatową)");
+    }
+
+    if (text == "create file to BMECat")
+    {
+        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji utworzysz plik CSV do BMECAT, 
+zmodyfikujesz walutę, nr katalogu, kurs, dodatki etc.
+Format do wczytania: dat.
+Format wyjściowy: csv z zapisem do pulpitu.
+Podczas wczytywanie program wykryje, jeśli w pliku sa różne waluty.)");
     }
 }

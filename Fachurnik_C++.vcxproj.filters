@@ -61,6 +61,12 @@
     <ClCompile Include="src\Page_2_CloneDatFilesFromDatFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Page_3_CsvToEshop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Page_4_DatFileToBmeCat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Fachurnik_C.h">
@@ -99,6 +105,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Page_2_CloneDatFilesFromDatFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Page_3_CsvToEshop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Page_4_DatFileToBmeCat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
