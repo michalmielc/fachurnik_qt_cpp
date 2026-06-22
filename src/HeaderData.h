@@ -17,4 +17,5 @@ struct HeaderData
     QString distrChannel;
     QString exchangeRate;
     QString currencyInLine;  //EUR/PLN/ EUR/PLN-ERROR
+    QString headerLineBmeCat; //nag³ówek bmecat
 };

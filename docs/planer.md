@@ -94,36 +94,35 @@ CAŁOŚĆ NA NOWO
 
 PAGE DAT FILE TO BMECAT
 - [ ] CONTROLS  
-- [] Btn back to menu 
-- [] OPEN FILE menu 
-- [] Lbl ścieżka pliku IN
-- [] Lbl nazwa pliku IN
-- [] Lbl liczba linii IN
-- [] RadioBtn kan dystrybucji IN/OUT
-- [] LEdit nr klienta IN/OUT
-- [] LEdit data od do  IN/OUT
-- [] LEdit nr katalogu IN/OUT
-- [] LEdit waluta IN/OUT
-- [] LEdit gr rabatowa IN/OUT
-- [] LEdit sales rep IN/OUT
-- [] ChBox dodatek stop IN/OUT
-- [] ChBox oferta specjalna IN/OUT
-- [] ChBox katalog niemiecki( nie działa)
-- [] RadioBtn waluta EUR i PLN IN/OUT
-- [] LEdit kurs IN/OUT
-- [] Btn Export csv OUT
-- [] Btn Export dat OUT
+- [x] Btn back to menu 
+- [x] OPEN FILE menu 
+- [x] Lbl ścieżka pliku IN
+- [x] Lbl nazwa pliku IN
+- [x] Lbl liczba linii IN
+- [x] RadioBtn kan dystrybucji IN/OUT
+- [x] LEdit nr klienta IN/OUT
+- [x] LEdit data od do  IN/OUT
+- [x] LEdit nr katalogu IN/OUT
+- [x] LEdit waluta IN/OUT
+- [x] LEdit gr rabatowa IN/OUT
+- [x] LEdit sales rep IN/OUT
+- [x] ChBox dodatek stop IN/OUT
+- [x] ChBox oferta specjalna IN/OUT
+- [x] ChBox katalog niemiecki( nie działa)
+- [x] RadioBtn waluta EUR i PLN IN/OUT
+- [x] LEdit kurs IN/OUT
+- [x] Btn Export csv OUT
 
-- [] Wczytanie nazwy pliku i �cie�ki 
-- [] Progress bar wczytywania
-- [] Wczytywanie nag��wka
-- [] Konstrukcja nag��wka
-- [] Walidacja pliku/ wielowalutowo��
-- [] Zapis na pulpit jako DAT
-- [] Zapis na pulpit jako CSV
+- [x] Wczytanie nazwy pliku i �cie�ki 
+- [x] Progress bar wczytywania
+- [x] Wczytywanie nag��wka
+- [x] Konstrukcja nag��wka
+- [x] Walidacja pliku/ wielowalutowo��
+- [x] Zapis na pulpit jako CSV
 
 ----------------------------------------------
 POPRAWIĆ 
+ZAPIS DO CSV AMOUNT W FORMACIE Z KROPKĄ
 PROGERSS BAR WCZYTYWANIE - TRWA WCZYTYWANIE
 PROGRESS BAR - WALIDACJA WALUTY/
 ----------------------------------------------

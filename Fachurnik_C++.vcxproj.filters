@@ -126,5 +126,6 @@
   <ItemGroup>
     <None Include="docs\templates\cennik_01_.dat" />
     <None Include="docs\templates\customer_list.csv" />
+    <None Include="docs\templates\bmecat.csv" />
   </ItemGroup>
 </Project>

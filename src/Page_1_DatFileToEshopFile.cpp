@@ -372,7 +372,7 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
 
     QString headerLine = buildHeaderLineFromUi(data.header.headerLine);
 
-    QStringList modifiedLines = FileExport::buildModifiedLines(
+    QStringList modifiedLines = FileExport::buildDatModifiedLines(
         data,
         headerLine,
         targetCurrency,

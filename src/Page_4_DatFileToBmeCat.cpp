@@ -1,4 +1,4 @@
-#include"Page_1_DatFileToEshopFile.h"
+#include"Page_4_DatFileToBmeCat.h"
 #include"OpenFileDialog.h"
 #include <QFileDialog>
 #include <QDoubleValidator>
@@ -11,21 +11,21 @@
 #include <QDateTime>
 
 
-void Page_1_DatFileToEshopFile::initialize()
+void Page_4_DatFileToBmeCat::initialize()
 {
     BtnBackToMenu::backToMenu(
-        ui.btnBackToHome1,
+        ui.btnBackToHome_4,
         ui.stackedWidget,
         ui.pageMenu);
 
-    ComboBoxHelper::loadCatalogNo(ui.comBoxCatalogNo);
-    ComboBoxHelper::loadCurrencies(ui.comBoxCurrencyHeader);
-    ComboBoxHelper::loadCurrencies(ui.comBoxCurrencyLines);
-    ComboBoxHelper::loadDiscountGrp(ui.comBoxDiscountG);
-    ComboBoxHelper::loadSalesRep(ui.comBoxSalesRep);
+    ComboBoxHelper::loadCatalogNo(ui.comBoxCatalogNo_4);
+    ComboBoxHelper::loadCurrencies(ui.comBoxCurrencyHeader_4);
+    ComboBoxHelper::loadCurrencies(ui.comBoxCurrencyLines_4);
+    ComboBoxHelper::loadDiscountGrp(ui.comBoxDiscountG_4);
+    ComboBoxHelper::loadSalesRep(ui.comBoxSalesRep_4);
 
     QObject::connect(
-        ui.btnOpenFile,
+        ui.btnOpenFile_4,
         &QPushButton::clicked,
         [this]()
         {
@@ -36,44 +36,44 @@ void Page_1_DatFileToEshopFile::initialize()
     hideShowGrpBox(false);
 
 
-    QObject::connect(ui.radBtnEUR, &QRadioButton::clicked,
+    QObject::connect(ui.radBtnEUR_4, &QRadioButton::clicked,
         [this]()
         {
-            ui.lineEditExchangeRate->setText("1,00");
+            ui.lineEditExchangeRate_4->setText("1,00");
 
-            ui.radBtnEUR->setStyleSheet("background-color: yellow;");
+            ui.radBtnEUR_4->setStyleSheet("background-color: yellow;");
 
-            ui.radBtnPLN->setStyleSheet("");
+            ui.radBtnPLN_4->setStyleSheet("");
         });
 
-    QObject::connect(ui.radBtnPLN, &QRadioButton::clicked,
+    QObject::connect(ui.radBtnPLN_4, &QRadioButton::clicked,
         [this]()
         {
-            ui.lineEditExchangeRate->setText("1,00");
+            ui.lineEditExchangeRate_4->setText("1,00");
 
-            ui.radBtnEUR->setStyleSheet("");
+            ui.radBtnEUR_4->setStyleSheet("");
 
-            ui.radBtnPLN->setStyleSheet("background-color: yellow;");
+            ui.radBtnPLN_4->setStyleSheet("background-color: yellow;");
         });
 
     QDoubleValidator* validator = new QDoubleValidator(0.0, 9999.9999, 4);
 
     validator->setNotation(QDoubleValidator::StandardNotation);
 
-    ui.lineEditExchangeRate->setValidator(validator);
+    ui.lineEditExchangeRate_4->setValidator(validator);
 
 
-    QObject::connect(ui.pushBtnExport, &QPushButton::clicked,
+    QObject::connect(ui.pushBtnExport_4, &QPushButton::clicked,
         [this]()
         {
             saveModifiedFileToDesktop(currentFileData);
         });
 
-    ui.radBtnEUR->setChecked(true);
+    ui.radBtnEUR_4->setChecked(true);
 
 };
 
-void Page_1_DatFileToEshopFile::onChooseFileClicked()
+void Page_4_DatFileToBmeCat::onChooseFileClicked()
 {
 
     QString path = OpenFileDialog::openFile(
@@ -84,9 +84,9 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
 
     if (path.isEmpty())
     {
-        setLabel(ui.lblFilePath, "Nie wybrano pliku", "red");
-        setLabel(ui.lblFileName, "Brak pliku", "red");
-        setLabel(ui.lblFileCountLines, "", "red");
+        setLabel(ui.lblFilePath_4, "Nie wybrano pliku", "red");
+        setLabel(ui.lblFileName_4, "Brak pliku", "red");
+        setLabel(ui.lblFileCountLines_4, "", "red");
 
         hideShowGrpBox(false);
 
@@ -105,8 +105,8 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
         }
     );
 
-    setLabel(ui.lblFilePath, "PATH: " + path, "blue");
-    setLabel(ui.lblFileName, "FILE: " + currentFileData.fileName, "blue");
+    setLabel(ui.lblFilePath_4, "PATH: " + path, "blue");
+    setLabel(ui.lblFileName_4, "FILE: " + currentFileData.fileName, "blue");
     setLabel(
         ui.lblFileCountLines,
         "ITEM LINES: " + QString::number(currentFileData.lineCount),
@@ -120,7 +120,7 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
     }
     else
     {
-        setLabel(ui.lblFileCountLines, "Brak nag³ówka H| w pliku", "red");
+        setLabel(ui.lblFileCountLines_4, "Brak nag³ówka H| w pliku", "red");
         hideShowGrpBox(false);
     }
 
@@ -135,7 +135,7 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
 
     setLabelCurrencyLine(differentCurrency);
 
-    setComboByText(ui.comBoxCurrencyLines, currentFileData.header.currencyInLine, false);
+    setComboByText(ui.comBoxCurrencyLines_4, currentFileData.header.currencyInLine, false);
 
 
     QMessageBox::information(
@@ -150,16 +150,16 @@ void Page_1_DatFileToEshopFile::onChooseFileClicked()
 
 // CONTROL BEHAVIOR -------------------------------------------------
 // SHOW/HIDE GRPBOX
-void Page_1_DatFileToEshopFile::hideShowGrpBox(bool b)
+void Page_4_DatFileToBmeCat::hideShowGrpBox(bool b)
 {
-    ui.groupBoxDCh->setVisible(b);
-    ui.groupBoxHeader->setVisible(b);
-    ui.groupBoxCurrEx->setVisible(b);
-    ui.groupBoxFileExp->setVisible(b);
+    ui.groupBoxDCh_4->setVisible(b);
+    ui.groupBoxHeader_4->setVisible(b);
+    ui.groupBoxCurrEx_4->setVisible(b);
+    ui.groupBoxFileExp_4->setVisible(b);
 }
 
 // SET COMOBOX AFTER READING HEADER
-void Page_1_DatFileToEshopFile::setComboByText(QComboBox* comboBox, const QString& text, bool startsWith)
+void Page_4_DatFileToBmeCat::setComboByText(QComboBox* comboBox, const QString& text, bool startsWith)
 {
     if (!startsWith)
     {
@@ -182,7 +182,7 @@ void Page_1_DatFileToEshopFile::setComboByText(QComboBox* comboBox, const QStrin
 }
 
 // SET CHECKBOX AFTER READING HEADER
-void Page_1_DatFileToEshopFile::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
+void Page_4_DatFileToBmeCat::setCheckBoxValue(QCheckBox* checkBox, const bool val) {
 
     if (val)
     {
@@ -192,20 +192,20 @@ void Page_1_DatFileToEshopFile::setCheckBoxValue(QCheckBox* checkBox, const bool
 
 // STYLE:------------------------------------------------------------
 // CUSTOMIZE LABEL COLOR
-void Page_1_DatFileToEshopFile::setLabel(QLabel* label, const QString& text, const QString& color)
+void Page_4_DatFileToBmeCat::setLabel(QLabel* label, const QString& text, const QString& color)
 {
     label->setText(text);
     label->setStyleSheet("color: " + color + ";");
 }
 
-void Page_1_DatFileToEshopFile::setLabelCurrencyLine(bool value)
+void Page_4_DatFileToBmeCat::setLabelCurrencyLine(bool value)
 {
     if (value)
     {
-        ui.lblControlCurrency->clear();
-        ui.lblControlCurrency->setText("Warning: Different currencies have been detected in the item lines.");
-        ui.lblControlCurrency->setStyleSheet("color: red; font-weight: bold; font-family:Bahnschrift; font-size: 11pt");
-        ui.lblControlCurrency->show();
+        ui.lblControlCurrency_4->clear();
+        ui.lblControlCurrency_4->setText("Warning: Different currencies have been detected in the item lines.");
+        ui.lblControlCurrency_4->setStyleSheet("color: red; font-weight: bold; font-family:Bahnschrift; font-size: 11pt");
+        ui.lblControlCurrency_4->show();
 
         QMessageBox::critical(
             nullptr,
@@ -215,47 +215,47 @@ void Page_1_DatFileToEshopFile::setLabelCurrencyLine(bool value)
     }
     else
     {
-        ui.lblControlCurrency->clear();
-        ui.lblControlCurrency->setText("All lines have the same currency");
-        ui.lblControlCurrency->setStyleSheet("color: green; font-weight: bold; font-family:Bahnschrift;font-size: 11pt ");
-        ui.lblControlCurrency->show();
+        ui.lblControlCurrency_4->clear();
+        ui.lblControlCurrency_4->setText("All lines have the same currency");
+        ui.lblControlCurrency_4->setStyleSheet("color: green; font-weight: bold; font-family:Bahnschrift;font-size: 11pt ");
+        ui.lblControlCurrency_4->show();
     }
 }
 
 //FUNCTIONALITIES
 //-------------------------------------------------------------------
 // READ DATA TO UI FROM FILE
-void Page_1_DatFileToEshopFile::loadHeaderToUi(const HeaderData& header)
+void Page_4_DatFileToBmeCat::loadHeaderToUi(const HeaderData& header)
 {
     //CUSTOMER NO
-    ui.lineEditCustomerNo->setText(header.customerNo);
+    ui.lineEditCustomerNo_4->setText(header.customerNo);
 
     //SELECT DIST CHANNEL
-    ui.radioButton1->setChecked(header.distrChannel == "01");
-    ui.radioButton2->setChecked(header.distrChannel == "02");
-    ui.radioButton3->setChecked(header.distrChannel == "03");
-    ui.radioButton4->setChecked(header.distrChannel == "04");
-    ui.groupBoxDCh->setEnabled(false);
+    ui.radioButton4_1->setChecked(header.distrChannel == "01");
+    ui.radioButton4_2->setChecked(header.distrChannel == "02");
+    ui.radioButton4_3->setChecked(header.distrChannel == "03");
+    ui.radioButton4_4->setChecked(header.distrChannel == "04");
+    ui.groupBoxDCh_4->setEnabled(false);
 
     //DATE FROM TO
-    ui.lineEditDateFrom->setText(header.dateFrom);
-    ui.lineEditDateTo->setText(header.dateTo);
+    ui.lineEditDateFrom_4->setText(header.dateFrom);
+    ui.lineEditDateTo_4->setText(header.dateTo);
 
     //OTHERS
-    setComboByText(ui.comBoxCurrencyHeader, header.currency, false);
-    ui.comBoxCurrencyHeader->setEnabled(false);
-    ui.comBoxCurrencyLines->setEnabled(false);
+    setComboByText(ui.comBoxCurrencyHeader_4, header.currency, false);
+    ui.comBoxCurrencyHeader_4->setEnabled(false);
+    ui.comBoxCurrencyLines_4->setEnabled(false);
     //
-    setComboByText(ui.comBoxDiscountG, header.discountGrp, false);
-    setComboByText(ui.comBoxSalesRep, header.salesRep, true);
-    setCheckBoxValue(ui.checkBoxAlloySurcharge, header.alloySurcharge);
-    setCheckBoxValue(ui.checkBoxSpecialOffers, header.specialOffers);
+    setComboByText(ui.comBoxDiscountG_4, header.discountGrp, false);
+    setComboByText(ui.comBoxSalesRep_4, header.salesRep, true);
+    setCheckBoxValue(ui.checkBoxAlloySurcharge_4, header.alloySurcharge);
+    setCheckBoxValue(ui.checkBoxSpecialOffers_4, header.specialOffers);
 
     // checkbox GERMAN CATALOG NOT ACTIVE!!!!
 }
 
 // CONTROL CURRENCY
-bool Page_1_DatFileToEshopFile::hasDifferentCurrencyInLines(
+bool Page_4_DatFileToBmeCat::hasDifferentCurrencyInLines(
     FileData& data,
     FileProcessingProgress* progress
 )
@@ -311,45 +311,31 @@ bool Page_1_DatFileToEshopFile::hasDifferentCurrencyInLines(
 };
 
 //EXPORT FUNCTIONALITIES:--------------------------------------------
-// DATA READING FROM CONTROLS
-QString Page_1_DatFileToEshopFile::buildHeaderLineFromUi(const QString& originalHeaderLine)
+// SET NEW HEADER
+QString Page_4_DatFileToBmeCat::buildHeaderLineFromUi(FileData& data)
 {
-    QStringList h = originalHeaderLine.split('|', Qt::KeepEmptyParts);
+    //SAVE CATALOG VALID FROM TO INTO VARIABLE
+    data.header.dateFrom = ui.lineEditDateFrom_4->text();
+    data.header.dateFrom.insert(4, '-');
+    data.header.dateFrom.insert(7, '-');
+    data.header.dateTo = ui.lineEditDateTo_4->text();
+    data.header.dateTo.insert(4, '-');
+    data.header.dateTo.insert(7, '-');
 
-    if (h.size() < 14)
-        return originalHeaderLine;
-
-    h[1] = ui.lineEditCustomerNo->text();
-    h[3] = "02";
-    h[4] = "02";
-
-    if (ui.radBtnEUR->isChecked())
-    {
-        h[5] = "EUR";
-    }
-
-    else if (ui.radBtnPLN->isChecked())
-    {
-        h[5] = "PLN";
-    }
-
-
-    h[7] = ui.lineEditDateFrom->text();
-    h[8] = ui.lineEditDateTo->text();
-    h[16] = "E-SHOP_EXP_API";
-    h[18] = ui.comBoxDiscountG->currentText();
-    h[19] = ui.checkBoxAlloySurcharge->isChecked() ? "X" : "";
-    h[20] = ui.checkBoxSpecialOffers->isChecked() ? "X" : "";
-    h[22] = "K" + ui.comBoxCatalogNo->currentText();
-    h[23] = "00" + ui.comBoxCatalogNo->currentText();
-    h[24] = ui.comBoxSalesRep->currentText().left(6);
-
-    return h.join('|');
+    //BMECAT HEADER 
+    QString h =
+        "article_no; date_from; date_to; price_type1; price_amount1;"
+        "price_currecy1; tax1; lower_bound1;" 
+        "price_type2; price_amount2; price_currecy2; tax2; lower_bound2;";
+    return h;
 }
 
 // EXPORT TO DESKTOP
-void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
+void Page_4_DatFileToBmeCat::saveModifiedFileToDesktop(const FileData& data)
 {
+    //na potrzeby nie modyikacji data
+    FileData exportData = data;
+    
     FileProcessingProgress progress;
 
     progress.setWindowTitle("Eksport pliku");
@@ -370,10 +356,10 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
 
     QString customerNo = ui.lineEditCustomerNo->text();
 
-    QString headerLine = buildHeaderLineFromUi(data.header.headerLine);
+    QString headerLine = buildHeaderLineFromUi(exportData);
 
-    QStringList modifiedLines = FileExport::buildModifiedLines(
-        data,
+    QStringList modifiedLines = FileExport::buildCsvModifiedLines(
+        exportData,
         headerLine,
         targetCurrency,
         exchangeRate,
@@ -395,33 +381,9 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
     QString desktopPath =
         QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 
-    QString datPath =
-        desktopPath
-        + QDir::separator()
-        + "fachurnik_newfile_"
-        + timestamp
-        + "_"
-        + customerNo
-        + ".dat";
-
-    QString savedPath = datPath;
     QString error;
 
-    bool ok = FileExport::saveDat(
-        modifiedLines,
-        datPath,
-        &error
-    );
 
-    if (!ok)
-    {
-        progress.finish();
-        QMessageBox::warning(nullptr, "B³¹d", error);
-        return;
-    }
-
-    if (ui.checkBoxExportToCsv->isChecked())
-    {
         QString csvPath =
             desktopPath
             + QDir::separator()
@@ -437,19 +399,10 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
             &error
         );
 
-        if (!csvOk)
-        {
-            progress.finish();
-            QMessageBox::warning(nullptr, "B³¹d CSV", error);
-            return;
-        }
-
-        savedPath += "\n" + csvPath;
-    }
 
     progress.setValue(100);
     QApplication::processEvents();
     progress.finish();
 
-    QMessageBox::information(nullptr, "OK", "Zapisano:\n" + savedPath);
+    QMessageBox::information(nullptr, "OK", "Zapisano:\n" + csvPath);
 }

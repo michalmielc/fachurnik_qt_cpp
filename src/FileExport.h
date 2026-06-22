@@ -9,7 +9,7 @@
 class FileExport
 {
 public:
-    static QStringList buildModifiedLines(
+    static QStringList buildDatModifiedLines(
         const FileData& data,
         const QString& headerLine,
         const QString& targetCurrency,
@@ -30,4 +30,12 @@ public:
     );
 
     static bool parseDatPrice(const QString& text, double& value);
+
+    static QStringList buildCsvModifiedLines(
+        const FileData& data,
+        const QString& headerLine,
+        const QString& targetCurrency,
+        double exchangeRate,
+        QProgressDialog* progress
+    );
 };

@@ -6,14 +6,14 @@
 #include "FileData.h"
 #include "FileProcessingProgress.h"
 
-class Page_1_DatFileToEshopFile
+class Page_4_DatFileToBmeCat
 {
 public:
-    explicit Page_1_DatFileToEshopFile(
+    explicit Page_4_DatFileToBmeCat(
         Ui::Fachurnik_CClass& ui)
         : ui(ui)
     {
-    }
+    };
 
     void initialize();
 
@@ -28,7 +28,7 @@ private:
     void loadHeaderToUi(const HeaderData& header);
     void setComboByText(QComboBox* comboBox, const QString& text, bool startsWith);
     bool hasDifferentCurrencyInLines(FileData& data, FileProcessingProgress* progress);
-    QString buildHeaderLineFromUi(const QString& originalHeaderLine);
+    QString buildHeaderLineFromUi(FileData& data);
     void saveModifiedFileToDesktop(const FileData& data);
     void setLabelCurrencyLine(bool value);
     Ui::Fachurnik_CClass& ui;

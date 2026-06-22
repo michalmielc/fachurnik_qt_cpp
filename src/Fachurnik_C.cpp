@@ -32,14 +32,14 @@ Fachurnik_C::Fachurnik_C(QWidget* parent)
 
     // INICJALIZACJA PAGE 3
 
-    page3 = new Page_3_CsvToEshop(ui);
-    page2->initialize();
+    //page3 = new Page_3_CsvToEshop(ui);
+   // page3->initialize();
 
 
     // INICJALIZACJA PAGE 4
 
     page4 = new Page_4_DatFileToBmeCat(ui);
-    page2->initialize();
+    page4->initialize();
 
 };
 

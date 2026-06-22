@@ -8,7 +8,7 @@
 
 
 
-QStringList FileExport::buildModifiedLines(
+QStringList FileExport::buildDatModifiedLines(
     const FileData& data,
     const QString& headerLine,
     const QString& targetCurrency,
@@ -95,6 +95,7 @@ bool FileExport::saveDat(
     return true;
 }
 
+
 bool FileExport::saveCsv(
     const QStringList& lines,
     const QString& filePath,
@@ -116,27 +117,13 @@ bool FileExport::saveCsv(
 
     for (const QString& line : lines)
     {
-        QStringList columns = line.split('|', Qt::KeepEmptyParts);
-
-        for (int i = 0; i < columns.size(); ++i)
-        {
-            QString value = columns[i];
-            value.replace("\"", "\"\"");
-
-            out << "\"" << value << "\"";
-
-            if (i < columns.size() - 1)
-                out << ";";
-        }
-
-        out << "\n";
+        out << line << "\n";
     }
 
     csvFile.close();
 
     return true;
 }
-
 
 bool FileExport::parseDatPrice(const QString& text, double& value)
 {
@@ -160,3 +147,95 @@ bool FileExport::parseDatPrice(const QString& text, double& value)
 
     return ok;
 };
+
+
+   
+QStringList FileExport::buildCsvModifiedLines(
+        const FileData & data,
+        const QString & headerLine,
+        const QString & targetCurrency,
+        double exchangeRate,
+        QProgressDialog * progress
+    )
+    {
+        QStringList sourceLines = data.content.split('\n', Qt::SkipEmptyParts);
+        QStringList outputLines;
+
+        outputLines << headerLine;
+
+        int total = sourceLines.size();
+
+        for (int i = 1; i < sourceLines.size(); ++i)
+        {
+            if (progress && total > 0)
+            {
+                progress->setValue((i * 80) / total);
+                QApplication::processEvents();
+            }
+
+            if (!sourceLines[i].startsWith("L|"))
+                continue;
+
+            QStringList p = sourceLines[i].split('|', Qt::KeepEmptyParts);
+
+            if (p.size() <= 15)
+                continue;
+
+            p[6] = targetCurrency;
+
+            double oldValuePrice1 = 0.0;
+            double oldValuePrice2 = 0.0;
+
+            bool ok1 = parseDatPrice(p[8], oldValuePrice1);
+            bool ok2 = parseDatPrice(p[9], oldValuePrice2);
+
+            if (!ok1 || !ok2)
+            {
+                QMessageBox::critical(
+                    nullptr,
+                    "OPERATION ABORTED!",
+                    QString("WRONG PRICE VALUE AT LINE: %1").arg(i + 1)
+                );
+                return {};
+            }
+
+            double newValuePrice1 = oldValuePrice1 * exchangeRate;
+            double newValuePrice2 = oldValuePrice2 * exchangeRate;
+
+            QString price1 = QString::number(newValuePrice1, 'f', 2);
+            QString price2 = QString::number(newValuePrice2, 'f', 2);
+
+            QString articleNo = p[2];
+
+            if (!p[3].trimmed().isEmpty())
+                articleNo += " " + p[3];
+
+            int lowerBound1 = static_cast<int>(p[14].toDouble());
+            int lowerBound2 = static_cast<int>(p[15].toDouble());
+
+            QStringList newLine;
+
+            newLine
+                << articleNo
+                << data.header.dateFrom
+                << data.header.dateTo
+                << "net_customer"
+                << price1
+                << p[6]
+                << "0.23"
+                << QString::number(lowerBound1);
+
+            if (newValuePrice2 != 0.0)
+            {
+                newLine
+                    << price2
+                    << p[6]
+                    << "0.23"
+                    << QString::number(lowerBound2);
+            }
+
+            outputLines << newLine.join(';');
+        }
+
+        return outputLines;
+    }

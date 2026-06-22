@@ -7,6 +7,8 @@
 class Page_Menu;
 class Page_1_DatFileToEshopFile;
 class Page_2_CloneDatFilesFromDatFile;
+class Page_3_CsvToEshop;
+class Page_4_DatFileToBmeCat;
 
 class Fachurnik_C : public QMainWindow
 {
@@ -24,5 +26,7 @@ private:
     Page_Menu* page0 = nullptr;
     Page_1_DatFileToEshopFile* page1 = nullptr;
     Page_2_CloneDatFilesFromDatFile* page2 = nullptr;
+    Page_3_CsvToEshop* page3 = nullptr;
+    Page_4_DatFileToBmeCat* page4 = nullptr;
 
 };
