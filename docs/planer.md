@@ -122,7 +122,6 @@ PAGE DAT FILE TO BMECAT
 
 ----------------------------------------------
 POPRAWIĆ 
-ZAPIS DO CSV AMOUNT W FORMACIE Z KROPKĄ
 PROGERSS BAR WCZYTYWANIE - TRWA WCZYTYWANIE
 PROGRESS BAR - WALIDACJA WALUTY/
 ----------------------------------------------
