@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pageDatFileToEshop">
        <widget class="QPushButton" name="btnOpenFile">
@@ -1729,7 +1729,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string notr="true">background-color: rgb(0, 170, 255);</string>
         </property>
         <property name="text">
-         <string>OPEN FILE</string>
+         <string>OPEN CSV FILE</string>
         </property>
        </widget>
        <widget class="QLabel" name="lblFilePath_21">
@@ -2320,7 +2320,7 @@ QRadioButton:disabled {
          <rect>
           <x>730</x>
           <y>50</y>
-          <width>421</width>
+          <width>441</width>
           <height>16</height>
          </rect>
         </property>
@@ -2345,7 +2345,926 @@ font: 700 10pt &quot;Arial&quot;;</string>
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page"/>
+      <widget class="QWidget" name="pageCsvToEshop">
+       <widget class="QGroupBox" name="groupBoxDCh_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>130</y>
+          <width>221</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QRadioButton {
+    background-color: transparent;
+}
+
+QRadioButton:checked {
+    background-color: lightskyblue ;
+}
+
+QRadioButton::indicator {
+    width: 13px;
+    height: 13px;
+    border-radius: 6px;
+    border: 1px solid gray;
+    background: white;
+}
+
+QRadioButton::indicator:checked {
+    background-color: blue;
+    border: 2px solid green;
+}
+
+QRadioButton::indicator:checked:disabled {
+    background-color: darkBlue;
+    border: 2px solid green;
+}
+
+QRadioButton:disabled {
+    color: black;
+}</string>
+        </property>
+        <property name="title">
+         <string>DISTR. CHANNEL</string>
+        </property>
+        <widget class="QRadioButton" name="radioButton2_3">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>40</y>
+           <width>41</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>02</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radioButton1_3">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>40</y>
+           <width>41</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>01</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radioButton3_3">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>40</y>
+           <width>51</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>03</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radioButton4_6">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>40</y>
+           <width>51</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>04</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxFileExp_3">
+        <property name="geometry">
+         <rect>
+          <x>750</x>
+          <y>390</y>
+          <width>301</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="title">
+         <string>EXPORT</string>
+        </property>
+        <widget class="QPushButton" name="pushBtnExport_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>161</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 170, 255);</string>
+         </property>
+         <property name="text">
+          <string>EXPORT</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBoxExportToCsv_2">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>80</y>
+           <width>231</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Create CSV copy on Desktop</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="btnOpenFile_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>33</y>
+          <width>121</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 170, 255);</string>
+        </property>
+        <property name="text">
+         <string>OPEN DAT FILE</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFileCountLines_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>110</y>
+          <width>251</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>LINES IN FILES:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnBackToHome1_2">
+        <property name="geometry">
+         <rect>
+          <x>-10</x>
+          <y>630</y>
+          <width>131</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 121, 123);</string>
+        </property>
+        <property name="text">
+         <string>BACK</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxCurrEx_2">
+        <property name="geometry">
+         <rect>
+          <x>750</x>
+          <y>190</y>
+          <width>351</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QRadioButton {
+    background-color: transparent;
+}
+
+QRadioButton:checked {
+    background-color: lightskyblue ;
+}
+
+QRadioButton::indicator {
+    width: 13px;
+    height: 13px;
+    border-radius: 6px;
+    border: 1px solid gray;
+    background: white;
+}
+
+QRadioButton::indicator:checked {
+    background-color: blue;
+    border: 2px solid green;
+}
+
+QRadioButton::indicator:checked:disabled {
+    background-color: darkBlue;
+    border: 2px solid green;
+}
+
+QRadioButton:disabled {
+    color: black;
+}</string>
+        </property>
+        <property name="title">
+         <string>CHANGE CURRENCY</string>
+        </property>
+        <widget class="QRadioButton" name="radBtnEUR_2">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>40</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>EUR</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radBtnPLN_2">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>40</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>PLN</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEditExchangeRate_2">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>90</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>1,00</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblExRate_2">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>90</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>EXCHANGE RATE:</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>321</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>11</pointsize>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: blue;
+font-weight: bold;
+font: 700 11pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="text">
+         <string>CREATE DAT FILE FROM CSV FILE</string>
+        </property>
+        <property name="style" stdset="0">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFilePath_3">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>50</y>
+          <width>841</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>PATH:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFileName_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>90</y>
+          <width>631</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>FILE:</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxHeader_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>250</y>
+          <width>711</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="title">
+         <string>HEADER</string>
+        </property>
+        <widget class="QLineEdit" name="lineEditDateTo_3">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>60</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCustomrNo_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>111</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>CUSTOMER NO:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblDateFromTo_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>111</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>DATE FROM TO:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEditDateFrom_3">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>60</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEditCustomerNo_3">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>30</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxSalesRep_3">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>230</y>
+           <width>351</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxCatalogNo_3">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>100</y>
+           <width>65</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCurrency_5">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>150</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>CURRENCY:</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxDiscountG_3">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>190</y>
+           <width>65</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblDiscountGrp_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>190</y>
+           <width>121</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>DISCOUNT GRP:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCatalogNo_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>110</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string>CATALOG NO:</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxCurrencyHeader_3">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>140</y>
+           <width>65</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblSalesResp_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>230</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>SALES RESP:</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBoxAlloySurcharge_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>270</y>
+           <width>171</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>ALLOY SURCHARGE</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBoxSpecialOffers_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>300</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>SPECIAL OFFERS</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chechBoxGermanCat_3">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>270</y>
+           <width>281</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(218, 218, 218);</string>
+         </property>
+         <property name="text">
+          <string>GERMAN CATALOG OPTION NOT ACTIVE!!!</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblControlCurrency_3">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>190</y>
+           <width>461</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCurrency_6">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>150</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>CURRENCY IN LINES:</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxCurrencyLines_3">
+         <property name="geometry">
+          <rect>
+           <x>460</x>
+           <y>140</y>
+           <width>211</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="lblFileCountLines_22">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>160</y>
+          <width>251</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>LINES IN FILES:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFilePath_22">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>100</y>
+          <width>841</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>PATH:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFileName_22">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>130</y>
+          <width>631</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>FILE:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnOpenFile_22">
+        <property name="geometry">
+         <rect>
+          <x>450</x>
+          <y>50</y>
+          <width>121</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 170, 255);</string>
+        </property>
+        <property name="text">
+         <string>OPEN CSV FILE</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_23">
+        <property name="geometry">
+         <rect>
+          <x>450</x>
+          <y>20</y>
+          <width>321</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: green;
+font-weight: bold;
+font: 700 10pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="text">
+         <string>LOAD CSV FILE PRICES </string>
+        </property>
+        <property name="style" stdset="0">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_24">
+        <property name="geometry">
+         <rect>
+          <x>580</x>
+          <y>50</y>
+          <width>441</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: green;
+font-weight: bold;
+font: 700 10pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="text">
+         <string>FILE MIGHT CONTAIN COLUMNS: ART NO PRICE 1 PRICE2</string>
+        </property>
+        <property name="style" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="pageMenu">
        <widget class="QTreeWidget" name="treeWidgetMenu">
         <property name="geometry">
@@ -2409,7 +3328,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
 font: 700 11pt &quot;Bahnschrift&quot;;</string>
         </property>
         <property name="text">
-         <string>version 1.3</string>
+         <string>version 1.3.1</string>
         </property>
        </widget>
       </widget>

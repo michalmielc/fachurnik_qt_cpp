@@ -10,6 +10,7 @@ Fachurnik_C::Fachurnik_C(QWidget* parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    this->centralWidget()->setStyleSheet("background-color: #f0f0f0;");
     //--------------------------------------------------
 
     ui.stackedWidget->setCurrentWidget(ui.pageMenu);

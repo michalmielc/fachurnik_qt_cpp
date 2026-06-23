@@ -90,6 +90,9 @@ KLONOWANIE - WYGENEROWANO 6 PLIKÓW NA PULPICIE
 #####################################################################################################
 Page3 CSV to eshop
 CAŁOŚĆ NA NOWO
+
+
+CSV - 3 KOLUMNY NR ART CENA1 CENA2  W BAZOWYM DAT SPRAWDZIĆ PO PDOMINAIE CEN CZY WGRA SIĘ DO ESHOPA
 #####################################################################################################
 
 PAGE DAT FILE TO BMECAT
@@ -124,6 +127,7 @@ PAGE DAT FILE TO BMECAT
 POPRAWIĆ 
 PROGERSS BAR WCZYTYWANIE - TRWA WCZYTYWANIE
 PROGRESS BAR - WALIDACJA WALUTY/
+NIE WCZYTUJE SIE KANAŁ☺ DYSTRYBUCJI NA KONTROLCE
 ----------------------------------------------
 
 
