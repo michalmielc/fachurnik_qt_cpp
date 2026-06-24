@@ -161,7 +161,8 @@ QStringList FileExport::buildCsvModifiedLines(
         QStringList sourceLines = data.content.split('\n', Qt::SkipEmptyParts);
         QStringList outputLines;
 
-        outputLines << headerLine;
+        //NEW HEADER:
+        outputLines << "articleNo;articleName;dateFrom;dateTo;pricetype;price1;currency1;tax1;price2;currency2;tax2;amount2";
 
         int total = sourceLines.size();
 
@@ -213,10 +214,13 @@ QStringList FileExport::buildCsvModifiedLines(
             int lowerBound1 = static_cast<int>(p[14].toDouble());
             int lowerBound2 = static_cast<int>(p[15].toDouble());
 
+            QString articleName = p[7];
+
             QStringList newLine;
 
             newLine
                 << articleNo
+                << articleName
                 << data.header.dateFrom
                 << data.header.dateTo
                 << "net_customer"

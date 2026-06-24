@@ -320,7 +320,7 @@ QString Page_1_DatFileToEshopFile::buildHeaderLineFromUi(const QString& original
         return originalHeaderLine;
 
     h[1] = ui.lineEditCustomerNo->text();
-    h[3] = "02";
+    h[3] = "01";
     h[4] = "02";
  
     if (ui.radBtnEUR->isChecked())
@@ -340,6 +340,7 @@ QString Page_1_DatFileToEshopFile::buildHeaderLineFromUi(const QString& original
     h[18] = ui.comBoxDiscountG->currentText();
     h[19] = ui.checkBoxAlloySurcharge->isChecked() ? "X" : "";
     h[20] = ui.checkBoxSpecialOffers->isChecked() ? "X" : "";
+    h[21] = ui.checkBoxAlloySurcharge->isChecked() ? "X" : "";
     h[22] = "K" + ui.comBoxCatalogNo->currentText();
     h[23] = "00" + ui.comBoxCatalogNo->currentText();
     h[24] = ui.comBoxSalesRep->currentText().left(6);
@@ -422,6 +423,35 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
 
     if (ui.checkBoxExportToCsv->isChecked())
     {
+
+        FileData exportData = data;
+
+        QStringList modifiedLines = FileExport::buildCsvModifiedLines(
+            exportData,
+            headerLine,
+            targetCurrency,
+            exchangeRate,
+            &progress
+        );
+
+        if (modifiedLines.isEmpty())
+        {
+            progress.finish();
+
+            QMessageBox::critical(nullptr, "OPERATION ABORTED!", QString("THE OUTPUT FILE WAS NOT CREATED"));
+
+            return;
+        }
+
+        QString timestamp =
+            QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss");
+
+        QString desktopPath =
+            QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+
+        QString error;
+
+
         QString csvPath =
             desktopPath
             + QDir::separator()
@@ -437,14 +467,12 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
             &error
         );
 
-        if (!csvOk)
-        {
-            progress.finish();
-            QMessageBox::warning(nullptr, "Błąd CSV", error);
-            return;
-        }
 
-        savedPath += "\n" + csvPath;
+        progress.setValue(100);
+        QApplication::processEvents();
+        progress.finish();
+
+        QMessageBox::information(nullptr, "OK", "Zapisano:\n" + csvPath);
     }
 
     progress.setValue(100);

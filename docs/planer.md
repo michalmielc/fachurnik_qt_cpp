@@ -37,12 +37,12 @@ PAGE FILE TO ESHOP
 - [x] Konstrukcja nag��wka
 - [x] Walidacja pliku/ wielowalutowo��
 - [x] Zapis na pulpit jako DAT
-- [x] Zapis na pulpit jako CSV
+- [] Zapis na pulpit jako CSV
 
 ----------------------------------------------
-POPRAWIĆ 
-PROGERSS BAR WCZYTYWANIE - TRWA WCZYTYWANIE
-PROGRESS BAR - WALIDACJA WALUTY/
+TO DO'S
+ZAPIS DO DAT ZE ŚREDNIKIEM nr art;nazwa;cena1;cena2;ilość1;ilość2;waluta
+
 ----------------------------------------------
 #####################################################################################################
 

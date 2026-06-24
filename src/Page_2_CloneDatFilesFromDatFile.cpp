@@ -370,6 +370,7 @@ QString Page_2_CloneDatFilesFromDatFile::buildHeaderLineFromUi(
     h[18] = ui.comBoxDiscountG_2->currentText();
     h[19] = ui.checkBoxAlloySurcharge_2->isChecked() ? "X" : "";
     h[20] = ui.checkBoxSpecialOffers_2->isChecked() ? "X" : "";
+    h[21] = ui.checkBoxAlloySurcharge->isChecked() ? "X" : "";
     h[22] = "K" + ui.comBoxCatalogNo_2->currentText();
     h[23] = "00" + ui.comBoxCatalogNo_2->currentText();
     h[24] = salesRepNo;     // 2 kolumna CSV

@@ -5,8 +5,8 @@
 FileProcessingProgress::FileProcessingProgress(QWidget* parent)
     : QProgressDialog(parent)
 {
-    setWindowTitle("Wczytywanie");
-    setLabelText("Trwa wczytywanie pliku...");
+    setWindowTitle("FILE PROCESSING");
+    setLabelText("FILE PROCESSING ...");
     setCancelButton(nullptr);
 
     setRange(0, 100);
