@@ -108,7 +108,7 @@ void Page_4_DatFileToBmeCat::onChooseFileClicked()
     setLabel(ui.lblFilePath_4, "PATH: " + path, "blue");
     setLabel(ui.lblFileName_4, "FILE: " + currentFileData.fileName, "blue");
     setLabel(
-        ui.lblFileCountLines,
+        ui.lblFileCountLines_4,
         "ITEM LINES: " + QString::number(currentFileData.lineCount),
         "blue"
     );
@@ -231,10 +231,10 @@ void Page_4_DatFileToBmeCat::loadHeaderToUi(const HeaderData& header)
     ui.lineEditCustomerNo_4->setText(header.customerNo);
 
     //SELECT DIST CHANNEL
-    ui.radioButton4_1->setChecked(header.distrChannel == "01");
-    ui.radioButton4_2->setChecked(header.distrChannel == "02");
-    ui.radioButton4_3->setChecked(header.distrChannel == "03");
-    ui.radioButton4_4->setChecked(header.distrChannel == "04");
+    ui.radioButton41->setChecked(header.distrChannel == "01");
+    ui.radioButton42->setChecked(header.distrChannel == "02");
+    ui.radioButton43->setChecked(header.distrChannel == "03");
+    ui.radioButton44->setChecked(header.distrChannel == "04");
     ui.groupBoxDCh_4->setEnabled(false);
 
     //DATE FROM TO
@@ -344,17 +344,17 @@ void Page_4_DatFileToBmeCat::saveModifiedFileToDesktop(const FileData& data)
 
     QString targetCurrency = ui.comBoxCurrencyHeader->currentText();
 
-    if (ui.radBtnEUR->isChecked())
+    if (ui.radBtnEUR_4->isChecked())
         targetCurrency = "EUR";
 
-    if (ui.radBtnPLN->isChecked())
+    if (ui.radBtnPLN_4->isChecked())
         targetCurrency = "PLN";
 
-    double exchangeRate = ui.lineEditExchangeRate->text()
+    double exchangeRate = ui.lineEditExchangeRate_4->text()
         .replace(",", ".")
         .toDouble();
 
-    QString customerNo = ui.lineEditCustomerNo->text();
+    QString customerNo = ui.lineEditCustomerNo_4->text();
 
     QString headerLine = buildHeaderLineFromUi(exportData);
 

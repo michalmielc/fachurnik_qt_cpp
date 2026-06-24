@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="font">
        <font>
@@ -835,7 +835,7 @@ font: 700 11pt &quot;Arial&quot;;</string>
         <property name="geometry">
          <rect>
           <x>770</x>
-          <y>420</y>
+          <y>490</y>
           <width>301</width>
           <height>131</height>
          </rect>
@@ -877,7 +877,7 @@ font: 700 11pt &quot;Arial&quot;;</string>
         <property name="geometry">
          <rect>
           <x>770</x>
-          <y>220</y>
+          <y>290</y>
           <width>351</width>
           <height>161</height>
          </rect>
@@ -1002,8 +1002,8 @@ QRadioButton:disabled {
        <widget class="QLabel" name="lblFileName_4">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>120</y>
+          <x>310</x>
+          <y>160</y>
           <width>631</width>
           <height>16</height>
          </rect>
@@ -1022,7 +1022,7 @@ QRadioButton:disabled {
         <property name="geometry">
          <rect>
           <x>40</x>
-          <y>160</y>
+          <y>170</y>
           <width>221</width>
           <height>91</height>
          </rect>
@@ -1067,7 +1067,7 @@ QRadioButton:disabled {
         <property name="title">
          <string>DISTR. CHANNEL</string>
         </property>
-        <widget class="QRadioButton" name="radioButton4_3">
+        <widget class="QRadioButton" name="radioButton42">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1092,7 +1092,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton4_1">
+        <widget class="QRadioButton" name="radioButton41">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1117,7 +1117,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton4_4">
+        <widget class="QRadioButton" name="radioButton43">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1142,7 +1142,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton4_5">
+        <widget class="QRadioButton" name="radioButton44">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1534,8 +1534,8 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFilePath_4">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>80</y>
+          <x>40</x>
+          <y>130</y>
           <width>841</width>
           <height>16</height>
          </rect>
@@ -1553,8 +1553,8 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFileCountLines_4">
         <property name="geometry">
          <rect>
-          <x>660</x>
-          <y>110</y>
+          <x>310</x>
+          <y>190</y>
           <width>251</width>
           <height>16</height>
          </rect>
@@ -1838,7 +1838,7 @@ QRadioButton:disabled {
         <property name="title">
          <string>DISTR. CHANNEL</string>
         </property>
-        <widget class="QRadioButton" name="radioButton2_2">
+        <widget class="QRadioButton" name="radioButton22">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1863,7 +1863,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton1_2">
+        <widget class="QRadioButton" name="radioButton21">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1888,7 +1888,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton3_2">
+        <widget class="QRadioButton" name="radioButton23">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1913,7 +1913,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton4_2">
+        <widget class="QRadioButton" name="radioButton24">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -2395,7 +2395,7 @@ QRadioButton:disabled {
         <property name="title">
          <string>DISTR. CHANNEL</string>
         </property>
-        <widget class="QRadioButton" name="radioButton2_3">
+        <widget class="QRadioButton" name="radioButton32">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -2420,7 +2420,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton1_3">
+        <widget class="QRadioButton" name="radioButton31">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -2445,7 +2445,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton3_3">
+        <widget class="QRadioButton" name="radioButton33">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -2470,7 +2470,7 @@ QRadioButton:disabled {
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton4_6">
+        <widget class="QRadioButton" name="radioButton34">
          <property name="enabled">
           <bool>true</bool>
          </property>

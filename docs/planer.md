@@ -37,11 +37,10 @@ PAGE FILE TO ESHOP
 - [x] Konstrukcja nag��wka
 - [x] Walidacja pliku/ wielowalutowo��
 - [x] Zapis na pulpit jako DAT
-- [] Zapis na pulpit jako CSV
+- [x] Zapis na pulpit jako CSV
 
 ----------------------------------------------
-TO DO'S
-ZAPIS DO DAT ZE ŚREDNIKIEM nr art;nazwa;cena1;cena2;ilość1;ilość2;waluta
+DONE
 
 ----------------------------------------------
 #####################################################################################################
@@ -81,11 +80,7 @@ PAGE CLONE FILES TO ESHOP
 - [x] Zapis na pulpit jako CSV
 
 ----------------------------------------------
-POPRAWIĆ 
-PROGERSS BAR WCZYTYWANIE - TRWA WCZYTYWANIE DAT I CSV
-PROGRESS BAR - WALIDACJA WALUTY/
-rozszerzyć etykiety napisy nachodzące na siebie
-KLONOWANIE - WYGENEROWANO 6 PLIKÓW NA PULPICIE
+done
 ----------------------------------------------
 #####################################################################################################
 Page3 CSV to eshop
@@ -95,7 +90,8 @@ CAŁOŚĆ NA NOWO
 CSV - 3 KOLUMNY NR ART CENA1 CENA2  W BAZOWYM DAT SPRAWDZIĆ PO PDOMINAIE CEN CZY WGRA SIĘ DO ESHOPA
 #####################################################################################################
 
-PAGE DAT FILE TO BMECAT
+PAGE 4 DAT FILE TO BMECAT
+
 - [ ] CONTROLS  
 - [x] Btn back to menu 
 - [x] OPEN FILE menu 

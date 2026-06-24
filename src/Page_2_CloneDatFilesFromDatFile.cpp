@@ -268,10 +268,10 @@ void Page_2_CloneDatFilesFromDatFile::loadHeaderToUi(const HeaderData& header)
     ui.lineEditCustomerNo_2->setText(header.customerNo);
 
     //SELECT DIST CHANNEL
-    ui.radioButton1_2->setChecked(header.distrChannel == "01");
-    ui.radioButton2_2->setChecked(header.distrChannel == "02");
-    ui.radioButton3_2->setChecked(header.distrChannel == "03");
-    ui.radioButton4_2->setChecked(header.distrChannel == "04");
+    ui.radioButton21->setChecked(header.distrChannel == "01");
+    ui.radioButton22->setChecked(header.distrChannel == "02");
+    ui.radioButton23->setChecked(header.distrChannel == "03");
+    ui.radioButton24->setChecked(header.distrChannel == "04");
     ui.groupBoxDCh_2->setEnabled(false);
 
     //DATE FROM TO
