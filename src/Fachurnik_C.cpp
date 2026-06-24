@@ -33,8 +33,8 @@ Fachurnik_C::Fachurnik_C(QWidget* parent)
 
     // INICJALIZACJA PAGE 3
 
-    //page3 = new Page_3_CsvToEshop(ui);
-   // page3->initialize();
+    page3 = new Page_3_CsvToEshop(ui);
+    page3->initialize();
 
 
     // INICJALIZACJA PAGE 4
