@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pageDatFileToEshop">
        <widget class="QPushButton" name="btnOpenFile">
@@ -1171,8 +1171,8 @@ QRadioButton:disabled {
        <widget class="QLabel" name="label_7">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>40</y>
+          <x>40</x>
+          <y>30</y>
           <width>321</width>
           <height>16</height>
          </rect>
@@ -1511,8 +1511,8 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QPushButton" name="btnOpenFile_4">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>63</y>
+          <x>40</x>
+          <y>60</y>
           <width>121</width>
           <height>41</height>
          </rect>
@@ -1605,7 +1605,7 @@ font: 700 11pt &quot;Arial&quot;;</string>
          <rect>
           <x>600</x>
           <y>20</y>
-          <width>321</width>
+          <width>441</width>
           <height>16</height>
          </rect>
         </property>
@@ -1623,7 +1623,7 @@ font-weight: bold;
 font: 700 10pt &quot;Arial&quot;;</string>
         </property>
         <property name="text">
-         <string>LOAD CSV FILE WITH CUTOMER NO AND GVL NO</string>
+         <string>LOAD CSV FILE WITH NO HEAEDERS</string>
         </property>
         <property name="style" stdset="0">
          <string/>
@@ -1735,8 +1735,8 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFilePath_21">
         <property name="geometry">
          <rect>
-          <x>610</x>
-          <y>100</y>
+          <x>590</x>
+          <y>140</y>
           <width>841</width>
           <height>16</height>
          </rect>
@@ -1754,8 +1754,8 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFileName_21">
         <property name="geometry">
          <rect>
-          <x>610</x>
-          <y>130</y>
+          <x>590</x>
+          <y>170</y>
           <width>631</width>
           <height>16</height>
          </rect>
@@ -1773,8 +1773,8 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFileCountLines_21">
         <property name="geometry">
          <rect>
-          <x>610</x>
-          <y>160</y>
+          <x>590</x>
+          <y>200</y>
           <width>251</width>
           <height>16</height>
          </rect>
@@ -2320,7 +2320,7 @@ QRadioButton:disabled {
          <rect>
           <x>730</x>
           <y>50</y>
-          <width>441</width>
+          <width>461</width>
           <height>16</height>
          </rect>
         </property>
@@ -3328,7 +3328,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
 font: 700 11pt &quot;Bahnschrift&quot;;</string>
         </property>
         <property name="text">
-         <string>version 1.3.1</string>
+         <string>version 1.4</string>
         </property>
        </widget>
       </widget>

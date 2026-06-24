@@ -361,7 +361,7 @@ QString Page_2_CloneDatFilesFromDatFile::buildHeaderLineFromUi(
         return originalHeaderLine;
 
     h[1] = customerNo;      // 1 kolumna CSV
-    h[3] = "02";
+    h[3] = "01";
     h[4] = "02";
     h[5] = ui.comBoxCurrencyHeader_2->currentText();
     h[7] = ui.lineEditDateFrom_2->text();
