@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pageDatFileToEshop">
        <widget class="QPushButton" name="btnOpenFile">
@@ -2500,7 +2500,7 @@ QRadioButton:disabled {
         <property name="geometry">
          <rect>
           <x>750</x>
-          <y>390</y>
+          <y>460</y>
           <width>301</width>
           <height>131</height>
          </rect>
@@ -2626,7 +2626,7 @@ QRadioButton:disabled {
         <property name="geometry">
          <rect>
           <x>750</x>
-          <y>190</y>
+          <y>270</y>
           <width>351</width>
           <height>161</height>
          </rect>
@@ -3129,8 +3129,8 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFileCountLines_22">
         <property name="geometry">
          <rect>
-          <x>460</x>
-          <y>160</y>
+          <x>520</x>
+          <y>200</y>
           <width>251</width>
           <height>16</height>
          </rect>
@@ -3148,8 +3148,8 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFilePath_22">
         <property name="geometry">
          <rect>
-          <x>460</x>
-          <y>100</y>
+          <x>520</x>
+          <y>150</y>
           <width>841</width>
           <height>16</height>
          </rect>
@@ -3167,8 +3167,8 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="lblFileName_22">
         <property name="geometry">
          <rect>
-          <x>460</x>
-          <y>130</y>
+          <x>520</x>
+          <y>180</y>
           <width>631</width>
           <height>16</height>
          </rect>
@@ -3186,8 +3186,8 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QPushButton" name="btnOpenFile_22">
         <property name="geometry">
          <rect>
-          <x>450</x>
-          <y>50</y>
+          <x>520</x>
+          <y>100</y>
           <width>121</width>
           <height>41</height>
          </rect>
@@ -3209,7 +3209,7 @@ font: 700 11pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="label_23">
         <property name="geometry">
          <rect>
-          <x>450</x>
+          <x>520</x>
           <y>20</y>
           <width>321</width>
           <height>16</height>
@@ -3238,7 +3238,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QLabel" name="label_24">
         <property name="geometry">
          <rect>
-          <x>580</x>
+          <x>520</x>
           <y>50</y>
           <width>441</width>
           <height>16</height>
@@ -3305,9 +3305,9 @@ font: 700 10pt &quot;Arial&quot;;</string>
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
+          <family>Bahnschrift</family>
+          <pointsize>12</pointsize>
+          <bold>false</bold>
          </font>
         </property>
         <property name="readOnly">
