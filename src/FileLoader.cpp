@@ -100,8 +100,8 @@ FileData FileLoader::loadDatFile(
     return data;
 }
 
-//READ CSV FIL CUTOIMER NO AND SALES REP
-QVector<QPair<QString, QString>> FileLoader::loadCsvFile(
+//READ CSV FILE CUTOIMER NO AND SALES REP
+QVector<QPair<QString, QString>> FileLoader::loadCsvFileCustomerList(
     const QString& path,
     std::function<void(int)> progressCallback)
 {
@@ -142,6 +142,52 @@ QVector<QPair<QString, QString>> FileLoader::loadCsvFile(
             progressCallback(progress);
         }
     }
+
+    return data;
+}
+
+//READ CSV FILE PRICELIST
+FileData FileLoader::loadCsvPriceFile(
+    const QString& path,
+    std::function<void(int)> progressCallback)
+{
+    FileData data;
+
+    data.lineCount = 0;
+    data.fullPath = path;
+
+    QFileInfo info(path);
+    data.fileName = info.fileName();
+    data.extension = info.suffix();
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return data;
+
+    qint64 fileSize = file.size();
+
+    QTextStream in(&file);
+    in.setEncoding(QStringConverter::Utf8);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+
+        data.content += line + "\n";
+        data.lineCount++;
+
+        if (progressCallback && fileSize > 0)
+        {
+            int progress = static_cast<int>(
+                (file.pos() * 100) / fileSize
+                );
+
+            progressCallback(progress);
+        }
+    }
+
+    file.close();
 
     return data;
 }

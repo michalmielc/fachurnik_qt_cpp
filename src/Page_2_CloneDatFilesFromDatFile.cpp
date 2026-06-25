@@ -76,7 +76,7 @@ void Page_2_CloneDatFilesFromDatFile::onChooseCsvFileClicked()
     FileProcessingProgress progress;
     progress.show();
 
-    currentCsvData = FileLoader::loadCsvFile(
+    currentCsvData = FileLoader::loadCsvFileCustomerList(
         path,
         [&](int value)
         {

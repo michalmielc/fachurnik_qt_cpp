@@ -148,7 +148,6 @@ bool FileExport::parseDatPrice(const QString& text, double& value)
     return ok;
 };
 
-
    
 QStringList FileExport::buildCsvModifiedLines(
         const FileData & data,
@@ -243,3 +242,115 @@ QStringList FileExport::buildCsvModifiedLines(
 
         return outputLines;
     }
+
+
+
+QStringList FileExport::buildDatModifiedLinesWithCsvPrices(
+    const FileData& data,
+    const FileData& dataCsv,
+    const QString& headerLine,
+    const QString& targetCurrency,
+    double exchangeRate,
+    QProgressDialog* progress
+)
+{
+    QHash<QString, CsvPriceData> priceMap = buildPriceMapFromCsv(dataCsv);
+
+    QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
+
+    if (!lines.isEmpty())
+        lines[0] = headerLine;
+
+    int total = lines.size();
+
+    for (int i = 1; i < lines.size(); ++i)
+    {
+        if (progress && total > 0)
+        {
+            progress->setValue((i * 80) / total);
+            QApplication::processEvents();
+        }
+
+        if (!lines[i].startsWith("L|"))
+            continue;
+
+        QStringList p = lines[i].split('|', Qt::KeepEmptyParts);
+
+        if (p.size() <= 9)
+            continue;
+
+        QString articleNo = p[2].trimmed();
+
+        if (!p[3].trimmed().isEmpty())
+            articleNo += " " + p[3].trimmed();
+
+        if (priceMap.contains(articleNo))
+        {
+            const CsvPriceData& csvPrice = priceMap[articleNo];
+
+            p[8] = csvPrice.price1;
+            p[9] = csvPrice.price2;
+        }
+
+        p[6] = targetCurrency;
+
+        double oldValuePrice1 = 0.0;
+        double oldValuePrice2 = 0.0;
+
+        bool ok1 = parseDatPrice(p[8], oldValuePrice1);
+        bool ok2 = parseDatPrice(p[9], oldValuePrice2);
+
+        if (!ok1 || !ok2)
+        {
+            QMessageBox::critical(
+                nullptr,
+                "OPERATION ABORTED!",
+                QString("WRONG PRICE VALUE AT LINE: %1").arg(i + 1)
+            );
+            return {};
+        }
+
+        double newValuePrice1 = oldValuePrice1 * exchangeRate;
+        double newValuePrice2 = oldValuePrice2 * exchangeRate;
+
+        p[8] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
+        p[9] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
+
+        lines[i] = p.join('|');
+    }
+
+    return lines;
+}
+
+QHash<QString, FileExport::CsvPriceData> FileExport::buildPriceMapFromCsv(
+    const FileData& dataCsv
+)
+{
+    QHash<QString, CsvPriceData> priceMap;
+
+    QStringList lines = dataCsv.content.split('\n', Qt::SkipEmptyParts);
+
+    for (int i = 1; i < lines.size(); ++i)
+    {
+        QString line = lines[i].trimmed();
+
+        if (line.isEmpty())
+            continue;
+
+        QStringList p = line.split(';', Qt::KeepEmptyParts);
+
+        if (p.size() < 3)
+            continue;
+
+        QString articleNo = p[0].trimmed();
+        QString price1 = p[1].trimmed();
+        QString price2 = p[2].trimmed();
+
+        if (articleNo.isEmpty())
+            continue;
+
+        priceMap.insert(articleNo, { price1, price2 });
+    }
+
+    return priceMap;
+}

@@ -32,6 +32,13 @@ void Page_3_CsvToEshop::initialize()
             onChooseFileClicked();
         });
 
+    QObject::connect(
+        ui.btnOpenFile_32,
+        &QPushButton::clicked,
+        [this]()
+        {
+            onChooseCsvFileClicked();
+        });
 
     hideShowGrpBox(false);
 
@@ -66,7 +73,7 @@ void Page_3_CsvToEshop::initialize()
     QObject::connect(ui.pushBtnExport_3, &QPushButton::clicked,
         [this]()
         {
-            saveModifiedFileToDesktop(currentFileData);
+            saveModifiedFileToDesktop(currentFileData, currentFileDataCSV);
         });
 
     ui.radBtnEUR_3->setChecked(true);
@@ -147,6 +154,61 @@ void Page_3_CsvToEshop::onChooseFileClicked()
     progress.finish();
 }
 
+//FUNCITONS READ CSV PRICE LIST
+void Page_3_CsvToEshop::onChooseCsvFileClicked()
+{
+
+    QString path = OpenFileDialog::openFile(
+        nullptr,
+        "Wybierz plik CSV",
+        "CSV Files (*.csv)"
+    );
+
+    if (path.isEmpty())
+    {
+        setLabel(ui.lblFilePath_31, "Nie wybrano pliku", "red");
+        setLabel(ui.lblFileName_31, "Brak pliku", "red");
+        setLabel(ui.lblFileCountLines_31, "", "red");
+
+        ui.groupBoxFileExp_3->setVisible(false);
+        return;
+    }
+
+    FileProcessingProgress progress;
+    progress.show();
+
+    currentFileDataCSV = FileLoader::loadCsvPriceFile(
+        path,
+        [&](int value)
+        {
+            progress.setValue(value);
+            QApplication::processEvents();
+        }
+    );
+
+    QFileInfo info(path);
+
+    setLabel(ui.lblFilePath_31, "PATH: " + path, "blue");
+    setLabel(ui.lblFileName_31, "FILE: " + info.fileName(), "blue");
+    setLabel(
+        ui.lblFileCountLines_31,
+        "ITEM LINES: " + QString::number(currentFileDataCSV.lineCount),
+        "blue"
+    );
+
+    progress.setValue(100);
+    QApplication::processEvents();
+
+    QMessageBox::information(
+        nullptr,
+        "CSV FILE",
+        "CSV file loaded successfully"
+    );
+
+    progress.finish();
+
+    ui.groupBoxFileExp_3->setVisible(true);
+}
 
 // CONTROL BEHAVIOR -------------------------------------------------
 // SHOW/HIDE GRPBOX
@@ -348,7 +410,10 @@ QString Page_3_CsvToEshop::buildHeaderLineFromUi(const QString& originalHeaderLi
 }
 
 // EXPORT TO DESKTOP
-void Page_3_CsvToEshop::saveModifiedFileToDesktop(const FileData& data)
+void Page_3_CsvToEshop::saveModifiedFileToDesktop(
+    const FileData& data,
+    const FileData& dataCsv
+)
 {
     FileProcessingProgress progress;
 
@@ -372,8 +437,9 @@ void Page_3_CsvToEshop::saveModifiedFileToDesktop(const FileData& data)
 
     QString headerLine = buildHeaderLineFromUi(data.header.headerLine);
 
-    QStringList modifiedLines = FileExport::buildDatModifiedLines(
+    QStringList modifiedLines = FileExport::buildDatModifiedLinesWithCsvPrices(
         data,
+        dataCsv,
         headerLine,
         targetCurrency,
         exchangeRate,
@@ -384,7 +450,11 @@ void Page_3_CsvToEshop::saveModifiedFileToDesktop(const FileData& data)
     {
         progress.finish();
 
-        QMessageBox::critical(nullptr, "OPERATION ABORTED!", QString("THE OUTPUT FILE WAS NOT CREATED"));
+        QMessageBox::critical(
+            nullptr,
+            "OPERATION ABORTED!",
+            QString("THE OUTPUT FILE WAS NOT CREATED")
+        );
 
         return;
     }
@@ -422,10 +492,9 @@ void Page_3_CsvToEshop::saveModifiedFileToDesktop(const FileData& data)
 
     if (ui.checkBoxExportToCsv->isChecked())
     {
-
         FileData exportData = data;
 
-        QStringList modifiedLines = FileExport::buildCsvModifiedLines(
+        QStringList modifiedCsvLines = FileExport::buildCsvModifiedLines(
             exportData,
             headerLine,
             targetCurrency,
@@ -433,23 +502,18 @@ void Page_3_CsvToEshop::saveModifiedFileToDesktop(const FileData& data)
             &progress
         );
 
-        if (modifiedLines.isEmpty())
+        if (modifiedCsvLines.isEmpty())
         {
             progress.finish();
 
-            QMessageBox::critical(nullptr, "OPERATION ABORTED!", QString("THE OUTPUT FILE WAS NOT CREATED"));
+            QMessageBox::critical(
+                nullptr,
+                "OPERATION ABORTED!",
+                QString("THE OUTPUT FILE WAS NOT CREATED")
+            );
 
             return;
         }
-
-        QString timestamp =
-            QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss");
-
-        QString desktopPath =
-            QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
-
-        QString error;
-
 
         QString csvPath =
             desktopPath
@@ -461,17 +525,19 @@ void Page_3_CsvToEshop::saveModifiedFileToDesktop(const FileData& data)
             + ".csv";
 
         bool csvOk = FileExport::saveCsv(
-            modifiedLines,
+            modifiedCsvLines,
             csvPath,
             &error
         );
 
+        if (!csvOk)
+        {
+            progress.finish();
+            QMessageBox::warning(nullptr, "B³¹d", error);
+            return;
+        }
 
-        progress.setValue(100);
-        QApplication::processEvents();
-        progress.finish();
-
-        QMessageBox::information(nullptr, "OK", "Zapisano:\n" + csvPath);
+        savedPath += "\n" + csvPath;
     }
 
     progress.setValue(100);
@@ -480,4 +546,3 @@ void Page_3_CsvToEshop::saveModifiedFileToDesktop(const FileData& data)
 
     QMessageBox::information(nullptr, "OK", "Zapisano:\n" + savedPath);
 }
-

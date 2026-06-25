@@ -11,8 +11,13 @@ public:
         std::function<void(int)> progressCallback = nullptr
     );
 
-    static QVector<QPair<QString, QString>> loadCsvFile(
+    static QVector<QPair<QString, QString>> loadCsvFileCustomerList(
         const QString& path,
         std::function<void(int)> progressCallback);
+
+    static FileData loadCsvPriceFile(
+        const QString& path,
+        std::function<void(int)> progressCallback = nullptr
+    );
 };
 

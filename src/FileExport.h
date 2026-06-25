@@ -5,10 +5,19 @@
 #include <QString>
 #include <QStringList>
 #include <QProgressDialog>
+#include <QHash>
 
 class FileExport
 {
+
 public:
+
+    struct CsvPriceData
+    {
+        QString price1;
+        QString price2;
+    };
+
     static QStringList buildDatModifiedLines(
         const FileData& data,
         const QString& headerLine,
@@ -33,6 +42,19 @@ public:
 
     static QStringList buildCsvModifiedLines(
         const FileData& data,
+        const QString& headerLine,
+        const QString& targetCurrency,
+        double exchangeRate,
+        QProgressDialog* progress
+    );
+
+    static QHash<QString, FileExport::CsvPriceData> buildPriceMapFromCsv(
+        const FileData& dataCsv
+    );
+
+    static QStringList buildDatModifiedLinesWithCsvPrices(
+        const FileData& data,
+        const FileData& dataCsv,
         const QString& headerLine,
         const QString& targetCurrency,
         double exchangeRate,
