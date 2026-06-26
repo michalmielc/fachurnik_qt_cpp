@@ -75,6 +75,9 @@ void Page_Menu::onMenuDoubleClicked(QTreeWidgetItem* item, int column)
 
     if (text == "create file to BMECat")
         ui.stackedWidget->setCurrentWidget(ui.pageDatToBmeCat);
+
+    if (text == "create file to Ariba")
+        ui.stackedWidget->setCurrentWidget(ui.pageCifFile);
 }
 
 

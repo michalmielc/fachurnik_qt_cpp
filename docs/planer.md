@@ -40,7 +40,7 @@ PAGE FILE TO ESHOP
 - [x] Zapis na pulpit jako CSV
 
 ----------------------------------------------
-DONE
+TESTY ESHOP
 
 ----------------------------------------------
 #####################################################################################################
@@ -80,14 +80,47 @@ PAGE CLONE FILES TO ESHOP
 - [x] Zapis na pulpit jako CSV
 
 ----------------------------------------------
-done
+TESTY ESHOP
+
 ----------------------------------------------
 #####################################################################################################
 Page3 CSV to eshop
-CAŁOŚĆ NA NOWO
+PAGE CLONE FILES TO ESHOP
 
+- [ ] CONTROLS  
+- [x] Btn back to menu 
+- [x] OPEN DAT FILE menu 
+- [x] Lbl ścieżka pliku IN
+- [x] Lbl liczba linii IN
+- [x] Lbl nazwa pliku IN
+- [x] OPEN csv FILE menu 
+- [x] Lbl ścieżka pliku IN
+- [x] Lbl liczba linii IN
+- [x] Lbl nazwa pliku IN
+- [x] RadioBtn kan dystrybucji IN/OUT
+- [x] LEdit nr klienta IN/OUT
+- [x] LEdit data od do  IN/OUT
+- [x] LEdit nr katalogu IN/OUT
+- [x] LEdit waluta IN/OUT
+- [x] LEdit gr rabatowa IN/OUT
+- [x] LEdit sales rep IN/OUT
+- [x] ChBox dodatek stop IN/OUT
+- [x] ChBox oferta specjalna IN/OUT
+- [ ] ChBox katalog niemiecki( nie działa)
+- [x] Btn CLONE OUT
 
-CSV - 3 KOLUMNY NR ART CENA1 CENA2  W BAZOWYM DAT SPRAWDZIĆ PO PDOMINAIE CEN CZY WGRA SIĘ DO ESHOPA
+- [x] Wczytanie nazwy pliku DAT i �cie�ki 
+- [x] Progress bar wczytywania DAT
+- [x] Wczytanie nazwy pliku CSV i �cie�ki 
+- [x] Progress bar wczytywania CSV
+- [x] Wczytywanie nag��wka
+- [x] Konstrukcja nag��wka
+- [x] Walidacja pliku/ wielowalutowo��
+- [x] Zapis na pulpit jako DAT
+- [x] Zapis na pulpit jako CSV
+
+TESTY ESHOP
+
 #####################################################################################################
 
 PAGE 4 DAT FILE TO BMECAT
@@ -120,12 +153,18 @@ PAGE 4 DAT FILE TO BMECAT
 - [x] Zapis na pulpit jako CSV
 
 ----------------------------------------------
-POPRAWIĆ 
-PROGERSS BAR WCZYTYWANIE - TRWA WCZYTYWANIE
-PROGRESS BAR - WALIDACJA WALUTY/
-NIE WCZYTUJE SIE KANAŁ☺ DYSTRYBUCJI NA KONTROLCE
+
+TESTY
+
 ----------------------------------------------
 
+
+#####################################################################################################
+
+PAGE 5 create CIF FILE 
+
+
+#####################################################################################################
 
 
 ## Architektura

@@ -67,6 +67,9 @@
     <ClCompile Include="src\Page_4_DatFileToBmeCat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Page_5_craeteCif.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Fachurnik_C.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Page_4_DatFileToBmeCat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Page_5_craeteCif.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

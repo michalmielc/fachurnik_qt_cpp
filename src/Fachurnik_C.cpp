@@ -5,6 +5,7 @@
 #include "Page_2_CloneDatFilesFromDatFile.h"
 #include "Page_3_CsvToEshop.h"
 #include "Page_4_DatFileToBmeCat.h"
+#include "Page_5_craeteCif.h"
 
 Fachurnik_C::Fachurnik_C(QWidget* parent)
     : QMainWindow(parent)
@@ -42,6 +43,10 @@ Fachurnik_C::Fachurnik_C(QWidget* parent)
     page4 = new Page_4_DatFileToBmeCat(ui);
     page4->initialize();
 
+    // INICJALIZACJA PAGE 4
+
+    page5 = new Page_5_createCif(ui);
+    page5->initialize();
 };
 
 
