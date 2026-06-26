@@ -105,7 +105,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Page_3_CsvToEshop.cpp" />
     <ClCompile Include="src\Page_4_DatFileToBmeCat.cpp" />
-    <ClCompile Include="src\Page_5_craeteCif.cpp" />
+    <ClCompile Include="src\Page_5_createCif.cpp" />
     <ClCompile Include="src\Page_Menu.cpp" />
     <ClCompile Include="src\OpenFileDialog.cpp" />
     <ClCompile Include="src\Page_1_DatFileToEshopFile.cpp" />
@@ -124,7 +124,7 @@
     <ClInclude Include="src\HeaderData.h" />
     <ClInclude Include="src\Page_3_CsvToEshop.h" />
     <ClInclude Include="src\Page_4_DatFileToBmeCat.h" />
-    <ClInclude Include="src\Page_5_craeteCif.h" />
+    <ClInclude Include="src\Page_5_createCif.h" />
     <QtMoc Include="src\Page_Menu.h" />
     <ClInclude Include="src\OpenFileDialog.h" />
     <ClInclude Include="src\Page_1_DatFileToEshopFile.h" />
@@ -140,6 +140,10 @@
   <ItemGroup>
     <None Include="docs\templates\bmecat.csv" />
     <None Include="docs\templates\cennik_01_.dat" />
+    <None Include="docs\templates\CIF\ALSTOM.xlsb" />
+    <None Include="docs\templates\CIF\Parker_level2.xlsb" />
+    <None Include="docs\templates\CIF\Perschmann_Parker_PL_L2.cif" />
+    <None Include="docs\templates\CIF\PL_ALL_Perschmann_P2.cif" />
     <None Include="docs\templates\customer_list.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -19,5 +19,11 @@ public:
         const QString& path,
         std::function<void(int)> progressCallback = nullptr
     );
+
+    // READ HEADER AND DATA FILE PATH ETC
+    static FileData loadCifHeaderFile(
+        const QString& path,
+        std::function<void(int)> progressCallback = nullptr
+    );
 };
 

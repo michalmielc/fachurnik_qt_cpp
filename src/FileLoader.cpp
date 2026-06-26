@@ -191,3 +191,54 @@ FileData FileLoader::loadCsvPriceFile(
 
     return data;
 }
+
+// READ CIF FILE
+
+FileData FileLoader::loadCifHeaderFile(
+    const QString& path,
+    std::function<void(int)> progressCallback)
+{
+    FileData data;
+
+    data.lineCount = 0;
+    data.fullPath = path;
+
+    QFileInfo info(path);
+    data.fileName = info.fileName();
+    data.extension = info.suffix();
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return data;
+
+    qint64 fileSize = file.size();
+
+    QTextStream in(&file);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+
+        // Zakoñcz wczytywanie po napotkaniu pierwszej linii "DATA..."
+        if (line.startsWith("DATA"))
+            break;
+
+        data.header.headerCif.append(line);
+        data.content += line + "\n";
+        data.lineCount++;
+
+        if (progressCallback && fileSize > 0)
+        {
+            int progress = static_cast<int>(
+                (file.pos() * 100) / fileSize
+                );
+
+            progressCallback(progress);
+        }
+    }
+
+    file.close();
+
+    return data;
+}

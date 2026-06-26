@@ -1,6 +1,6 @@
 #pragma once
-
 #include <QString>
+#include <QStringList>
 
 struct HeaderData
 {
@@ -18,4 +18,5 @@ struct HeaderData
     QString exchangeRate;
     QString currencyInLine;  //EUR/PLN/ EUR/PLN-ERROR
     QString headerLineBmeCat; //nag³ówek bmecat
+    QStringList headerCif; //nag³ówek CIF
 };

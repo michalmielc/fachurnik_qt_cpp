@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1351</width>
+    <width>1405</width>
     <height>769</height>
    </rect>
   </property>
@@ -1674,26 +1674,35 @@ font-weight: bold;
 font: 700 10pt &quot;Arial&quot;;</string>
         </property>
         <property name="text">
-         <string>LOAD CSV FILE PRICES </string>
+         <string>LOAD CIF FILE</string>
         </property>
         <property name="style" stdset="0">
          <string/>
         </property>
        </widget>
-       <widget class="QPlainTextEdit" name="plainTextEdit_2">
+       <widget class="QPlainTextEdit" name="plainTextEdit_5">
         <property name="geometry">
          <rect>
-          <x>400</x>
-          <y>30</y>
-          <width>601</width>
-          <height>131</height>
+          <x>590</x>
+          <y>40</y>
+          <width>671</width>
+          <height>161</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_52">
         <property name="geometry">
          <rect>
-          <x>400</x>
+          <x>600</x>
           <y>10</y>
           <width>321</width>
           <height>16</height>
@@ -1717,6 +1726,285 @@ font: 700 10pt &quot;Arial&quot;;</string>
         </property>
         <property name="style" stdset="0">
          <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnBackToHome5">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>640</y>
+          <width>131</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 121, 123);</string>
+        </property>
+        <property name="text">
+         <string>BACK</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tableWidgetCifColumns">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>250</y>
+          <width>531</width>
+          <height>192</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <column/>
+        <column/>
+       </widget>
+       <widget class="QPushButton" name="btnReadCifColFields">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>180</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 170, 255);</string>
+        </property>
+        <property name="text">
+         <string>READ FIELDS FROM CIF</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBoxColCifOptions">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>250</y>
+          <width>521</width>
+          <height>301</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="title">
+         <string>CIF COLUMNS OPTIONS</string>
+        </property>
+        <widget class="QRadioButton" name="radBtn51">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>30</y>
+           <width>111</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>STATIC VALUE</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radBtn52">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>EMPTY</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="radBtn53">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>110</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>FROM FILE</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>30</y>
+           <width>113</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnOpenFile_6">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>110</y>
+           <width>131</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 85, 255);</string>
+         </property>
+         <property name="text">
+          <string>OPEN CSV FILE</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblColName_52">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>200</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>COLUMN NAME:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblFileName_52">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>180</y>
+           <width>631</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>FILE:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblFilePath_52">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>160</y>
+           <width>841</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>PATH:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblColNum_53">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>220</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>COLUMN NUM:</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="pushBtnExport_5">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>630</y>
+          <width>161</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 170, 255);</string>
+        </property>
+        <property name="text">
+         <string>EXPORT</string>
         </property>
        </widget>
       </widget>

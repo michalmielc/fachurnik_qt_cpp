@@ -5,7 +5,7 @@
 #include "Page_2_CloneDatFilesFromDatFile.h"
 #include "Page_3_CsvToEshop.h"
 #include "Page_4_DatFileToBmeCat.h"
-#include "Page_5_craeteCif.h"
+#include "Page_5_createCif.h"
 
 Fachurnik_C::Fachurnik_C(QWidget* parent)
     : QMainWindow(parent)
