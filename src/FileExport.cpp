@@ -330,7 +330,7 @@ QHash<QString, FileExport::CsvPriceData> FileExport::buildPriceMapFromCsv(
 
     QStringList lines = dataCsv.content.split('\n', Qt::SkipEmptyParts);
 
-    for (int i = 1; i < lines.size(); ++i)
+    for (int i = 0; i < lines.size(); ++i)
     {
         QString line = lines[i].trimmed();
 
