@@ -25,5 +25,10 @@ public:
         const QString& path,
         std::function<void(int)> progressCallback = nullptr
     );
+
+    //READ ITEM NUMBERS FOR CSV
+    static QVector<QPair<QString, QString>> loadCsvItemNumbers(
+        const QString& path,
+        std::function<void(int)> progressCallback);
 };
 

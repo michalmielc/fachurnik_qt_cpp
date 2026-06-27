@@ -100,7 +100,7 @@ FileData FileLoader::loadDatFile(
     return data;
 }
 
-//READ CSV FILE CUTOIMER NO AND SALES REP
+//READ CSV FILE CUSTOMER NO AND SALES REP
 QVector<QPair<QString, QString>> FileLoader::loadCsvFileCustomerList(
     const QString& path,
     std::function<void(int)> progressCallback)
@@ -188,6 +188,50 @@ FileData FileLoader::loadCsvPriceFile(
     }
 
     file.close();
+
+    return data;
+}
+
+// READ TO MAP ITEM NUM, BUILDING CIF ROW
+QVector<QPair<QString, QString>> FileLoader::loadCsvItemNumbers(
+    const QString& path,
+    std::function<void(int)> progressCallback)
+{
+    QVector<QPair<QString, QString>> data;
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return data;
+
+    qint64 fileSize = file.size();
+
+    QTextStream in(&file);
+    in.setEncoding(QStringConverter::Utf8);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine().trimmed();
+
+        if (line.isEmpty())
+            continue;
+
+        QStringList parts = line.split(';'); // lub ','
+
+        if (parts.isEmpty())
+            continue;
+
+        data.append({ parts[0].trimmed(), QString() });
+
+        if (progressCallback && fileSize > 0)
+        {
+            int progress = static_cast<int>(
+                (file.pos() * 100) / fileSize
+                );
+
+            progressCallback(progress);
+        }
+    }
 
     return data;
 }

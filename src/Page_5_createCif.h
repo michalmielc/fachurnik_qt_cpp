@@ -3,6 +3,7 @@
 #include "BtnBackToMenu.h"
 #include "FileData.h"
 #include "FileProcessingProgress.h"
+#include "FileExportCif.h"
 
 class Page_5_createCif
 {
@@ -18,10 +19,16 @@ public:
 private:
 
     FileData currentCifFileData;
+    QVector<QPair<QString, QString>> currentCsvFileData;
+    FileExportCif fileExportCif;
 
-    void onChooseFileClicked();
+    void onChooseCifFileClicked();
 
     void readHeadersColumnFromCif();
+
+    void importItemNumbersFromCsv();
+
+    void onTableCifColumnClicked(int row, int column);
 
     void setLabel(QLabel* label, const QString& text, const QString& color);
 

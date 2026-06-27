@@ -1,7 +1,5 @@
 #pragma once
-
 #include "FileData.h"
-
 #include <QString>
 #include <QStringList>
 #include <QProgressDialog>

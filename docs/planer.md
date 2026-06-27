@@ -163,9 +163,22 @@ TESTY
 
 PAGE 5 create CIF FILE 
 
-- [ ] CONTROLS  
-- [x] Btn back to menu 
-- [ ] OPEN CIV FILE  
+PLAN DZIAŁANIA
+
+- [x] WCZYTANIE STAREGO CIF
+- [x] WCZYTANIE WCZYTANIE KOLUMN DO TABELI
+- [ ] WCZYTANIE WCZYTANIE KOLUMN DO ORDERED MAPY columns KEY = nazwa kolumny lub nr/ value ustawienia 
+- [x] WCZYTANIE NR PRODUKTOW
+- [ ] WCZYTANIE NR PRODUKTOW DO ORDERED MAPY CIFLINE KEY NR PRODUKTU I BUDOWANY CIAG KOL1,2 ITD
+- [ ] BUDOWANIE CIFLINE O KOLEJNE KOLUMNY Z ZACHOWANIE USTAWIEN Z MAPY COULMNS
+- [ ] BUDOWA CIF DOŁĄCZENIE NAGŁÓWKA "data" ORAZ MAPA CIFLINE TYLKO VALUE2 NA KOŃCU ENDOFDATA
+- [ ] podmieić ilość linii, timetamsp  i nazwę pliku
+
+
+
+
+
+
 
 #####################################################################################################
 

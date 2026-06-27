@@ -100,6 +100,7 @@
     <ClCompile Include="src\ComboBoxHelper.cpp" />
     <ClCompile Include="src\Fachurnik_C.cpp" />
     <ClCompile Include="src\FileExport.cpp" />
+    <ClCompile Include="src\FileExportCif.cpp" />
     <ClCompile Include="src\FileLoader.cpp" />
     <ClCompile Include="src\FileProcessingProgress.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="src\ComboBoxHelper.h" />
     <ClInclude Include="src\FileData.h" />
     <ClInclude Include="src\FileExport.h" />
+    <ClInclude Include="src\FileExportCif.h" />
     <ClInclude Include="src\FileLoader.h" />
     <ClInclude Include="src\FileProcessingProgress.h" />
     <ClInclude Include="src\HeaderData.h" />
