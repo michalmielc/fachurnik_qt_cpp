@@ -37,6 +37,8 @@ private:
 
     void loadSourceColumnFromCsv();
 
+    void updateCifColumnTableRow(int row);
+
     void setLabel(QLabel* label, const QString& text, const QString& color);
 
     Ui::Fachurnik_CClass& ui;

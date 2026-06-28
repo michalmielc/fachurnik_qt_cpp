@@ -32,6 +32,6 @@ public:
         std::function<void(int)> progressCallback);
 
     //READ COLUMN NAMES FROM CSV
-    QStringList loadCsvHeaders(const QString& path);
+   static  QStringList loadCsvHeaders(const QString& path);
 };
 
