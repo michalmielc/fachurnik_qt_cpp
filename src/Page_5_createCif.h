@@ -21,6 +21,9 @@ private:
     FileData currentCifFileData;
     QVector<QPair<QString, QString>> currentCsvFileData;
     FileExportCif fileExportCif;
+    int selectedCifColumnRow = -1;
+
+    QStringList currentCsvHeaders;
 
     void onChooseCifFileClicked();
 
@@ -29,6 +32,10 @@ private:
     void importItemNumbersFromCsv();
 
     void onTableCifColumnClicked(int row, int column);
+
+    void saveCurrentCifColumnSettings();
+
+    void loadSourceColumnFromCsv();
 
     void setLabel(QLabel* label, const QString& text, const QString& color);
 

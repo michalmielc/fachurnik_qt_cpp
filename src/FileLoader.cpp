@@ -286,3 +286,28 @@ FileData FileLoader::loadCifHeaderFile(
 
     return data;
 }
+
+//READ CS HEADERS CHOOS COLUMN
+QStringList FileLoader::loadCsvHeaders(const QString& path)
+{
+    QStringList headers;
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return headers;
+
+    QTextStream in(&file);
+    in.setEncoding(QStringConverter::Utf8);
+
+    if (!in.atEnd())
+    {
+        QString firstLine = in.readLine().trimmed();
+        headers = firstLine.split(';', Qt::KeepEmptyParts);
+
+        for (QString& h : headers)
+            h = h.trimmed();
+    }
+
+    return headers;
+}

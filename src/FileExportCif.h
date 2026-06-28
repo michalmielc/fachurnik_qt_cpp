@@ -10,6 +10,7 @@ public:
 	struct columnSettings {
 		QString colName;
 		bool isStaticField = false;
+		QString staticValue;
 		bool isEmpty = false;
 		bool fromFile = false;
 		QString path;

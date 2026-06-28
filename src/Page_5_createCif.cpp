@@ -45,6 +45,23 @@ void Page_5_createCif::initialize() {
             onTableCifColumnClicked(row, column);
         });
 
+    QObject::connect(
+        ui.btnSaveColSettings,
+        &QPushButton::clicked,
+        [this]()
+        {
+            saveCurrentCifColumnSettings();
+        });
+
+    QObject::connect(
+        ui.btnOpenFileCsvColumn,
+        &QPushButton::clicked,
+        [this]()
+        {
+            loadSourceColumnFromCsv();
+        });
+
+    
 
     ui.tableWidgetCifColumns->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.tableWidgetCifColumns->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -219,15 +236,16 @@ void Page_5_createCif::onTableCifColumnClicked(int row, int column)
 {
     Q_UNUSED(column);
 
-    qDebug() << "CLICK row:" << row << "column:" << column;
+
 
     auto& cifColumns = fileExportCif.getCifColumns();
 
-    qDebug() << "columns size:" << cifColumns.size();
 
 
     if (row < 0 || row >= cifColumns.size())
         return;
+
+    selectedCifColumnRow = row;
 
     const auto& settings = cifColumns[row].second;
 
@@ -236,7 +254,7 @@ void Page_5_createCif::onTableCifColumnClicked(int row, int column)
     ui.radBtn52->setChecked(settings.isEmpty);
     ui.radBtn53->setChecked(settings.fromFile);
 
-    ui.lineEditStaticVal->setText(settings.colName);
+    ui.lineEditStaticVal->setText(settings.staticValue);
 
     ui.lblFilePath_52->setText("PATH: " + settings.path);
     ui.lblFileName_52->setText("FILE: " + settings.fileName);
@@ -251,6 +269,55 @@ void Page_5_createCif::onTableCifColumnClicked(int row, int column)
     ui.ckBoxInsertApost->setChecked(settings.insertApo);
 }
 
+//SAVE COLUMNS SETINGS
+void Page_5_createCif::saveCurrentCifColumnSettings()
+{
+    auto& cifColumns = fileExportCif.getCifColumns();
+
+    if (selectedCifColumnRow < 0 || selectedCifColumnRow >= cifColumns.size())
+        return;
+
+
+    auto& settings = cifColumns[selectedCifColumnRow].second;
+
+    settings.isStaticField = ui.radBtn51->isChecked();
+    settings.isEmpty = ui.radBtn52->isChecked();
+    settings.fromFile = ui.radBtn53->isChecked();
+
+    settings.staticValue = ui.lineEditStaticVal->text();
+
+    settings.removeSemAndApo = ui.ckBoxRemove->isChecked();
+    settings.convertPrice = ui.ckBoxConvPrice->isChecked();
+    settings.cutString = ui.ckBoxCutStr->isChecked();
+    settings.lengthToCut = ui.lineEdit_NumOfChar->text().toInt();
+    settings.addItemNumAtEnd = ui.ckBoxAddTemNum->isChecked();
+    settings.insertApo = ui.ckBoxInsertApost->isChecked();
+
+    QMessageBox::information(nullptr, "Saved", "Column settings saved.");
+}
+
+
+void Page_5_createCif::loadSourceColumnFromCsv() {
+
+    QString path = OpenFileDialog::openFile(
+        nullptr,
+        "Wybierz plik CSV",
+        "CSV Files (*.csv)"
+    );
+
+    if (path.isEmpty())
+        return;
+
+    currentCsvHeaders = FileLoader::loadCsvHeaders(path);
+
+    QFileInfo info(path);
+
+    setLabel(ui.lblFilePath_52, "PATH: " + path, "blue");
+    setLabel(ui.lblFileName_52, "FILE: " + info.fileName(), "blue");
+
+    ui.comBoxColumnFromCsv->clear();
+    ui.comBoxColumnFromCsv->addItems(currentCsvHeaders);
+}
 // STYLE:------------------------------------------------------------
 // CUSTOMIZE LABEL COLOR
 void Page_5_createCif::setLabel(QLabel* label, const QString& text, const QString& color)

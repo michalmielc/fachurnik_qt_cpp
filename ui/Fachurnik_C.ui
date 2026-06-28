@@ -2131,6 +2131,39 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>TextLabel</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnSaveColSettings">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>60</y>
+           <width>191</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(170, 255, 127);</string>
+         </property>
+         <property name="text">
+          <string>SAVE COLUMN SETTINGS</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comBoxColumnFromCsv">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>160</y>
+           <width>151</width>
+           <height>24</height>
+          </rect>
+         </property>
+        </widget>
        </widget>
        <widget class="QPushButton" name="pushBtnExport_5">
         <property name="geometry">

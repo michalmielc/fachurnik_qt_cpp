@@ -30,5 +30,8 @@ public:
     static QVector<QPair<QString, QString>> loadCsvItemNumbers(
         const QString& path,
         std::function<void(int)> progressCallback);
+
+    //READ COLUMN NAMES FROM CSV
+    QStringList loadCsvHeaders(const QString& path);
 };
 
