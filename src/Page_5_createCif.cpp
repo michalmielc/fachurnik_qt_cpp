@@ -7,6 +7,9 @@
 #include "ui_Fachurnik_C.h"
 #include <QFileInfo>
 #include "FileExportCif.h"
+#include <QDebug>
+#include <QFileInfo>
+#include <QFileDialog>
 
 void Page_5_createCif::initialize() {
 
@@ -73,6 +76,16 @@ void Page_5_createCif::initialize() {
             ui.lblColName_54->setText(ui.comBoxColumnFromCsv->currentText());
             ui.lblColNum_54->setText(QString::number(index));
         });
+
+
+    QObject::connect(
+        ui.pushBtnExport_5,
+        &QPushButton::clicked,
+        [this]()
+        {
+            createCifFile();
+        });
+
 
     ui.tableWidgetCifColumns->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.tableWidgetCifColumns->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -423,6 +436,40 @@ void Page_5_createCif::updateCifColumnTableRow(int row) {
     ui.tableWidgetCifColumns->setItem(row, 12, new QTableWidgetItem(s.insertApo ? "YES" : ""));
 }
 
+
+void Page_5_createCif::createCifFile()
+{
+    auto rows = fileExportCif.buildRows(currentCsvFileData);
+
+    QString savePath = QFileDialog::getSaveFileName(
+        nullptr,
+        "Zapisz plik CIF",
+        "",
+        "CIF Files (*.cif)"
+    );
+
+    if (savePath.isEmpty())
+        return;
+
+    QString error;
+
+    bool ok = fileExportCif.saveCifFile(
+        currentCifFileData.header.headerCif,
+        rows,
+        savePath,
+        &error
+    );
+
+
+    if (!ok)
+    {
+        QMessageBox::warning(nullptr, "Error", "Nie uda³o siê zapisaæ pliku.");
+        return;
+    }
+
+    QMessageBox::information(nullptr, "Export", "Plik CIF zapisany.");
+
+}
 // STYLE:------------------------------------------------------------
 // CUSTOMIZE LABEL COLOR
 void Page_5_createCif::setLabel(QLabel* label, const QString& text, const QString& color)

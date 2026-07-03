@@ -33,5 +33,11 @@ public:
 
     //READ COLUMN NAMES FROM CSV
    static  QStringList loadCsvHeaders(const QString& path);
+
+   //READ SOURCE DATA FORM CSV 
+   static QHash<QString, QString> loadCsvColumnToHash(
+       const QString& path,
+       int valueColumn,
+       std::function<void(int)> progressCallback = nullptr);
 };
 

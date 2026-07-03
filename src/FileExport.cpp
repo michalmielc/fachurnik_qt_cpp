@@ -354,3 +354,5 @@ QHash<QString, FileExport::CsvPriceData> FileExport::buildPriceMapFromCsv(
 
     return priceMap;
 }
+
+

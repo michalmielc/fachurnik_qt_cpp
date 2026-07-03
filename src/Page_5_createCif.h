@@ -39,6 +39,8 @@ private:
 
     void updateCifColumnTableRow(int row);
 
+    void createCifFile();
+
     void setLabel(QLabel* label, const QString& text, const QString& color);
 
     Ui::Fachurnik_CClass& ui;

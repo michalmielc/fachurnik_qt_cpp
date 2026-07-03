@@ -209,6 +209,10 @@ QVector<QPair<QString, QString>> FileLoader::loadCsvItemNumbers(
     QTextStream in(&file);
     in.setEncoding(QStringConverter::Utf8);
 
+
+    if (!in.atEnd())
+        in.readLine(); // pomiñ nag³ówek
+
     while (!in.atEnd())
     {
         QString line = in.readLine().trimmed();
@@ -310,4 +314,60 @@ QStringList FileLoader::loadCsvHeaders(const QString& path)
     }
 
     return headers;
+}
+
+//READ DATA FROM SOURCE CSV 
+
+QHash<QString, QString> FileLoader::loadCsvColumnToHash(
+    const QString& path,
+    int valueColumn,
+    std::function<void(int)> progressCallback)
+{
+    QHash<QString, QString> data;
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return data;
+
+    qint64 fileSize = file.size();
+
+    QTextStream in(&file);
+    in.setEncoding(QStringConverter::Utf8);
+
+
+    if (!in.atEnd())
+        in.readLine(); // pomiñ nag³ówek
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine().trimmed();
+
+        if (line.isEmpty())
+            continue;
+
+        QStringList parts = line.split(';', Qt::KeepEmptyParts);
+
+        // musi istnieæ klucz oraz wybrana kolumna
+        if (parts.size() <= valueColumn)
+            continue;
+
+        QString itemNumber = parts[0].trimmed();
+        QString value = parts[valueColumn].trimmed();
+        //USUNIÊCIE APOSTROFÓW JESLI S¥ 
+        value.remove('"');
+
+        if (!itemNumber.isEmpty())
+            data.insert(itemNumber, value);
+
+        if (progressCallback && fileSize > 0)
+        {
+            int progress = static_cast<int>(
+                (file.pos() * 100) / fileSize);
+
+            progressCallback(progress);
+        }
+    }
+
+    return data;
 }
