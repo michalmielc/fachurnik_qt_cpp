@@ -3,6 +3,7 @@
 #include <QVector>
 #include <QStringList>
 #include <QPair>
+#include <functional>
 
 class FileExportCif
 {
@@ -33,7 +34,8 @@ public:
 		return cifColumns;
 	}
 	QVector<QPair<QString, QString>> buildRows(
-		QVector<QPair<QString, QString>> items);
+		QVector<QPair<QString, QString>> items,
+		std::function<void(int, int)> progressCallback = nullptr);
 
 
 

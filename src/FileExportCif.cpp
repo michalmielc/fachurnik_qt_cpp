@@ -21,21 +21,22 @@ FileExportCif::createCifColumns(const QStringList& fields)
     return cifColumns;
 }
 
-
 QVector<QPair<QString, QString>> FileExportCif::buildRows(
-    QVector<QPair<QString, QString>> items)
+    QVector<QPair<QString, QString>> items,
+    std::function<void(int, int)> progressCallback)
 {
+    const int totalColumns = cifColumns.size();
 
-    for (const auto& column : cifColumns)
+    for (int i = 0; i < totalColumns; ++i)
     {
-        const columnSettings& settings = column.second;
+        const columnSettings& settings = cifColumns[i].second;
 
         if (settings.isStaticField)
         {
             for (auto& item : items)
             {
                 if (!item.second.isEmpty())
-                    item.second += ";";
+                    item.second += ",";
 
                 item.second += "\"" + settings.staticValue + "\"";
             }
@@ -45,7 +46,7 @@ QVector<QPair<QString, QString>> FileExportCif::buildRows(
             for (auto& item : items)
             {
                 if (!item.second.isEmpty())
-                    item.second += ";";
+                    item.second += ",";
 
                 item.second += "\"\"";
             }
@@ -61,19 +62,55 @@ QVector<QPair<QString, QString>> FileExportCif::buildRows(
             for (auto& item : items)
             {
                 if (!item.second.isEmpty())
-                    item.second += ";";
+                    item.second += ",";
 
                 QString value = sourceMap.value(item.first, "");
+
+                // Zamiana ceny: 12,53 -> 12.53
+                if (settings.convertPrice)
+                {
+                    value.replace(',', '.');
+                }
+
+                // Skracanie tekstu
+                if (settings.cutString && settings.lengthToCut > 0)
+                {
+                    if (settings.addItemNumAtEnd)
+                    {
+                        const QString itemNumber = item.first;
+                        const int maxLength = settings.lengthToCut;
+
+                        // Ile miejsca pozostaje na podstawow¹ wartoœæ
+                        const int availableValueLength =
+                            maxLength - itemNumber.length();
+
+                        if (availableValueLength > 0)
+                        {
+                            value = value.left(availableValueLength);
+                            value += itemNumber;
+                        }
+                        else
+                        {
+                            // Numer artyku³u sam jest d³u¿szy ni¿ limit
+                            value = itemNumber.left(maxLength);
+                        }
+                    }
+                    else
+                    {
+                        value = value.left(settings.lengthToCut);
+                    }
+                }
 
                 item.second += "\"" + value + "\"";
             }
         }
+
+        if (progressCallback)
+            progressCallback(i + 1, totalColumns);
     }
 
     return items;
 }
-
-
 
 bool FileExportCif::saveCifFile(
     const QStringList& header,

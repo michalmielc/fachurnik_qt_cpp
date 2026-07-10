@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QColor>
 
 void Page_5_createCif::initialize() {
 
@@ -89,6 +90,18 @@ void Page_5_createCif::initialize() {
 
     ui.tableWidgetCifColumns->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.tableWidgetCifColumns->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    //MARK CIF COLUMN WHEN EIDTING
+    ui.tableWidgetCifColumns->setStyleSheet(
+        "QTableWidget::item:selected {"
+        "background-color: #3399ff;"
+        "color: white;"
+        "}"
+        "QTableWidget::item:selected:!active {"
+        "background-color: #3399ff;"
+        "color: white;"
+        "}"
+    );
 
 };
 
@@ -375,7 +388,20 @@ void Page_5_createCif::saveCurrentCifColumnSettings()
 
     updateCifColumnTableRow(selectedCifColumnRow);
 
+    // kolor zapisanego wiersza
+    for (int col = 0; col < ui.tableWidgetCifColumns->columnCount(); col++)
+    {
+        QTableWidgetItem* item =
+            ui.tableWidgetCifColumns->item(selectedCifColumnRow, col);
+
+        if (item)
+            item->setBackground(QColor(180, 255, 180));
+    }
+
+
     QMessageBox::information(nullptr, "Saved", "Column settings saved.");
+
+
 }
 
 
@@ -439,7 +465,30 @@ void Page_5_createCif::updateCifColumnTableRow(int row) {
 
 void Page_5_createCif::createCifFile()
 {
-    auto rows = fileExportCif.buildRows(currentCsvFileData);
+    FileProcessingProgress progress;
+    progress.show();
+    progress.setValue(0);
+
+    auto rows = fileExportCif.buildRows(
+        currentCsvFileData,
+        [&](int current, int total)
+        {
+            int percent = 100;
+
+            if (total > 0)
+                percent = (current * 100) / total;
+
+            progress.setValue(percent);
+
+            progress.setLabelText(
+                QString("COLUMN %1/%2")
+                .arg(current)
+                .arg(total)
+            );
+
+            QApplication::processEvents();
+        }
+    );
 
     QString savePath = QFileDialog::getSaveFileName(
         nullptr,
@@ -449,7 +498,10 @@ void Page_5_createCif::createCifFile()
     );
 
     if (savePath.isEmpty())
+    {
+        progress.finish();
         return;
+    }
 
     QString error;
 
@@ -460,16 +512,29 @@ void Page_5_createCif::createCifFile()
         &error
     );
 
+    progress.finish();
 
     if (!ok)
     {
-        QMessageBox::warning(nullptr, "Error", "Nie uda³o siê zapisaæ pliku.");
+        QMessageBox::warning(
+            nullptr,
+            "Error",
+            error.isEmpty()
+            ? "Nie uda³o siê zapisaæ pliku."
+            : error
+        );
+
         return;
     }
 
-    QMessageBox::information(nullptr, "Export", "Plik CIF zapisany.");
-
+    QMessageBox::information(
+        nullptr,
+        "Export",
+        "Plik CIF zapisany."
+    );
 }
+
+
 // STYLE:------------------------------------------------------------
 // CUSTOMIZE LABEL COLOR
 void Page_5_createCif::setLabel(QLabel* label, const QString& text, const QString& color)
