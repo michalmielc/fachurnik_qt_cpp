@@ -376,8 +376,8 @@ void Page_5_createCif::saveCurrentCifColumnSettings()
     settings.lengthToCut = ui.lineEdit_NumOfChar->text().toInt();
     settings.addItemNumAtEnd = ui.ckBoxAddTemNum->isChecked();
     settings.insertApo = ui.ckBoxInsertApost->isChecked();
-
-
+    settings.removeItemFromCat = ui.ckBoxRemoveItemIfIsEmpty->isChecked();
+    settings.fillRandomVal = ui.ckBoxFillRndVal->isChecked();
 
     settings.path = ui.lblFilePath_54->text();
     settings.fileName = ui.lblFileName_54->text();

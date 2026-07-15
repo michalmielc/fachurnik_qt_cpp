@@ -3,6 +3,9 @@
 #include "QHash"
 #include <QFile>
 #include <QTextStream>
+#include <QSet>
+#include <algorithm>
+#include <QRandomGenerator>
 
 QVector<QPair<QString, FileExportCif::columnSettings>>
 FileExportCif::createCifColumns(const QStringList& fields)
@@ -59,12 +62,43 @@ QVector<QPair<QString, QString>> FileExportCif::buildRows(
                     settings.fileColNum
                 );
 
+            //SET DO USUWANIA ART BEZ CENY
+            QSet<QString> itemsToRemove;
+
             for (auto& item : items)
             {
+   
+
                 if (!item.second.isEmpty())
                     item.second += ",";
 
                 QString value = sourceMap.value(item.first, "");
+
+                // BRAK DANYCH CALY ARTYKUL PRZEZNACZONY DO UUSUNIECIA
+                //DODANIE DO SET
+                if (settings.removeItemFromCat && value.isEmpty())
+                {
+                    itemsToRemove.insert(item.first);
+                    continue;
+                }
+
+                if (settings.fillRandomVal && value.isEmpty())
+                {
+                    const QList<QString> values = sourceMap.values();
+
+                    QList<QString> nonEmptyValues;
+                    for (const QString& v : values)
+                    {
+                        if (!v.isEmpty())
+                            nonEmptyValues.append(v);
+                    }
+
+                    if (!nonEmptyValues.isEmpty())
+                    {
+                        int index = QRandomGenerator::global()->bounded(nonEmptyValues.size());
+                        value = nonEmptyValues[index];
+                    }
+                }
 
                 // Zamiana ceny: 12,53 -> 12.53
                 if (settings.convertPrice)
@@ -103,6 +137,17 @@ QVector<QPair<QString, QString>> FileExportCif::buildRows(
 
                 item.second += "\"" + value + "\"";
             }
+
+            items.erase(
+                std::remove_if(
+                    items.begin(),
+                    items.end(),
+                    [&](const auto& item)
+                    {
+                        return itemsToRemove.contains(item.first);
+                    }),
+                items.end()
+                        );
         }
 
         if (progressCallback)

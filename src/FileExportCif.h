@@ -24,6 +24,8 @@ public:
 		int lengthToCut = 0;
 		bool addItemNumAtEnd = false;
 		bool insertApo = true;
+		bool removeItemFromCat = false;
+		bool fillRandomVal = false;
 	};
 
 
