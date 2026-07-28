@@ -106,7 +106,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Page_3_CsvToEshop.cpp" />
     <ClCompile Include="src\Page_4_DatFileToBmeCat.cpp" />
-    <ClCompile Include="src\Page_5_createCif.cpp" />
+    <ClCompile Include="src\Page_5_CreateCif.cpp" />
     <ClCompile Include="src\Page_Menu.cpp" />
     <ClCompile Include="src\OpenFileDialog.cpp" />
     <ClCompile Include="src\Page_1_DatFileToEshopFile.cpp" />
@@ -126,7 +126,7 @@
     <ClInclude Include="src\HeaderData.h" />
     <ClInclude Include="src\Page_3_CsvToEshop.h" />
     <ClInclude Include="src\Page_4_DatFileToBmeCat.h" />
-    <ClInclude Include="src\Page_5_createCif.h" />
+    <ClInclude Include="src\Page_5_CreateCif.h" />
     <QtMoc Include="src\Page_Menu.h" />
     <ClInclude Include="src\OpenFileDialog.h" />
     <ClInclude Include="src\Page_1_DatFileToEshopFile.h" />

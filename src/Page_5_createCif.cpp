@@ -1,4 +1,4 @@
-#include "Page_5_createCif.h"
+#include "Page_5_CreateCif.h"
 #include"OpenFileDialog.h"
 #include "FileLoader.h"
 #include <qmessagebox.h>
@@ -338,6 +338,9 @@ void Page_5_createCif::onTableCifColumnClicked(int row, int column)
     ui.lineEdit_NumOfChar->setText(QString::number(settings.lengthToCut));
     ui.ckBoxAddTemNum->setChecked(settings.addItemNumAtEnd);
     ui.ckBoxInsertApost->setChecked(settings.insertApo);
+
+    ui.ckBoxFillRndVal->setChecked(settings.fillRandomVal);
+    ui.ckBoxRemoveItemIfIsEmpty->setChecked(settings.removeItemFromCat);
 
     ui.comBoxColumnFromCsv->clear();
 

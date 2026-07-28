@@ -67,7 +67,7 @@
     <ClCompile Include="src\Page_4_DatFileToBmeCat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Page_5_createCif.cpp">
+    <ClCompile Include="src\Page_5_CreateCif.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\FileExportCif.cpp">
@@ -119,7 +119,7 @@
     <ClInclude Include="src\Page_4_DatFileToBmeCat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Page_5_createCif.h">
+    <ClInclude Include="src\Page_5_CreateCif.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\FileExportCif.h">
