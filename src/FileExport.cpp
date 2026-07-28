@@ -213,7 +213,7 @@ QStringList FileExport::buildCsvModifiedLines(
             int lowerBound1 = static_cast<int>(p[14].toDouble());
             int lowerBound2 = static_cast<int>(p[15].toDouble());
 
-            QString articleName = p[7];
+            QString articleName = p[7].remove(';');
 
             QStringList newLine;
 
