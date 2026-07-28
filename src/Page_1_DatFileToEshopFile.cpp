@@ -243,6 +243,9 @@ void Page_1_DatFileToEshopFile::loadHeaderToUi(const HeaderData& header)
 
     //OTHERS
     setComboByText(ui.comBoxCurrencyHeader, header.currency, false);
+    setComboByText(ui.comBoxCatalogNo, header.catalogNumber, false);
+
+
     ui.comBoxCurrencyHeader->setEnabled(false);
     ui.comBoxCurrencyLines->setEnabled(false);
     //

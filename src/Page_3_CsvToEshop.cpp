@@ -304,7 +304,9 @@ void Page_3_CsvToEshop::loadHeaderToUi(const HeaderData& header)
     ui.lineEditDateTo_3->setText(header.dateTo);
 
     //OTHERS
-    setComboByText(ui.comBoxCurrencyHeader, header.currency, false);
+    setComboByText(ui.comBoxCurrencyHeader_3, header.currency, false);
+    setComboByText(ui.comBoxCatalogNo_3, header.catalogNumber, false);
+
     ui.comBoxCurrencyHeader_3->setEnabled(false);
     ui.comBoxCurrencyLines_3->setEnabled(false);
     //

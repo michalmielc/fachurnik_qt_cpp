@@ -52,9 +52,10 @@ void ComboBoxHelper::loadCatalogNo(QComboBox* comboBox)
         "57",
         "58",
         "59",
-        "60"
+        "60",
+        "61",
         });
-    comboBox->setCurrentText("56");
+    //comboBox->setCurrentText("56");
 }
 
 // FILLING DISCOUNT GRP

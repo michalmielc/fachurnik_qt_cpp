@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="pageDatFileToEshop">
        <widget class="QPushButton" name="btnOpenFile">
@@ -4226,7 +4226,7 @@ font: 700 11pt &quot;Arial&quot;;</string>
 font: 700 11pt &quot;Bahnschrift&quot;;</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;version 1.5.1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;version 1.5.2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </widget>

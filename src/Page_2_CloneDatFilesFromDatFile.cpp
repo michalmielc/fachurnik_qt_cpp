@@ -280,6 +280,7 @@ void Page_2_CloneDatFilesFromDatFile::loadHeaderToUi(const HeaderData& header)
 
     //OTHERS
     setComboByText(ui.comBoxCurrencyHeader_2, header.currency, false);
+    setComboByText(ui.comBoxCatalogNo_2, header.catalogNumber, false);
     ui.comBoxCurrencyHeader_2->setEnabled(false);
     ui.comBoxCurrencyLines_2->setEnabled(false);
     //

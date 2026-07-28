@@ -38,8 +38,8 @@ static HeaderData parseHeaderLine(const QString& line)
         h.specialOffers = (p[20] == "X");    //oferta
 
 
-    if (p.size() > 22)
-        h.catalogNumber = p[22];  // K56
+    if (p.size() > 23)
+        h.catalogNumber = QString::number(p[23].toInt());  // 0056 konwersja do 56
 
     if (p.size() > 24)
         h.salesRep = p[24];      //GVL

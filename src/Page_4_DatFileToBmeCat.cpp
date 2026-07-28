@@ -243,6 +243,8 @@ void Page_4_DatFileToBmeCat::loadHeaderToUi(const HeaderData& header)
 
     //OTHERS
     setComboByText(ui.comBoxCurrencyHeader_4, header.currency, false);
+    setComboByText(ui.comBoxCatalogNo_4, header.catalogNumber, false);
+
     ui.comBoxCurrencyHeader_4->setEnabled(false);
     ui.comBoxCurrencyLines_4->setEnabled(false);
     //
