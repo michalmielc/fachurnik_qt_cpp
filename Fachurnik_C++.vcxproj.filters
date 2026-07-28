@@ -73,6 +73,9 @@
     <ClCompile Include="src\FileExportCif.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Page_6_CifReplaceColumn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Fachurnik_C.h">
@@ -123,6 +126,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\FileExportCif.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Page_6_CifReplaceColumn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

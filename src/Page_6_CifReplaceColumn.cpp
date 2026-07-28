@@ -1,0 +1,1 @@
+//UZUEP£NIÆ LOGIKÊ W PAGE6

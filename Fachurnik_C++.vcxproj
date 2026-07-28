@@ -107,6 +107,7 @@
     <ClCompile Include="src\Page_3_CsvToEshop.cpp" />
     <ClCompile Include="src\Page_4_DatFileToBmeCat.cpp" />
     <ClCompile Include="src\Page_5_CreateCif.cpp" />
+    <ClCompile Include="src\Page_6_CifReplaceColumn.cpp" />
     <ClCompile Include="src\Page_Menu.cpp" />
     <ClCompile Include="src\OpenFileDialog.cpp" />
     <ClCompile Include="src\Page_1_DatFileToEshopFile.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="src\Page_3_CsvToEshop.h" />
     <ClInclude Include="src\Page_4_DatFileToBmeCat.h" />
     <ClInclude Include="src\Page_5_CreateCif.h" />
+    <ClInclude Include="src\Page_6_CifReplaceColumn.h" />
     <QtMoc Include="src\Page_Menu.h" />
     <ClInclude Include="src\OpenFileDialog.h" />
     <ClInclude Include="src\Page_1_DatFileToEshopFile.h" />

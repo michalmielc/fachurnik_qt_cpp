@@ -38,6 +38,7 @@ void Page_Menu::buildMenu()
 
     auto* ariba = addRoot("ARIBA");
     addChild(ariba, "create file to Ariba");
+    addChild(ariba, "replace column in CIF file");
 
     auto* excel = addRoot("EXCEL");
     addChild(excel, "export to Excel");
@@ -78,6 +79,9 @@ void Page_Menu::onMenuDoubleClicked(QTreeWidgetItem* item, int column)
 
     if (text == "create file to Ariba")
         ui.stackedWidget->setCurrentWidget(ui.pageCifFile);
+
+    if (text == "replace column in CIF file")
+        ui.stackedWidget->setCurrentWidget(ui.pageCifReplaceColumn);
 }
 
 
@@ -127,7 +131,15 @@ Podczas wczytywanie program wykryje, jeśli w pliku sa różne waluty.)");
     {
         ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji utworzysz plik CIF do Ariby, 
 zmodyfikujesz walutę, nr katalogu, kurs, dodatki etc.
-Format do wczytania: dat.
+Format do wczytania: różne pliki.
+Format wyjściowy: CIF z zapisem do pulpitu.)");
+    }
+
+    if (text == "replace column in CIF file")
+    {
+        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji edytujesz plik CIF do Ariby, 
+zmodyfikujesz walutę, wartości np nowe ceny, klasyfikacje etc.
+Format do wczytania: CIF.
 Format wyjściowy: CIF z zapisem do pulpitu.)");
     }
 
