@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pageDatFileToEshop">
        <widget class="QPushButton" name="btnOpenFile">
@@ -3147,7 +3147,7 @@ QRadioButton:disabled {
          <rect>
           <x>750</x>
           <y>320</y>
-          <width>301</width>
+          <width>391</width>
           <height>131</height>
          </rect>
         </property>
@@ -3181,6 +3181,28 @@ QRadioButton:disabled {
          </property>
          <property name="text">
           <string>CLONE</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblFileName_22">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>80</y>
+           <width>631</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>REMEMBER TO CHANGE DEST. FOLDER IN BAT FILE</string>
          </property>
         </widget>
        </widget>

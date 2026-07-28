@@ -58,4 +58,9 @@ public:
         double exchangeRate,
         QProgressDialog* progress
     );
+
+    static bool createBat(
+        const QString& folderPath,
+        QString* error = nullptr
+    );
 };

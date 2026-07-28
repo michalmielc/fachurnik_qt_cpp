@@ -380,8 +380,7 @@ QString Page_2_CloneDatFilesFromDatFile::buildHeaderLineFromUi(
 }
 
 
-// DO POPRAWY TUTAJ SKOŃCZYŁEM
-//SPAROWAĆ VECTOR Z PRODUKCJĄ DATÓW Z PONIŻESZJ FDUNCKJI
+//
 
 // EXPORT TO DESKTOP
 void Page_2_CloneDatFilesFromDatFile::saveClonedFilesToDesktop(const FileData& data)
@@ -477,6 +476,28 @@ void Page_2_CloneDatFilesFromDatFile::saveClonedFilesToDesktop(const FileData& d
         int value = static_cast<int>((savedCount * 100.0) / total);
         progress.setValue(value);
         QApplication::processEvents();
+    }
+
+    /*
+ * Utworzenie pliku BAT w tym samym folderze,
+ * w którym zostały zapisane pliki DAT.
+ */
+    const bool batCreated = FileExport::createBat(
+        folderPath,
+        &error
+    );
+
+    if (!batCreated)
+    {
+        progress.finish();
+
+        QMessageBox::warning(
+            nullptr,
+            "Błąd",
+            error
+        );
+
+        return;
     }
 
     progress.setValue(100);

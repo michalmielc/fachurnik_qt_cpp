@@ -5,6 +5,7 @@
 #include <QTextStream>
 #include <QApplication>
 #include "qmessagebox.h"
+#include <QDir>
 
 
 
@@ -355,4 +356,106 @@ QHash<QString, FileExport::CsvPriceData> FileExport::buildPriceMapFromCsv(
     return priceMap;
 }
 
+//Creating a batch file to manage the frequency of price list delivery
+bool FileExport::createBat(const QString& folderPath, QString* error)
+{
+    const QString batPath =
+        folderPath
+        + QDir::separator()
+        + "send_price_lists.bat";
 
+    QFile file(batPath);
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        if (error)
+        {
+            *error =
+                "Nie udało się utworzyć pliku BAT:\n"
+                + batPath
+                + "\n\n"
+                + file.errorString();
+        }
+
+        return false;
+    }
+
+    QTextStream stream(&file);
+
+    stream << "@echo off\r\n";
+    stream << "setlocal EnableDelayedExpansion\r\n";
+    stream << "\r\n";
+
+    // Folder, w którym znajduje się plik BAT.
+    stream << "set \"SRC=%~dp0\"\r\n";
+
+    stream << "\r\n";
+    stream << "REM CHECK AND UPDATE THIS PATH\r\n";
+    stream << "set \"DST=Z:\\POP\\pi_exchange\\100\\preisdaten\\pi\\2400\"\r\n";
+
+    stream << "\r\n";
+    stream << "if not exist \"%DST%\" (\r\n";
+    stream << "    echo ERROR: Destination folder does not exist:\r\n";
+    stream << "    echo %DST%\r\n";
+    stream << "    pause\r\n";
+    stream << "    exit /b 1\r\n";
+    stream << ")\r\n";
+
+    stream << "\r\n";
+    stream << "set /a TOTAL=0\r\n";
+
+    stream << "\r\n";
+    stream << "for %%F in (\"%SRC%*.dat\") do (\r\n";
+    stream << "    set /a TOTAL+=1\r\n";
+    stream << ")\r\n";
+
+    stream << "\r\n";
+    stream << "if !TOTAL! EQU 0 (\r\n";
+    stream << "    echo No DAT files to move.\r\n";
+    stream << "    pause\r\n";
+    stream << "    exit /b 0\r\n";
+    stream << ")\r\n";
+
+    stream << "\r\n";
+    stream << "set /a DONE=0\r\n";
+    stream << "echo Files to move: !TOTAL!\r\n";
+    stream << "echo.\r\n";
+
+    stream << "\r\n";
+    stream << "for %%F in (\"%SRC%*.dat\") do (\r\n";
+    stream << "    echo ================================================\r\n";
+    stream << "    echo Moving: %%~nxF\r\n";
+
+    stream << "\r\n";
+    stream << "    move /Y \"%%~fF\" \"%DST%\\\" >nul\r\n";
+
+    stream << "\r\n";
+    stream << "    if exist \"%%~fF\" (\r\n";
+    stream << "        echo ERROR: The file still exists in the source folder.\r\n";
+    stream << "    ) else (\r\n";
+    stream << "        set /a DONE+=1\r\n";
+    stream << "        set /a PERCENT=DONE*100/TOTAL\r\n";
+    stream << "        echo [!DONE!/!TOTAL!] !PERCENT!%%\r\n";
+    stream << "        echo File moved successfully.\r\n";
+    stream << "    )\r\n";
+
+    stream << "\r\n";
+    stream << "    if !DONE! LSS !TOTAL! (\r\n";
+    stream << "        echo Waiting 45 seconds...\r\n";
+    stream << "        REM CHECK AND UPDATE THIS INTERVAL\r\n";
+    stream << "        timeout /t 45 /nobreak >nul\r\n";
+    stream << "    )\r\n";
+
+    stream << ")\r\n";
+
+    stream << "\r\n";
+    stream << "echo.\r\n";
+    stream << "echo ================================================\r\n";
+    stream << "echo Finished. Moved !DONE! of !TOTAL! files.\r\n";
+    stream << "pause\r\n";
+    stream << "endlocal\r\n";
+
+    file.close();
+
+    return true;
+}
