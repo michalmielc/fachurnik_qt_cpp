@@ -1,18 +1,16 @@
 #include "Page_5_CreateCif.h"
-#include"OpenFileDialog.h"
+#include "OpenFileDialog.h"
 #include "FileLoader.h"
 #include <qmessagebox.h>
 #include <QRegularExpression>
 #include <QTableWidgetItem>
 #include "ui_Fachurnik_C.h"
-#include <QFileInfo>
 #include "FileExportCif.h"
-#include <QDebug>
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QColor>
 
-void Page_5_createCif::initialize() {
+void Page_5_CreateCif::initialize() {
 
     BtnBackToMenu::backToMenu(
         ui.btnBackToHome5,
@@ -106,7 +104,7 @@ void Page_5_createCif::initialize() {
 };
 
 //DO POPRAWY TA FUNKCJA 
-void Page_5_createCif::onChooseCifFileClicked() {
+void Page_5_CreateCif::onChooseCifFileClicked() {
 
     QString path = OpenFileDialog::openFile(
         nullptr,
@@ -128,7 +126,7 @@ void Page_5_createCif::onChooseCifFileClicked() {
 
     progress.setValue(0);
 
-    currentCifFileData = FileLoader::loadCifHeaderFile(
+    currentCifFileData = FileLoader::loadCifFile(
         path,
         [&](int value)
         {
@@ -167,7 +165,7 @@ void Page_5_createCif::onChooseCifFileClicked() {
 }
 
 //READ HEADERS COLUMN
-void Page_5_createCif::readHeadersColumnFromCif()
+void Page_5_CreateCif::readHeadersColumnFromCif()
 {
     QString text = ui.plainTextEdit_5->toPlainText();
 
@@ -229,7 +227,7 @@ void Page_5_createCif::readHeadersColumnFromCif()
 }
 
 //IMPORT ITRM NUMBERS FROM CIF
-void Page_5_createCif::importItemNumbersFromCsv()
+void Page_5_CreateCif::importItemNumbersFromCsv()
 {
     QString path = OpenFileDialog::openFile(
         nullptr,
@@ -290,7 +288,7 @@ void Page_5_createCif::importItemNumbersFromCsv()
 }
 
 //CLICK ON ROW TABLE COLUMNS SETINGS
-void Page_5_createCif::onTableCifColumnClicked(int row, int column)
+void Page_5_CreateCif::onTableCifColumnClicked(int row, int column)
 {
     Q_UNUSED(column);
 
@@ -357,7 +355,7 @@ void Page_5_createCif::onTableCifColumnClicked(int row, int column)
 }
 
 //SAVE COLUMNS SETINGS
-void Page_5_createCif::saveCurrentCifColumnSettings()
+void Page_5_CreateCif::saveCurrentCifColumnSettings()
 {
     auto& cifColumns = fileExportCif.getCifColumns();
 
@@ -408,7 +406,7 @@ void Page_5_createCif::saveCurrentCifColumnSettings()
 }
 
 
-void Page_5_createCif::loadSourceColumnFromCsv() {
+void Page_5_CreateCif::loadSourceColumnFromCsv() {
 
     QString path = OpenFileDialog::openFile(
         nullptr,
@@ -442,7 +440,7 @@ void Page_5_createCif::loadSourceColumnFromCsv() {
     }
 }
 
-void Page_5_createCif::updateCifColumnTableRow(int row) {
+void Page_5_CreateCif::updateCifColumnTableRow(int row) {
     auto& columns = fileExportCif.getCifColumns();
 
     if (row < 0 || row >= columns.size())
@@ -466,7 +464,7 @@ void Page_5_createCif::updateCifColumnTableRow(int row) {
 }
 
 
-void Page_5_createCif::createCifFile()
+void Page_5_CreateCif::createCifFile()
 {
     FileProcessingProgress progress;
     progress.show();
@@ -540,7 +538,7 @@ void Page_5_createCif::createCifFile()
 
 // STYLE:------------------------------------------------------------
 // CUSTOMIZE LABEL COLOR
-void Page_5_createCif::setLabel(QLabel* label, const QString& text, const QString& color)
+void Page_5_CreateCif::setLabel(QLabel* label, const QString& text, const QString& color)
 {
     label->setText(text);
     label->setStyleSheet("color: " + color + ";");

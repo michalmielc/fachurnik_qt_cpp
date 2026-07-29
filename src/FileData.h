@@ -9,6 +9,8 @@ struct FileData
     QString fileName;
     QString extension;
     QString content;
+    QStringList cifLines;
+
     int lineCount;
 
     HeaderData header;

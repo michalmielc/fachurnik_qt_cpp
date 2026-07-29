@@ -9,7 +9,8 @@ class Page_1_DatFileToEshopFile;
 class Page_2_CloneDatFilesFromDatFile;
 class Page_3_CsvToEshop;
 class Page_4_DatFileToBmeCat;
-class Page_5_createCif;
+class Page_5_CreateCif;
+class Page_6_CifReplaceColumn;
 
 class Fachurnik_C : public QMainWindow
 {
@@ -29,5 +30,6 @@ private:
     Page_2_CloneDatFilesFromDatFile* page2 = nullptr;
     Page_3_CsvToEshop* page3 = nullptr;
     Page_4_DatFileToBmeCat* page4 = nullptr;
-    Page_5_createCif* page5 = nullptr;
+    Page_5_CreateCif* page5 = nullptr;
+    Page_6_CifReplaceColumn* page6 = nullptr;
 };

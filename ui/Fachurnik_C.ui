@@ -2492,11 +2492,11 @@ font: 700 11pt &quot;Arial&quot;;</string>
          <string>OPEN CIF FILE</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_54">
+       <widget class="QLabel" name="label_65">
         <property name="geometry">
          <rect>
-          <x>620</x>
-          <y>0</y>
+          <x>590</x>
+          <y>10</y>
           <width>321</width>
           <height>16</height>
          </rect>
@@ -2521,7 +2521,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="lblFilePath_55">
+       <widget class="QLabel" name="lblFilePath_61">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2540,7 +2540,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string>PATH:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btnBackToHome5_2">
+       <widget class="QPushButton" name="btnBackToHome6">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2563,44 +2563,6 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string>BACK</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lblFileName_55">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>290</y>
-          <width>631</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Bahnschrift</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>FILE:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblFileCountLines_54">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>310</y>
-          <width>251</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Bahnschrift</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>LINES IN FILES:</string>
-        </property>
-       </widget>
        <widget class="QGroupBox" name="groupBoxColCifOptions_2">
         <property name="geometry">
          <rect>
@@ -2619,7 +2581,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
         <property name="title">
          <string>CIF COLUMNS OPTIONS</string>
         </property>
-        <widget class="QRadioButton" name="radBtn51_2">
+        <widget class="QRadioButton" name="radBtn61">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2638,7 +2600,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>STATIC VALUE</string>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radBtn52_2">
+        <widget class="QRadioButton" name="radBtn62">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2657,7 +2619,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>EMPTY</string>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radBtn53_2">
+        <widget class="QRadioButton" name="radBtn63">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2686,7 +2648,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           </rect>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnOpenFileCsvColumn_2">
+        <widget class="QPushButton" name="btnOpenFileCsvColumn_61">
          <property name="geometry">
           <rect>
            <x>180</x>
@@ -2709,7 +2671,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>OPEN CSV FILE</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblColName_55">
+        <widget class="QLabel" name="lblColName_68">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2728,7 +2690,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>COLUMN NAME:</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblFileName_56">
+        <widget class="QLabel" name="lblFileName_67">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2747,7 +2709,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>FILE:</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblFilePath_56">
+        <widget class="QLabel" name="lblFilePath_66">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2766,7 +2728,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>PATH:</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblColNum_55">
+        <widget class="QLabel" name="lblColNum_69">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2902,12 +2864,12 @@ font: 700 10pt &quot;Arial&quot;;</string>
           </font>
          </property>
         </widget>
-        <widget class="QLabel" name="lbl_5_FieldName_2">
+        <widget class="QLabel" name="lbl_ColumnToReplace">
          <property name="geometry">
           <rect>
            <x>30</x>
            <y>40</y>
-           <width>191</width>
+           <width>131</width>
            <height>16</height>
           </rect>
          </property>
@@ -2922,7 +2884,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string>TextLabel</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnSaveColSettings_2">
+        <widget class="QPushButton" name="btnReplaceColumn">
          <property name="geometry">
           <rect>
            <x>390</x>
@@ -2942,10 +2904,10 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string notr="true">background-color: rgb(170, 255, 127);</string>
          </property>
          <property name="text">
-          <string>SAVE COLUMN SETTINGS</string>
+          <string>REPLACE COLUMN</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="comBoxColumnFromCsv_2">
+        <widget class="QComboBox" name="comBoxColumnFromCsv_6">
          <property name="geometry">
           <rect>
            <x>390</x>
@@ -2964,7 +2926,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string notr="true">background-color: rgb(221, 230, 255);</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblFileName_57">
+        <widget class="QLabel" name="lblFileName_68">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -2986,7 +2948,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string/>
          </property>
         </widget>
-        <widget class="QLabel" name="lblColNum_56">
+        <widget class="QLabel" name="lblColNum_691">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -3008,7 +2970,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string/>
          </property>
         </widget>
-        <widget class="QLabel" name="lblColName_56">
+        <widget class="QLabel" name="lblColName_69">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -3030,7 +2992,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <string/>
          </property>
         </widget>
-        <widget class="QLabel" name="lblFilePath_57">
+        <widget class="QLabel" name="lblFilePath_67">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -3096,56 +3058,28 @@ font: 700 10pt &quot;Arial&quot;;</string>
           <bool>false</bool>
          </property>
         </widget>
+        <widget class="QLabel" name="lbl_ColumnToReplace_2">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>40</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Bahnschrift</family>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </widget>
-       <widget class="QLabel" name="lblFilePath_58">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>270</y>
-          <width>841</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Bahnschrift</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>PATH:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_55">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>200</y>
-          <width>321</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <italic>false</italic>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: green;
-font-weight: bold;
-font: 700 10pt &quot;Arial&quot;;</string>
-        </property>
-        <property name="text">
-         <string>LOAD CSV ITEM NUM  FILE</string>
-        </property>
-        <property name="style" stdset="0">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblFileName_58">
+       <widget class="QLabel" name="lblFileName_62">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3167,8 +3101,8 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QTableWidget" name="tableWidgetCifColumns_2">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>410</y>
+          <x>10</x>
+          <y>280</y>
           <width>531</width>
           <height>192</height>
          </rect>
@@ -3203,10 +3137,10 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QPlainTextEdit" name="plainTextEdit_6">
         <property name="geometry">
          <rect>
-          <x>620</x>
-          <y>30</y>
+          <x>590</x>
+          <y>40</y>
           <width>711</width>
-          <height>161</height>
+          <height>181</height>
          </rect>
         </property>
         <property name="font">
@@ -3219,7 +3153,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string notr="true">background-color: rgb(222, 222, 222);</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_56">
+       <widget class="QLabel" name="label_64">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3248,34 +3182,11 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="btnOpenFileItemNum_2">
+       <widget class="QPushButton" name="btnReadCifColFields_6">
         <property name="geometry">
          <rect>
           <x>20</x>
           <y>220</y>
-          <width>231</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Bahnschrift</family>
-          <pointsize>11</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 170, 255);</string>
-        </property>
-        <property name="text">
-         <string>OPEN CSV ITEM NUM FILE</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnReadCifColFields_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>350</y>
           <width>191</width>
           <height>41</height>
          </rect>
@@ -3297,10 +3208,10 @@ font: 700 10pt &quot;Arial&quot;;</string>
        <widget class="QPushButton" name="pushBtnExport_6">
         <property name="geometry">
          <rect>
-          <x>290</x>
+          <x>230</x>
           <y>650</y>
-          <width>161</width>
-          <height>24</height>
+          <width>221</width>
+          <height>41</height>
          </rect>
         </property>
         <property name="font">
@@ -3317,7 +3228,7 @@ font: 700 10pt &quot;Arial&quot;;</string>
          <string>EXPORT</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lblFileCountLines_52">
+       <widget class="QLabel" name="lblFileCountLines_63">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3363,6 +3274,35 @@ font: 700 11pt &quot;Arial&quot;;</string>
         </property>
         <property name="style" stdset="0">
          <string/>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBoxCifColumn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>520</y>
+          <width>261</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblColumns">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>490</y>
+          <width>251</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>PICK ITEM ID COLUMN:</string>
         </property>
        </widget>
       </widget>

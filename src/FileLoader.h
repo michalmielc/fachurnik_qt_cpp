@@ -21,7 +21,7 @@ public:
     );
 
     // READ HEADER AND DATA FILE PATH ETC
-    static FileData loadCifHeaderFile(
+    static FileData loadCifFile(
         const QString& path,
         std::function<void(int)> progressCallback = nullptr
     );

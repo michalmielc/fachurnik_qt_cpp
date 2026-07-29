@@ -4,6 +4,7 @@
 #include <QStringList>
 #include <QPair>
 #include <functional>
+#include "FileData.h"
 
 class FileExportCif
 {
@@ -48,6 +49,21 @@ public:
 		QString* error
 	);
 
+	QStringList parseCifLine(const QString& line);
+	QString rebuildCifLine(const QStringList& columns);
+
+	void replaceColumnInCif(
+		FileData& fileData,
+		int idColumnIndex,
+		int targetColumnIndex,
+		const columnSettings& settings,
+		std::function<void(int, int)> progressCallback);
+
+	bool saveRebuiltCifFile(
+		const FileData& fileData,
+		const QString& filePath,
+		QString* error
+	);
 private:
 	QVector<QPair<QString, columnSettings>> cifColumns;
 };

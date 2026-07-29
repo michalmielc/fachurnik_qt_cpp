@@ -5,10 +5,10 @@
 #include "FileProcessingProgress.h"
 #include "FileExportCif.h"
 
-class Page_5_createCif
+class Page_5_CreateCif
 {
 public:
-    explicit Page_5_createCif(
+    explicit Page_5_CreateCif(
         Ui::Fachurnik_CClass& ui)
         : ui(ui)
     {

@@ -240,9 +240,8 @@ QVector<QPair<QString, QString>> FileLoader::loadCsvItemNumbers(
     return data;
 }
 
-// READ CIF FILE
-
-FileData FileLoader::loadCifHeaderFile(
+// READ  CIF FILE
+FileData FileLoader::loadCifFile(
     const QString& path,
     std::function<void(int)> progressCallback)
 {
@@ -269,11 +268,12 @@ FileData FileLoader::loadCifHeaderFile(
         QString line = in.readLine();
 
         // Zakoñcz wczytywanie po napotkaniu pierwszej linii "DATA..."
-        if (line.startsWith("DATA"))
-            break;
 
-        data.header.headerCif.append(line);
-        data.content += line + "\n";
+            if (line.startsWith("DATA"))
+                break;
+      
+        data.content += line + "\n"; ///?O  CO TO???
+        data.header.headerCif << line;
         data.lineCount++;
 
         if (progressCallback && fileSize > 0)
@@ -284,6 +284,17 @@ FileData FileLoader::loadCifHeaderFile(
 
             progressCallback(progress);
         }
+    }
+
+    //WCZYTANIE DO QSTRINGLIST LINES Z CIF
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+
+        if (line.startsWith("END OF DATA"))
+            break;
+
+        data.cifLines << line;
     }
 
     file.close();
