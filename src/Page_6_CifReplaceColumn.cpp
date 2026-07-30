@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QColor>
 #include <qmessagebox.h>
+#include <QDebug>
 
 //DONE
 void Page_6_CifReplaceColumn::initialize() {
@@ -416,7 +417,7 @@ void Page_6_CifReplaceColumn::replaceColumnButton()
     }
 
 
-    settings.colName = ui.lbl_ColumnToReplace->text();
+    settings.colName = ui.lbl_ColumnToReplace_2->text();
 
     settings.isStaticField = ui.radBtn61->isChecked();
     settings.isEmpty = ui.radBtn62->isChecked();
