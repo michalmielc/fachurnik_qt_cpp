@@ -62,6 +62,12 @@ void Page_1_DatFileToEshopFile::initialize()
 
     ui.lineEditExchangeRate->setValidator(validator);
 
+    QDoubleValidator* validator1 = new QDoubleValidator(0.0, 99.99, 4);
+
+    validator1->setNotation(QDoubleValidator::StandardNotation);
+
+    ui.lineEditDiscSurchValue->setValidator(validator1);
+
 
     QObject::connect(ui.pushBtnExport, &QPushButton::clicked,
         [this]()
@@ -70,6 +76,37 @@ void Page_1_DatFileToEshopFile::initialize()
         });
 
     ui.radBtnEUR->setChecked(true);
+
+    QObject::connect(
+        ui.btnOpenFileTZCsv,
+        &QPushButton::clicked,
+        [this]()
+        {
+            onChooseTZCsvFileClicked();
+        });
+
+    QObject::connect(
+        ui.checkBoxTzSurcharge,
+        &QCheckBox::toggled,
+        [this](bool checked)
+        {
+            showHideTzSurcharge(checked);
+        }
+    );
+
+    QObject::connect(
+        ui.checkBoxDiscountSurcharge,
+        &QCheckBox::toggled,
+        [this](bool checked)
+        {
+            showHideDiscountSurcharge(checked);
+        }
+    );
+
+
+
+    showHideTzSurcharge(false);
+    showHideDiscountSurcharge(false);
 
 };
 
@@ -257,7 +294,7 @@ void Page_1_DatFileToEshopFile::loadHeaderToUi(const HeaderData& header)
     // checkbox GERMAN CATALOG NOT ACTIVE!!!!
 }
 
-// CONTROL CURRENCY
+//CONTROL CURRENCY
 bool Page_1_DatFileToEshopFile::hasDifferentCurrencyInLines(
      FileData& data,
     FileProcessingProgress* progress
@@ -376,13 +413,57 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
 
     QString headerLine = buildHeaderLineFromUi(data.header.headerLine);
 
-    QStringList modifiedLines = FileExport::buildDatModifiedLines(
-        data,
-        headerLine,
-        targetCurrency,
-        exchangeRate,
-        &progress
-    );
+    bool additionalEnabled =
+        ui.checkBoxDiscountSurcharge->isChecked();
+
+    double additionalPercent =
+        ui.lineEditDiscSurchValue->text()
+        .replace(",", ".")
+        .toDouble();
+
+    bool additionalIsPlus =
+        ui.radBtnPlus->isChecked();
+
+    QStringList modifiedLines;
+
+    if (ui.checkBoxTzSurcharge->isChecked())
+    {
+        if (currentTZMap.isEmpty())
+        {
+            progress.finish();
+
+            QMessageBox::warning(
+                nullptr,
+                "BRAK PLIKU TZ",
+                "Najpierw wczytaj plik CSV z narzutem TZ."
+            );
+
+            return;
+        }
+
+        modifiedLines = FileExport::buildDatModifiedLinesWithTZ(
+            data,
+            headerLine,
+            targetCurrency,
+            exchangeRate,
+            currentTZMap,
+            additionalEnabled,
+            additionalPercent,
+            additionalIsPlus,
+            &progress
+        );
+    }
+    else
+    {
+        modifiedLines = FileExport::buildDatModifiedLines(
+            data,
+            headerLine,
+            targetCurrency,
+            exchangeRate,
+            &progress
+        );
+    }
+
 
     if (modifiedLines.isEmpty())
     {
@@ -483,4 +564,64 @@ void Page_1_DatFileToEshopFile::saveModifiedFileToDesktop(const FileData& data)
     progress.finish();
 
     QMessageBox::information(nullptr, "OK", "Zapisano:\n" + savedPath);
+}
+
+void Page_1_DatFileToEshopFile::showHideTzSurcharge(bool visible)
+{
+    ui.btnOpenFileTZCsv->setVisible(visible);
+    ui.lblFilePath_1tz->setVisible(visible);
+    ui.lblFileName_1tz->setVisible(visible);
+}
+
+void Page_1_DatFileToEshopFile::showHideDiscountSurcharge(bool visible)
+{
+    ui.lineEditDiscSurchValue->setVisible(visible);
+    ui.radBtnPlus->setVisible(visible);
+    ui.radBtnMinus->setVisible(visible);
+}
+
+void Page_1_DatFileToEshopFile::onChooseTZCsvFileClicked()
+{
+
+    QString path = OpenFileDialog::openFile(
+        nullptr,
+        "Wybierz plik CSV",
+        "CSV Files (*.csv)"
+    );
+
+    if (path.isEmpty())
+    {
+        setLabel(ui.lblFilePath_1tz, "Nie wybrano pliku", "red");
+        setLabel(ui.lblFileName_1tz, "Brak pliku", "red");
+        return;
+    }
+
+    FileProcessingProgress progress;
+    progress.show();
+
+    currentTZMap = FileLoader::loadTZFile(
+        path,
+        [&](int value)
+        {
+            progress.setValue(value);
+            QApplication::processEvents();
+        }
+    );
+
+    QFileInfo info(path);
+
+    setLabel(ui.lblFilePath_1tz, "PATH: " + path, "blue");
+    setLabel(ui.lblFileName_1tz, "FILE: " + info.fileName() + " ITEM LINES : " + QString::number(currentFileDataCSV.lineCount), "blue");
+
+    progress.setValue(100);
+    QApplication::processEvents();
+
+    QMessageBox::information(
+        nullptr,
+        "CSV FILE",
+        "CSV file loaded successfully"
+    );
+
+    progress.finish();
+
 }

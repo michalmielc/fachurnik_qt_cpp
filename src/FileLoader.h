@@ -39,5 +39,11 @@ public:
        const QString& path,
        int valueColumn,
        std::function<void(int)> progressCallback = nullptr);
+   
+   //READ TZ FILE
+   static QHash<QString, double> loadTZFile(
+       const QString& path,
+       std::function<void(int)> progressCallback = nullptr
+   );
 };
 

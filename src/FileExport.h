@@ -75,6 +75,18 @@ public:
         QProgressDialog* progress
     );
 
+    static QStringList buildDatModifiedLinesWithTZ(
+        const FileData& data,
+        const QString& headerLine,
+        const QString& targetCurrency,
+        double exchangeRate,
+        const QHash<QString, double>& tzMap,
+        bool additionalEnabled,
+        double additionalPercent,
+        bool additionalIsPlus,
+        QProgressDialog* progress
+    );
+
     static QHash<QString, FileExport::CsvPriceData> buildPriceMapFromCsv(
         const FileData& dataCsv
     );

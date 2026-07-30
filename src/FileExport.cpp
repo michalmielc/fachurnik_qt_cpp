@@ -247,7 +247,105 @@ QStringList FileExport::buildCsvModifiedLines(
         return outputLines;
     }
 
+QStringList FileExport::buildDatModifiedLinesWithTZ(
+    const FileData& data,
+    const QString& headerLine,
+    const QString& targetCurrency,
+    double exchangeRate,
+    const QHash<QString, double>& tzMap,
+    bool additionalEnabled,
+    double additionalPercent,
+    bool additionalIsPlus,
+    QProgressDialog* progress
+)
+{
+    QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
 
+    if (!lines.isEmpty())
+        lines[0] = headerLine;
+
+    int total = lines.size();
+
+    for (int i = 1; i < lines.size(); ++i)
+    {
+        if (progress && total > 0)
+        {
+            progress->setValue((i * 80) / total);
+            QApplication::processEvents();
+        }
+
+        if (!lines[i].startsWith("L|"))
+            continue;
+
+        QStringList p = lines[i].split('|', Qt::KeepEmptyParts);
+
+        if (p.size() <= 9)
+            continue;
+
+        p[6] = targetCurrency;
+
+        double oldValuePrice1 = 0.0;
+        double oldValuePrice2 = 0.0;
+
+        bool ok1 = parseDatPrice(p[8], oldValuePrice1);
+        bool ok2 = parseDatPrice(p[9], oldValuePrice2);
+
+        if (!ok1 || !ok2)
+        {
+            QMessageBox::critical(
+                nullptr,
+                "OPERATION ABORTED!",
+                QString("WRONG PRICE VALUE AT LINE: %1").arg(i + 1)
+            );
+
+            return {};
+        }
+
+        double newValuePrice1 = oldValuePrice1 * exchangeRate;
+        double newValuePrice2 = oldValuePrice2 * exchangeRate;
+
+        // ==========================
+        // TZ SURCHARGE
+        // ==========================
+
+        QString articleNo = p[2].trimmed();
+
+        if (!p[3].trimmed().isEmpty())
+            articleNo += " " + p[3].trimmed();
+
+        if (tzMap.contains(articleNo))
+        {
+            double tzPercent = tzMap.value(articleNo);
+
+            newValuePrice1 *= (1.0 + tzPercent / 100.0);
+            newValuePrice2 *= (1.0 + tzPercent / 100.0);
+        }
+
+        if (additionalEnabled)
+        {
+            double factor = additionalPercent / 100.0;
+
+            if (additionalIsPlus)
+            {
+                newValuePrice1 *= (1.0 + factor);
+                newValuePrice2 *= (1.0 + factor);
+            }
+            else
+            {
+                newValuePrice1 *= (1.0 - factor);
+                newValuePrice2 *= (1.0 - factor);
+            }
+        }
+        // ==========================
+
+        p[8] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
+        p[9] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
+
+        lines[i] = p.join('|');
+    }
+
+    return lines;
+}
 
 QStringList FileExport::buildDatModifiedLinesWithCsvPrices(
     const FileData& data,

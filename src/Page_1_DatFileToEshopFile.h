@@ -20,6 +20,8 @@ public:
 private:
 
     FileData currentFileData;
+    FileData currentFileDataCSV;
+    QHash<QString, double> currentTZMap;
 
     void onChooseFileClicked();
     void hideShowGrpBox(bool b);
@@ -31,5 +33,9 @@ private:
     QString buildHeaderLineFromUi(const QString& originalHeaderLine);
     void saveModifiedFileToDesktop(const FileData& data);
     void setLabelCurrencyLine(bool value);
+    void showHideTzSurcharge(bool visible);
+    void showHideDiscountSurcharge(bool visible);
+    void onChooseTZCsvFileClicked();
+
     Ui::Fachurnik_CClass& ui;
 };

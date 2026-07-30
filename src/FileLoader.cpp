@@ -382,3 +382,67 @@ QHash<QString, QString> FileLoader::loadCsvColumnToHash(
 
     return data;
 }
+
+//RAED TZ FILE
+QHash<QString, double> FileLoader::loadTZFile(
+    const QString& path,
+    std::function<void(int)> progressCallback
+)
+{
+    QHash<QString, double> data;
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return data;
+
+    const qint64 fileSize = file.size();
+
+    QTextStream in(&file);
+    in.setEncoding(QStringConverter::Utf8);
+
+    // Pomijamy nag³ówek:
+    // Material;LZ August 2026
+    if (!in.atEnd())
+        in.readLine();
+
+    while (!in.atEnd())
+    {
+        const QString line = in.readLine().trimmed();
+
+        if (line.isEmpty())
+            continue;
+
+        const QStringList parts =
+            line.split(';', Qt::KeepEmptyParts);
+
+        if (parts.size() < 2)
+            continue;
+
+        const QString articleNo = parts[0].trimmed();
+
+        QString percentText = parts[1].trimmed();
+
+        percentText.remove('%');
+        percentText.replace(',', '.');
+
+        bool ok = false;
+        const double percent = percentText.toDouble(&ok);
+
+        if (!articleNo.isEmpty() && ok)
+            data.insert(articleNo, percent);
+
+        if (progressCallback && fileSize > 0)
+        {
+            const int progress = static_cast<int>(
+                (file.pos() * 100) / fileSize
+                );
+
+            progressCallback(progress);
+        }
+    }
+
+    file.close();
+
+    return data;
+}

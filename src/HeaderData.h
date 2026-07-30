@@ -19,4 +19,6 @@ struct HeaderData
     QString currencyInLine;  //EUR/PLN/ EUR/PLN-ERROR
     QString headerLineBmeCat; //nag³ówek bmecat
     QStringList headerCif; //nag³ówek CIF
+    QString addDiscountSurcharge; // rabata od wszytskiego lub narzut +%
+    bool addTZSurchargeFromFile; // rabata od wszytskiego lub narzut +%
 };
