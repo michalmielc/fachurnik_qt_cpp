@@ -11,6 +11,7 @@ class Page_3_CsvToEshop;
 class Page_4_DatFileToBmeCat;
 class Page_5_CreateCif;
 class Page_6_CifReplaceColumn;
+class Page_7_CompareDatFiles;
 
 class Fachurnik_C : public QMainWindow
 {
@@ -32,4 +33,5 @@ private:
     Page_4_DatFileToBmeCat* page4 = nullptr;
     Page_5_CreateCif* page5 = nullptr;
     Page_6_CifReplaceColumn* page6 = nullptr;
+    Page_7_CompareDatFiles* page7 = nullptr;
 };

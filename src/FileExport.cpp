@@ -6,6 +6,9 @@
 #include <QApplication>
 #include "qmessagebox.h"
 #include <QDir>
+#include <QSet>
+#include <algorithm>
+#include <cmath>
 
 
 
@@ -458,4 +461,437 @@ bool FileExport::createBat(const QString& folderPath, QString* error)
     file.close();
 
     return true;
+}
+
+
+QString FileExport::buildDatArticleKey(
+    const QStringList& parts
+)
+{
+    if (parts.size() <= 3)
+        return {};
+
+    const QString articleNumber =
+        parts[2].trimmed();
+
+    const QString articleSize =
+        parts[3].trimmed();
+
+    if (articleNumber.isEmpty())
+        return {};
+
+    if (articleSize.isEmpty())
+        return articleNumber;
+
+    return articleNumber + " " + articleSize;
+}
+
+QHash<QString, FileExport::DatCompareItem>
+FileExport::buildDatCompareMap(
+    const FileData& data
+)
+{
+    QHash<QString, DatCompareItem> result;
+
+    const QStringList lines =
+        data.content.split(
+            '\n',
+            Qt::SkipEmptyParts
+        );
+
+    for (const QString& sourceLine : lines)
+    {
+        const QString line =
+            sourceLine.trimmed();
+
+        if (!line.startsWith("L|"))
+            continue;
+
+        const QStringList parts =
+            line.split(
+                '|',
+                Qt::KeepEmptyParts
+            );
+
+        if (parts.size() <= 15)
+            continue;
+
+        const QString articleKey =
+            buildDatArticleKey(parts);
+
+        if (articleKey.isEmpty())
+            continue;
+
+        DatCompareItem item;
+
+        item.articleKey = articleKey;
+        item.currency = parts[6].trimmed();
+        item.price1 = parts[8].trimmed();
+        item.price2 = parts[9].trimmed();
+        item.quantity1 = parts[14].trimmed();
+        item.quantity2 = parts[15].trimmed();
+
+        if (!parts.isEmpty())
+        {
+            item.productGroup =
+                parts.last().trimmed();
+        }
+
+        item.price1Valid =
+            parseDatPrice(
+                item.price1,
+                item.price1Value
+            );
+
+        item.price2Valid =
+            parseDatPrice(
+                item.price2,
+                item.price2Value
+            );
+
+        result.insert(
+            articleKey,
+            item
+        );
+    }
+
+    return result;
+}
+
+
+FileExport::DatCompareResult
+FileExport::compareDatFiles(
+    const FileData& firstFile,
+    const FileData& secondFile,
+    QProgressDialog* progress
+)
+{
+    DatCompareResult result;
+
+    const QHash<QString, DatCompareItem> firstMap =
+        buildDatCompareMap(firstFile);
+
+    const QHash<QString, DatCompareItem> secondMap =
+        buildDatCompareMap(secondFile);
+
+    result.comparisonCsv
+        << "articleNo;"
+        "currencyFile1;"
+        "price1File1;"
+        "price2File1;"
+        "quantity1File1;"
+        "quantity2File1;"
+        "currencyFile2;"
+        "price1File2;"
+        "price2File2;"
+        "quantity1File2;"
+        "quantity2File2;"
+        "price1Difference;"
+        "price1Status;"
+        "price2Difference;"
+        "price2Status;"
+        "productGroup";
+
+    result.missingArticlesCsv
+        << "status;articleNo";
+
+    QSet<QString> allKeys;
+
+    for (auto it = firstMap.constBegin();
+        it != firstMap.constEnd();
+        ++it)
+    {
+        allKeys.insert(it.key());
+    }
+
+    for (auto it = secondMap.constBegin();
+        it != secondMap.constEnd();
+        ++it)
+    {
+        allKeys.insert(it.key());
+    }
+
+    QStringList sortedKeys =
+        allKeys.values();
+
+    std::sort(
+        sortedKeys.begin(),
+        sortedKeys.end(),
+        [](const QString& left, const QString& right)
+        {
+            return QString::localeAwareCompare(
+                left,
+                right
+            ) < 0;
+        }
+    );
+
+    /*
+     * Klucz: grupa produktowa.
+     * Wartość: liczba artykułów z różnicami cenowymi.
+     */
+    QHash<QString, int> differentProductGroups;
+
+    constexpr double priceTolerance = 0.005;
+
+    const int total = sortedKeys.size();
+
+    for (int i = 0; i < total; ++i)
+    {
+        if (progress && total > 0)
+        {
+            progress->setValue(
+                (i * 100) / total
+            );
+
+            progress->setLabelText(
+                QString("Porównywanie artykułu %1 z %2")
+                .arg(i + 1)
+                .arg(total)
+            );
+
+            QApplication::processEvents();
+        }
+
+        const QString& articleKey =
+            sortedKeys[i];
+
+        const bool existsInFirst =
+            firstMap.contains(articleKey);
+
+        const bool existsInSecond =
+            secondMap.contains(articleKey);
+
+        /*
+         * Artykuł tylko w pierwszym pliku.
+         */
+        if (existsInFirst && !existsInSecond)
+        {
+            result.missingArticlesCsv
+                << QString("ONLY_IN_FILE_1;%1")
+                .arg(articleKey);
+
+            ++result.onlyInFirstFile;
+            continue;
+        }
+
+        /*
+         * Artykuł tylko w drugim pliku.
+         */
+        if (!existsInFirst && existsInSecond)
+        {
+            result.missingArticlesCsv
+                << QString("ONLY_IN_FILE_2;%1")
+                .arg(articleKey);
+
+            ++result.onlyInSecondFile;
+            continue;
+        }
+
+        const DatCompareItem& firstItem =
+            firstMap[articleKey];
+
+        const DatCompareItem& secondItem =
+            secondMap[articleKey];
+
+        bool price1Equal = false;
+        bool price2Equal = false;
+
+        double price1Difference = 0.0;
+        double price2Difference = 0.0;
+
+        /*
+         * Porównanie ceny 1.
+         */
+        if (firstItem.price1Valid &&
+            secondItem.price1Valid)
+        {
+            price1Difference =
+                std::abs(
+                    firstItem.price1Value -
+                    secondItem.price1Value
+                );
+
+            price1Equal =
+                price1Difference <
+                priceTolerance;
+        }
+        else
+        {
+            price1Equal =
+                firstItem.price1 ==
+                secondItem.price1;
+        }
+
+        /*
+         * Porównanie ceny 2.
+         */
+        if (firstItem.price2Valid &&
+            secondItem.price2Valid)
+        {
+            price2Difference =
+                std::abs(
+                    firstItem.price2Value -
+                    secondItem.price2Value
+                );
+
+            price2Equal =
+                price2Difference <
+                priceTolerance;
+        }
+        else
+        {
+            price2Equal =
+                firstItem.price2 ==
+                secondItem.price2;
+        }
+
+        const QString price1DifferenceText =
+            QString::number(
+                price1Difference,
+                'f',
+                2
+            ).replace('.', ',');
+
+        const QString price2DifferenceText =
+            QString::number(
+                price2Difference,
+                'f',
+                2
+            ).replace('.', ',');
+
+        const QString price1Status =
+            price1Equal
+            ? "OK"
+            : "DIFFERENCE";
+
+        const QString price2Status =
+            price2Equal
+            ? "OK"
+            : "DIFFERENCE";
+
+        QString productGroup =
+            firstItem.productGroup;
+
+        if (productGroup.isEmpty())
+            productGroup = secondItem.productGroup;
+
+        QStringList outputRow;
+
+        outputRow
+            << articleKey
+            << firstItem.currency
+            << firstItem.price1
+            << firstItem.price2
+            << firstItem.quantity1
+            << firstItem.quantity2
+            << secondItem.currency
+            << secondItem.price1
+            << secondItem.price2
+            << secondItem.quantity1
+            << secondItem.quantity2
+            << price1DifferenceText
+            << price1Status
+            << price2DifferenceText
+            << price2Status
+            << productGroup;
+
+        result.comparisonCsv
+            << outputRow.join(';');
+
+        if (price1Equal && price2Equal)
+        {
+            ++result.matchingRecords;
+        }
+        else
+        {
+            ++result.differentRecords;
+
+            /*
+             * Zbieramy grupy z obu plików.
+             * QSet zapobiega podwójnemu policzeniu tej samej
+             * grupy dla jednego artykułu.
+             */
+            QSet<QString> groupsForArticle;
+
+            if (!firstItem.productGroup.isEmpty())
+            {
+                groupsForArticle.insert(
+                    firstItem.productGroup
+                );
+            }
+
+            if (!secondItem.productGroup.isEmpty())
+            {
+                groupsForArticle.insert(
+                    secondItem.productGroup
+                );
+            }
+
+            for (const QString& group : groupsForArticle)
+            {
+                differentProductGroups[group]++;
+            }
+        }
+    }
+
+    /*
+     * Podsumowanie.
+     */
+    result.summaryCsv
+        << "name;value";
+
+    result.summaryCsv
+        << QString("matchingRecords;%1")
+        .arg(result.matchingRecords);
+
+    result.summaryCsv
+        << QString("differentRecords;%1")
+        .arg(result.differentRecords);
+
+    result.summaryCsv
+        << QString("onlyInFile1;%1")
+        .arg(result.onlyInFirstFile);
+
+    result.summaryCsv
+        << QString("onlyInFile2;%1")
+        .arg(result.onlyInSecondFile);
+
+    result.summaryCsv << "";
+
+    result.summaryCsv
+        << "productGroup;differentArticlesCount";
+
+    QStringList sortedGroups =
+        differentProductGroups.keys();
+
+    std::sort(
+        sortedGroups.begin(),
+        sortedGroups.end(),
+        [](const QString& left, const QString& right)
+        {
+            return QString::localeAwareCompare(
+                left,
+                right
+            ) < 0;
+        }
+    );
+
+    for (const QString& group : sortedGroups)
+    {
+        result.summaryCsv
+            << QString("%1;%2")
+            .arg(group)
+            .arg(
+                differentProductGroups.value(group)
+            );
+    }
+
+    if (progress)
+    {
+        progress->setValue(100);
+        QApplication::processEvents();
+    }
+
+    return result;
 }

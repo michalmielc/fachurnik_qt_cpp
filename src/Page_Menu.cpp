@@ -40,9 +40,9 @@ void Page_Menu::buildMenu()
     addChild(ariba, "create file to Ariba");
     addChild(ariba, "replace column in CIF file");
 
-    auto* excel = addRoot("EXCEL");
-    addChild(excel, "export to Excel");
+    auto* excel = addRoot("ADDITIONAL FEATURES");
     addChild(excel, "compare Dat Files");
+    addChild(excel, "export to Excel");
 
     ui.treeWidgetMenu->expandAll();
 }
@@ -82,6 +82,9 @@ void Page_Menu::onMenuDoubleClicked(QTreeWidgetItem* item, int column)
 
     if (text == "replace column in CIF file")
         ui.stackedWidget->setCurrentWidget(ui.pageCifReplaceColumn);
+
+    if (text == "compare Dat Files")
+        ui.stackedWidget->setCurrentWidget(ui.pageCompareDatFiles);
 }
 
 
@@ -115,7 +118,8 @@ Podczas wczytywanie program wykryje, jeśli w pliku sa różne waluty.)");
     {
         ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji sklonujesz
 pliki na bazie jednego pliku z konkretną grupą rabatową. Wymagane jest załadowanie listy csv dwukolumnowej
-bez nagłówka, w kolejności nr klienta; nr GVLa)");
+bez nagłówka, w kolejności nr klienta; nr GVLa. W docelowym folderze utworzy się plika *.bat.
+Edytuj go, aby zmienić docelową ścieżkę.)");
     }
 
     if (text == "create file to BMECat")
@@ -146,16 +150,13 @@ Format wyjściowy: CIF z zapisem do pulpitu.)");
 
     if (text == "export to Excel")
     {
-        ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji utworzysz plik csv. 
-Zmodyfikujesz walutę, nr katalogu, kurs, dodatki etc.
-Format do wczytania: dat.
-Format wyjściowy: CIF z zapisem do pulpitu.)");
+        ui.plainTextEdit->setPlainText(R"(FUNKCJONALNOŚĆ NIE DZIAŁA)");
     }
 
     if (text == "compare Dat Files")
     {
         ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji porównasz
-dwa pliki dat.
+dwa pliki dat. Na pulpicie zobaczysz również raport z porównania.
 Format do wczytania: dat.
 Format wyjściowy: CIF z zapisem do pulpitu.)");
     }

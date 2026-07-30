@@ -7,6 +7,7 @@
 #include "Page_4_DatFileToBmeCat.h"
 #include "Page_5_CreateCif.h"
 #include "Page_6_CifReplaceColumn.h"
+#include "Page_7_CompareDatFiles.h"
 
 
 Fachurnik_C::Fachurnik_C(QWidget* parent)
@@ -54,6 +55,11 @@ Fachurnik_C::Fachurnik_C(QWidget* parent)
 
     page6 = new Page_6_CifReplaceColumn(ui);
     page6->initialize();
+
+    // INICJALIZACJA PAGE 7
+
+    page7 = new Page_7_CompareDatFiles(ui);
+    page7->initialize();
 };
 
 
