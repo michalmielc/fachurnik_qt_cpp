@@ -165,7 +165,7 @@ QStringList FileExport::buildCsvModifiedLines(
         QStringList outputLines;
 
         //NEW HEADER:
-        outputLines << "articleNo;articleName;dateFrom;dateTo;pricetype;price1;currency1;tax1;price2;currency2;tax2;amount2";
+        outputLines << "articleNo;articleName;dateFrom;dateTo;pricetype1;price1;currency1;tax1;amount1;price2;currency2;tax2;amount2";
 
         int total = sourceLines.size();
 
