@@ -74,11 +74,22 @@ FileData FileLoader::loadDatFile(
     {
         QString line = in.readLine();
 
-        if (data.lineCount == 0 && line.startsWith("H|"))
+        if (data.lineCount == 0 )
         {
+            if (!line.startsWith("H|"))
+            {
+                line.prepend("H|");
+            }
+
             data.header = parseHeaderLine(line);
             data.header.headerLine = line; //nag³ówek ca³y
             data.headerLoaded = true;
+        }
+
+        //Z KANA£U 01
+        if (line.startsWith("C|"))
+        {
+            line.replace(0, 1, "L|N");
         }
 
 
