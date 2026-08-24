@@ -169,7 +169,7 @@ QStringList FileExport::buildCsvModifiedLines(
         QStringList outputLines;
 
         //NEW HEADER:
-        outputLines << "articleNo;articleName;dateFrom;dateTo;pricetype1;priceAmount1;currency1;tax1;amount1;priceAmount2;currency2;tax2;amount2";
+        outputLines << "articleNo;articleName;dateFrom;dateTo;pricetype1;priceAmount1;currency1;tax1;amount1;pricetype2;priceAmount2;currency2;tax2;amount2";
 
         int total = sourceLines.size();
 
@@ -239,6 +239,7 @@ QStringList FileExport::buildCsvModifiedLines(
             if (newValuePrice2 != 0.0)
             {
                 newLine
+                    << "net_customer"
                     << price2
                     << p[6]
                     << "0.23"
