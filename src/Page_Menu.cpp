@@ -108,7 +108,7 @@ Podczas wczytywanie program wykryje, jeśli w pliku sa różne waluty.)");
     {
         ui.plainTextEdit->setPlainText(R"(Za pomocą tej opcji utworzysz plik dat do ESHOP, 
 zmodyfikujesz walutę, nr katalogu, kurs, dodatki etc.
-Format do wczytania: csv. Obowiązują cztery kolumny nr artykułu; waluta; cena1; cena2
+Format do wczytania: csv. Obowiązują cztery kolumny nr artykułu; cena1; cena2
 Format wyjściowy: dat z zapisem do pulpitu.
 Dane można zapisać równocześnie do csv.
 Podczas wczytywanie program wykryje, jeśli w pliku sa różne waluty.)");

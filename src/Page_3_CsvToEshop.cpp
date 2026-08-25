@@ -142,7 +142,7 @@ void Page_3_CsvToEshop::onChooseFileClicked()
 
     setLabelCurrencyLine(differentCurrency);
 
-    setComboByText(ui.comBoxCurrencyLines, currentFileData.header.currencyInLine, false);
+    setComboByText(ui.comBoxCurrencyLines_3, currentFileData.header.currencyInLine, false);
 
 
     QMessageBox::information(
