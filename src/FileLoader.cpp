@@ -70,6 +70,9 @@ FileData FileLoader::loadDatFile(
 
     QTextStream in(&file);
 
+    //DOPISANIE |H je¿eli plik jest z kana³u 01 i 02
+    //w plikach z kana³u 02 i 03 jest H|
+
     while (!in.atEnd())
     {
         QString line = in.readLine();
@@ -86,12 +89,31 @@ FileData FileLoader::loadDatFile(
             data.headerLoaded = true;
         }
 
-        //Z KANA£U 01
-        if (line.startsWith("C|"))
+     //-------------------------  
+     // PRZYGOTOWANIE LINII:
+     //L|C|020010|1000||| ==> 020010|1000|||
+     // LUB
+     //L|020010|1000||| ==> 020010|1000|||
+
+        QStringList parts = line.split('|');
+
+        if (parts.size() > 2 && parts[2].length() == 6)
         {
-            line.replace(0, 1, "L|N");
+            // L|C|020010|1000||| -> 020010|1000|||
+            parts.removeFirst();
+            parts.removeFirst();
+
+            line = parts.join('|');
+        }
+        else if (parts.size() > 1 && parts[1].length() == 6)
+        {
+            // L|020010|1000||| -> 020010|1000|||
+            parts.removeFirst();
+
+            line = parts.join('|');
         }
 
+        //-------------------------  
 
         data.content += line + "\n";
         data.lineCount++;

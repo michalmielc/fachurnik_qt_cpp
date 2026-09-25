@@ -10,6 +10,19 @@ class FileExport
 
 public:
 
+    struct DatLineData
+    {
+        QString articleNumber;
+        QString articleSize;
+        QString currency;
+        QString articleName;
+        QString price1;
+        QString price2;
+        QString quantity1;
+        QString quantity2;
+    };
+
+
     struct CsvPriceData
     {
         QString price1;
@@ -118,4 +131,6 @@ public:
     static QHash<QString, DatCompareItem> buildDatCompareMap(
         const FileData& data
     );
+
+    static DatLineData parseDatLine(const QString& line);
 };
