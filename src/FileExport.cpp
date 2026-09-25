@@ -371,34 +371,31 @@ QStringList FileExport::buildDatModifiedLinesWithCsvPrices(
             QApplication::processEvents();
         }
 
-        if (!lines[i].startsWith("L|"))
-            continue;
-
+    
         QStringList p = lines[i].split('|', Qt::KeepEmptyParts);
 
-        if (p.size() <= 9)
-            continue;
+        DatLineData datLine = parseDatLine(lines[i]);
 
-        QString articleNo = p[2].trimmed();
+        QString articleNo = datLine.articleNumber;
 
-        if (!p[3].trimmed().isEmpty())
-            articleNo += " " + p[3].trimmed();
+        if (!datLine.articleSize.isEmpty())
+            articleNo += " " + datLine.articleSize;
 
         if (priceMap.contains(articleNo))
         {
             const CsvPriceData& csvPrice = priceMap[articleNo];
 
-            p[8] = csvPrice.price1;
-            p[9] = csvPrice.price2;
+            p[6] = csvPrice.price1;
+            p[7] = csvPrice.price2;
         }
 
-        p[6] = targetCurrency;
+        p[4] = targetCurrency;
 
         double oldValuePrice1 = 0.0;
         double oldValuePrice2 = 0.0;
 
-        bool ok1 = parseDatPrice(p[8], oldValuePrice1);
-        bool ok2 = parseDatPrice(p[9], oldValuePrice2);
+        bool ok1 = parseDatPrice(p[6], oldValuePrice1);
+        bool ok2 = parseDatPrice(p[7], oldValuePrice2);
 
         if (!ok1 || !ok2)
         {
@@ -413,8 +410,8 @@ QStringList FileExport::buildDatModifiedLinesWithCsvPrices(
         double newValuePrice1 = oldValuePrice1 * exchangeRate;
         double newValuePrice2 = oldValuePrice2 * exchangeRate;
 
-        p[8] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
-        p[9] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
+        p[6] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
+        p[7] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
 
         lines[i] = p.join('|');
     }
