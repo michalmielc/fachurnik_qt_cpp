@@ -174,21 +174,18 @@ QStringList FileExport::buildCsvModifiedLines(
                 QApplication::processEvents();
             }
 
-            if (!sourceLines[i].startsWith("L|"))
-                continue;
 
             QStringList p = sourceLines[i].split('|', Qt::KeepEmptyParts);
 
-            if (p.size() <= 15)
-                continue;
+            DatLineData datLine = parseDatLine(sourceLines[i]);
 
-            p[6] = targetCurrency;
+            p[4] = targetCurrency;
 
             double oldValuePrice1 = 0.0;
             double oldValuePrice2 = 0.0;
 
-            bool ok1 = parseDatPrice(p[8], oldValuePrice1);
-            bool ok2 = parseDatPrice(p[9], oldValuePrice2);
+            bool ok1 = parseDatPrice(datLine.price1, oldValuePrice1);
+            bool ok2 = parseDatPrice(datLine.price2, oldValuePrice2);
 
             if (!ok1 || !ok2)
             {
@@ -206,15 +203,18 @@ QStringList FileExport::buildCsvModifiedLines(
             QString price1 = QString::number(newValuePrice1, 'f', 2);
             QString price2 = QString::number(newValuePrice2, 'f', 2);
 
-            QString articleNo = p[2];
+            QString articleNo = datLine.articleNumber;
 
-            if (!p[3].trimmed().isEmpty())
-                articleNo += " " + p[3];
+            if (!datLine.articleSize.isEmpty())
+                articleNo += " " + datLine.articleSize;
 
-            int lowerBound1 = static_cast<int>(p[14].toDouble());
-            int lowerBound2 = static_cast<int>(p[15].toDouble());
+            int lowerBound1 = static_cast<int>(datLine.quantity1.toDouble());
+            int lowerBound2 = static_cast<int>(datLine.quantity2.toDouble());
 
-            QString articleName = p[7].remove(';');
+            QString articleName = datLine.articleName;
+            articleName.remove(';');
+            articleName.remove('\'');
+
 
             QStringList newLine;
 
@@ -225,7 +225,7 @@ QStringList FileExport::buildCsvModifiedLines(
                 << data.header.dateTo
                 << "net_customer"
                 << price1
-                << p[6]
+                << targetCurrency
                 << "0.23"
                 << QString::number(lowerBound1);
 
@@ -234,7 +234,7 @@ QStringList FileExport::buildCsvModifiedLines(
                 newLine
                     << "net_customer"
                     << price2
-                    << p[6]
+                    << targetCurrency
                     << "0.23"
                     << QString::number(lowerBound2);
             }
