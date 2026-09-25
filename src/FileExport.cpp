@@ -555,25 +555,16 @@ bool FileExport::createBat(const QString& folderPath, QString* error)
 
 
 QString FileExport::buildDatArticleKey(
-    const QStringList& parts
+    const DatLineData& data
 )
 {
-    if (parts.size() <= 3)
+    if (data.articleNumber.isEmpty())
         return {};
 
-    const QString articleNumber =
-        parts[2].trimmed();
+    if (data.articleSize.isEmpty())
+        return data.articleNumber;
 
-    const QString articleSize =
-        parts[3].trimmed();
-
-    if (articleNumber.isEmpty())
-        return {};
-
-    if (articleSize.isEmpty())
-        return articleNumber;
-
-    return articleNumber + " " + articleSize;
+    return data.articleNumber + " " + data.articleSize;
 }
 
 QHash<QString, FileExport::DatCompareItem>
@@ -594,8 +585,7 @@ FileExport::buildDatCompareMap(
         const QString line =
             sourceLine.trimmed();
 
-        if (!line.startsWith("L|"))
-            continue;
+        DatLineData datLine = parseDatLine(line);
 
         const QStringList parts =
             line.split(
@@ -603,11 +593,8 @@ FileExport::buildDatCompareMap(
                 Qt::KeepEmptyParts
             );
 
-        if (parts.size() <= 15)
-            continue;
-
         const QString articleKey =
-            buildDatArticleKey(parts);
+            buildDatArticleKey(datLine);
 
         if (articleKey.isEmpty())
             continue;
@@ -615,11 +602,11 @@ FileExport::buildDatCompareMap(
         DatCompareItem item;
 
         item.articleKey = articleKey;
-        item.currency = parts[6].trimmed();
-        item.price1 = parts[8].trimmed();
-        item.price2 = parts[9].trimmed();
-        item.quantity1 = parts[14].trimmed();
-        item.quantity2 = parts[15].trimmed();
+        item.currency = datLine.currency;
+        item.price1 = datLine.price1;
+        item.price2 = datLine.price2;
+        item.quantity1 = datLine.quantity1;
+        item.quantity2 = datLine.quantity2;
 
         if (!parts.isEmpty())
         {

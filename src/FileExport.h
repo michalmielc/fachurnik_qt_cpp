@@ -125,7 +125,7 @@ public:
     );
 
     static QString buildDatArticleKey(
-        const QStringList& parts
+        const DatLineData& data
     );
 
     static QHash<QString, DatCompareItem> buildDatCompareMap(
