@@ -73,6 +73,8 @@ FileData FileLoader::loadDatFile(
     //DOPISANIE |H je¿eli plik jest z kana³u 01 i 02
     //w plikach z kana³u 02 i 03 jest H|
 
+    int lastProgress = -1;
+
     while (!in.atEnd())
     {
         QString line = in.readLine();
@@ -124,7 +126,11 @@ FileData FileLoader::loadDatFile(
                 (file.pos() * 100) / fileSize
                 );
 
-            progressCallback(progress);
+            if (progress != lastProgress)
+            {
+                lastProgress = progress;
+                progressCallback(progress);
+            }
         }
     }
 
@@ -478,4 +484,57 @@ QHash<QString, double> FileLoader::loadTZFile(
     file.close();
 
     return data;
+}
+
+// CONTROL CURRENCY IN ITEM LINES
+bool FileLoader::hasDifferentCurrency(
+    const FileData& data,
+    int& errorLine,
+    QString& currency
+)
+{
+    QStringList lines =
+        data.content.split('\n', Qt::SkipEmptyParts);
+
+    errorLine = -1;
+    currency.clear();
+
+    // i = 1, poniewa¿ lines[0] to nag³ówek
+    for (int i = 1; i < lines.size(); ++i)
+    {
+        QStringList parts =
+            lines[i].split('|', Qt::KeepEmptyParts);
+
+        // Waluta powinna znajdowaæ siê w polu [4]
+        if (parts.size() <= 4)
+        {
+            errorLine = i + 1;
+            return true;
+        }
+
+        QString lineCurrency = parts[4].trimmed();
+
+        // Brak waluty równie¿ traktujemy jako b³¹d
+        if (lineCurrency.isEmpty())
+        {
+            errorLine = i + 1;
+            return true;
+        }
+
+        // Pierwsza waluta staje siê walut¹ wzorcow¹
+        if (currency.isEmpty())
+        {
+            currency = lineCurrency;
+            continue;
+        }
+
+        // Kolejna waluta ró¿ni siê od wzorcowej
+        if (lineCurrency != currency)
+        {
+            errorLine = i + 1;
+            return true;
+        }
+    }
+
+    return false;
 }

@@ -325,50 +325,32 @@ bool Page_3_CsvToEshop::hasDifferentCurrencyInLines(
 )
 {
 
-    QString firstCurrency;
 
-    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
-    int total = lines.size();
+    int errorLine = -1;
+    QString currency;
 
-    for (int i = 0; i < lines.size(); ++i)
+    bool differentCurrency =
+        FileLoader::hasDifferentCurrency(
+            data,
+            errorLine,
+            currency
+        );
+
+    if (differentCurrency)
     {
-        if (progress && total > 0)
-        {
-            progress->setValue((i * 100) / total);
-            QApplication::processEvents();
-        }
+        data.header.currencyInLine = "MIXED EUR/PLN";
 
-        const QString& line = lines[i];
+        QMessageBox::critical(
+            nullptr,
+            "ERROR!",
+            "Different currency detected in line: "
+            + QString::number(errorLine)
+        );
 
-        if (!line.startsWith("L|"))
-            continue;
-
-        QStringList p = line.split('|', Qt::KeepEmptyParts);
-
-        if (p.size() <= 6)
-            continue;
-
-        QString lineCurrency = p[6].trimmed();
-
-        if (lineCurrency.isEmpty())
-            continue;
-
-        // pierwsza waluta z pierwszej poprawnej linii L|
-        if (firstCurrency.isEmpty())
-        {
-            firstCurrency = lineCurrency;
-            continue;
-        }
-
-        // jeœli kolejna waluta jest inna
-        if (lineCurrency != firstCurrency)
-        {
-            data.header.currencyInLine = "MIXED EUR/PLN";
-            return true;
-        }
+        return true;
     }
 
-    data.header.currencyInLine = firstCurrency;
+    data.header.currencyInLine = currency;
 
     return false;
 };

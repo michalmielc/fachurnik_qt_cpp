@@ -45,5 +45,12 @@ public:
        const QString& path,
        std::function<void(int)> progressCallback = nullptr
    );
+
+   //CURRENCY VALIDATION IN DAT
+   static bool hasDifferentCurrency(
+       const FileData& data,
+       int& errorLine,
+       QString& currency
+   );
 };
 
