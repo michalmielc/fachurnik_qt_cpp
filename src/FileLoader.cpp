@@ -1,8 +1,8 @@
-#include "FileLoader.h"
+ï»¿#include "FileLoader.h"
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
-
+#include <qdebug.h>
 
 // PARSER OF HEADER
 static HeaderData parseHeaderLine(const QString& line)
@@ -47,7 +47,7 @@ static HeaderData parseHeaderLine(const QString& line)
     return h;
 }
 
-// READ DAT FILE
+ //READ DAT FILE
 FileData FileLoader::loadDatFile(
     const QString& path,
     std::function<void(int)> progressCallback)
@@ -70,8 +70,8 @@ FileData FileLoader::loadDatFile(
 
     QTextStream in(&file);
 
-    //DOPISANIE |H je¿eli plik jest z kana³u 01 i 02
-    //w plikach z kana³u 02 i 03 jest H|
+    //DOPISANIE |H jeÂ¿eli plik jest z kanaÂ³u 01 i 02
+    //w plikach z kanaÂ³u 02 i 03 jest H|
 
     int lastProgress = -1;
 
@@ -79,7 +79,7 @@ FileData FileLoader::loadDatFile(
     {
         QString line = in.readLine();
 
-        if (data.lineCount == 0 )
+        if (data.lineCount == 0)
         {
             if (!line.startsWith("H|"))
             {
@@ -87,34 +87,29 @@ FileData FileLoader::loadDatFile(
             }
 
             data.header = parseHeaderLine(line);
-            data.header.headerLine = line; //nag³ówek ca³y
+            data.header.headerLine = line; //nagÂ³Ã³wek caÂ³y
             data.headerLoaded = true;
         }
 
-     //-------------------------  
-     // PRZYGOTOWANIE LINII:
-     //L|C|020010|1000||| ==> 020010|1000|||
-     // LUB
-     //L|020010|1000||| ==> 020010|1000|||
+        //-------------------------  
+        // PRZYGOTOWANIE LINII:
+        //L|C|020010|1000||| ==> 020010|1000|||
+        // LUB
+        //L|020010|1000||| ==> 020010|1000|||
 
         QStringList parts = line.split('|');
 
-        if (parts.size() > 2 && parts[2].length() == 6)
+        if (parts.size() > 1 && parts[1].length() == 6)
         {
-            // L|C|020010|1000||| -> 020010|1000|||
             parts.removeFirst();
-            parts.removeFirst();
-
             line = parts.join('|');
         }
-        else if (parts.size() > 1 && parts[1].length() == 6)
+        else if (parts.size() > 2 && parts[2].length() == 6)
         {
-            // L|020010|1000||| -> 020010|1000|||
             parts.removeFirst();
-
+            parts.removeFirst();
             line = parts.join('|');
         }
-
         //-------------------------  
 
         data.content += line + "\n";
@@ -138,6 +133,7 @@ FileData FileLoader::loadDatFile(
 
     return data;
 }
+
 
 //READ CSV FILE CUSTOMER NO AND SALES REP
 QVector<QPair<QString, QString>> FileLoader::loadCsvFileCustomerList(
@@ -250,7 +246,7 @@ QVector<QPair<QString, QString>> FileLoader::loadCsvItemNumbers(
 
 
     if (!in.atEnd())
-        in.readLine(); // pomiñ nag³ówek
+        in.readLine(); // pomiÅ„ nagÅ‚Ã³wek
 
     while (!in.atEnd())
     {
@@ -306,7 +302,7 @@ FileData FileLoader::loadCifFile(
     {
         QString line = in.readLine();
 
-        // Zakoñcz wczytywanie po napotkaniu pierwszej linii "DATA..."
+        // ZakoÅ„cz wczytywanie po napotkaniu pierwszej linii "DATA..."
 
             if (line.startsWith("DATA"))
                 break;
@@ -387,7 +383,7 @@ QHash<QString, QString> FileLoader::loadCsvColumnToHash(
 
 
     if (!in.atEnd())
-        in.readLine(); // pomiñ nag³ówek
+        in.readLine(); // pomiÅ„ nagÅ‚Ã³wek
 
     while (!in.atEnd())
     {
@@ -398,13 +394,13 @@ QHash<QString, QString> FileLoader::loadCsvColumnToHash(
 
         QStringList parts = line.split(';', Qt::KeepEmptyParts);
 
-        // musi istnieæ klucz oraz wybrana kolumna
+        // musi istnieÄ‡ klucz oraz wybrana kolumna
         if (parts.size() <= valueColumn)
             continue;
 
         QString itemNumber = parts[0].trimmed();
         QString value = parts[valueColumn].trimmed();
-        //USUNIÊCIE APOSTROFÓW JESLI S¥ 
+        //USUNIÄ˜CIE APOSTROFÃ“W JESLI SÄ„ 
         value.remove('"');
 
         if (!itemNumber.isEmpty())
@@ -440,7 +436,7 @@ QHash<QString, double> FileLoader::loadTZFile(
     QTextStream in(&file);
     in.setEncoding(QStringConverter::Utf8);
 
-    // Pomijamy nag³ówek:
+    // Pomijamy nagÅ‚Ã³wek:
     // Material;LZ August 2026
     if (!in.atEnd())
         in.readLine();
@@ -499,13 +495,13 @@ bool FileLoader::hasDifferentCurrency(
     errorLine = -1;
     currency.clear();
 
-    // i = 1, poniewa¿ lines[0] to nag³ówek
+    // i = 1, poniewaÂ¿ lines[0] to nagÂ³Ã³wek
     for (int i = 1; i < lines.size(); ++i)
     {
         QStringList parts =
             lines[i].split('|', Qt::KeepEmptyParts);
 
-        // Waluta powinna znajdowaæ siê w polu [4]
+        // Waluta powinna znajdowaÃ¦ siÃª w polu [4]
         if (parts.size() <= 4)
         {
             errorLine = i + 1;
@@ -514,21 +510,21 @@ bool FileLoader::hasDifferentCurrency(
 
         QString lineCurrency = parts[4].trimmed();
 
-        // Brak waluty równie¿ traktujemy jako b³¹d
+        // Brak waluty rÃ³wnieÂ¿ traktujemy jako bÂ³Â¹d
         if (lineCurrency.isEmpty())
         {
             errorLine = i + 1;
             return true;
         }
 
-        // Pierwsza waluta staje siê walut¹ wzorcow¹
+        // Pierwsza waluta staje siÃª walutÂ¹ wzorcowÂ¹
         if (currency.isEmpty())
         {
             currency = lineCurrency;
             continue;
         }
 
-        // Kolejna waluta ró¿ni siê od wzorcowej
+        // Kolejna waluta rÃ³Â¿ni siÃª od wzorcowej
         if (lineCurrency != currency)
         {
             errorLine = i + 1;

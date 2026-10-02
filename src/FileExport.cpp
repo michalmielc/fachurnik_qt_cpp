@@ -20,7 +20,7 @@ QStringList FileExport::buildDatModifiedLines(
     QProgressDialog* progress
 )
 {
-    QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
+    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
 
     if (!lines.isEmpty())
         lines[0] = headerLine;
@@ -257,7 +257,7 @@ QStringList FileExport::buildDatModifiedLinesWithTZ(
     QProgressDialog* progress
 )
 {
-    QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
+    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
 
     if (!lines.isEmpty())
         lines[0] = headerLine;
@@ -353,7 +353,7 @@ QStringList FileExport::buildDatModifiedLinesWithCsvPrices(
 {
     QHash<QString, CsvPriceData> priceMap = buildPriceMapFromCsv(dataCsv);
 
-    QStringList lines = data.content.split('\n', Qt::KeepEmptyParts);
+    QStringList lines = data.content.split('\n', Qt::SkipEmptyParts);
 
     if (!lines.isEmpty())
         lines[0] = headerLine;
