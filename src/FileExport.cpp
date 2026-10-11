@@ -63,7 +63,9 @@ QStringList FileExport::buildDatModifiedLines(
             p[6] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
             p[7] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
 
-            lines[i] = p.join('|');
+            //lines[i] = p.join('|');
+
+            lines[i] = "L|N|" + p.join('|');
         
     }
 
@@ -336,7 +338,9 @@ QStringList FileExport::buildDatModifiedLinesWithTZ(
         p[6] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
         p[7] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
 
-        lines[i] = p.join('|');
+        //lines[i] = p.join('|');
+
+        lines[i] = "L|N|" + p.join('|');
     }
 
     return lines;
@@ -410,7 +414,9 @@ QStringList FileExport::buildDatModifiedLinesWithCsvPrices(
         p[6] = QString::number(newValuePrice1, 'f', 2).replace('.', ',');
         p[7] = QString::number(newValuePrice2, 'f', 2).replace('.', ',');
 
-        lines[i] = p.join('|');
+        //lines[i] = p.join('|');
+
+        lines[i] = "L|N|" + p.join('|');
     }
 
     return lines;
